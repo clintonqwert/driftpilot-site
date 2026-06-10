@@ -3,12 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-const navLinks = [
-  { label: 'Work', href: '/work' },
-  { label: 'Insights', href: '/insights' },
-  { label: 'Automotive', href: '/automotive' },
-];
+import { PRIMARY_NAV } from '@/lib/content/navigation';
 
 export function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,6 +17,10 @@ export function NavBar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    setIsScrolled(window.scrollY > 60);
+  }, [pathname]);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -57,13 +56,7 @@ export function NavBar() {
 
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-              <Link
-                href="/services"
-                className={`text-sm font-medium transition-colors duration-150 ${textColor} ${hoverColor}`}
-              >
-                Services
-              </Link>
-              {navLinks.map((link) => (
+              {PRIMARY_NAV.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -148,14 +141,7 @@ export function NavBar() {
             </div>
 
             <nav className="flex-1 px-5 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
-              <Link
-                href="/services"
-                className="py-3 text-lg font-medium text-ink-300 hover:text-white transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Services
-              </Link>
-              {navLinks.map((link) => (
+              {PRIMARY_NAV.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}

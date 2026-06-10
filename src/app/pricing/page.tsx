@@ -259,9 +259,13 @@ export default function PricingPage() {
                   ))}
                 </ul>
                 {plan.comingSoon ? (
-                  <span className="mt-8 inline-flex items-center justify-center gap-2 h-12 px-6 w-full rounded-lg bg-ink-100 text-ink-400 text-base font-semibold cursor-not-allowed select-none">
+                  <button
+                    type="button"
+                    aria-disabled="true"
+                    className="mt-8 inline-flex items-center justify-center gap-2 h-12 px-6 w-full rounded-lg bg-ink-100 text-ink-400 text-base font-semibold cursor-not-allowed select-none"
+                  >
                     {plan.cta}
-                  </span>
+                  </button>
                 ) : (
                   <Link
                     href="/contact"

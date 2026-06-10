@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/shared/JsonLd";
 import { getAllArticles, getArticleBySlug } from "@/lib/content/articles";
 import { articleSchema, buildMetadata } from "@/lib/seo";
 
@@ -30,12 +31,7 @@ export default async function ArticlePage(
 
   return (
     <main className="mx-auto w-full max-w-5xl px-5 py-16 md:px-8 md:py-24">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(articleSchema(article)),
-        }}
-      />
+      <JsonLd schema={articleSchema(article)} />
       <h1 className="text-4xl font-semibold tracking-tight">
         {article.title}
       </h1>

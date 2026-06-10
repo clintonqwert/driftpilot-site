@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/shared/JsonLd";
 import { getAllServices, getServiceBySlug } from "@/lib/content/services";
 import { buildMetadata, serviceSchema } from "@/lib/seo";
 
@@ -29,12 +30,7 @@ export default async function ServicePage(
 
   return (
     <main className="mx-auto w-full max-w-5xl px-5 py-16 md:px-8 md:py-24">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(serviceSchema(service)),
-        }}
-      />
+      <JsonLd schema={serviceSchema(service)} />
       <h1 className="text-4xl font-semibold tracking-tight">{service.name}</h1>
       <p className="mt-4 max-w-2xl text-lg text-zinc-600">
         {service.description}

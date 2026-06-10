@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
   { label: 'Work', href: '/work' },
@@ -12,6 +13,9 @@ const navLinks = [
 export function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHomepage = pathname === '/';
+  const showScrolled = isScrolled || !isHomepage;
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 60);
@@ -28,14 +32,14 @@ export function NavBar() {
     return () => { document.body.style.overflow = ''; };
   }, [isMenuOpen]);
 
-  const textColor = isScrolled ? 'text-ink-900' : 'text-white';
-  const hoverColor = isScrolled ? 'hover:text-ink-600' : 'hover:text-ink-300';
+  const textColor = showScrolled ? 'text-ink-900' : 'text-white';
+  const hoverColor = showScrolled ? 'hover:text-ink-600' : 'hover:text-ink-300';
 
   return (
     <>
       <header
         className={`sticky top-0 z-50 transition-[background-color,box-shadow] duration-200 ${
-          isScrolled
+          showScrolled
             ? 'bg-white/90 backdrop-blur-md shadow-sm'
             : 'bg-transparent'
         }`}

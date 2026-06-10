@@ -10,6 +10,7 @@ export interface NavLink {
 
 export const PRIMARY_NAV: NavLink[] = [
   { label: "Services", href: "/services" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Work", href: "/work" },
   { label: "Insights", href: "/insights" },
   { label: "Automotive", href: "/automotive" },

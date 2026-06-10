@@ -50,9 +50,7 @@ export function buildMetadata({
 }
 
 /* ---------------------------------------------------------------------------
- * JSON-LD builders — inject via:
- * <script type="application/ld+json"
- *   dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }} />
+ * JSON-LD builders — render via <JsonLd schema={...} /> (components/shared).
  * ------------------------------------------------------------------------- */
 
 export function organizationSchema() {
@@ -63,6 +61,17 @@ export function organizationSchema() {
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     email: "hello@driftpilot.com",
+  };
+}
+
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+    publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
   };
 }
 

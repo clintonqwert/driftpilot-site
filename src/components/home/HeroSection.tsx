@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export function HeroSection() {
   return (
-    <section className="bg-ink-950 text-ink-300 pt-28 pb-16 md:pt-40 md:pb-28">
+    <section className="bg-ink-950 text-ink-300 -mt-16 pt-28 pb-16 md:pt-40 md:pb-28">
       <div className="mx-auto max-w-container px-5 md:px-8">
         <div className="max-w-[720px] mx-auto text-center">
           <p

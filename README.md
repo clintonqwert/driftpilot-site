@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Driftpilot
 
-## Getting Started
+AI-powered web development agency site. Next.js 16 (App Router) · TypeScript ·
+Tailwind CSS v4 · Vercel. The site itself is the proof of capability:
+Lighthouse 95+, LCP < 1.5s.
 
-First, run the development server:
+## Quick start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # fill in what you need; everything is optional in dev
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```bash
+npm run lint        # ESLint
+npm run typecheck   # next typegen + tsc --noEmit
+npm run build       # production build (all routes static in Phase 1)
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Architecture in one paragraph
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`src/app/` does routing and data fetching only; `src/components/` is
+presentation-only and never fetches; `src/lib/content/` is the Phase 1
+"database" of typed TS modules exposed **only** through async accessor
+functions. In Phase 2 those accessors are re-implemented in `src/lib/cms/`
+against WPGraphQL with identical signatures — pages and components don't
+change. In Phase 3 (AWS), Server Actions in `src/lib/actions/` change their
+POST target from CRM webhooks to API Gateway → SQS — forms don't change.
+Types in `src/types/` are the contract all three phases build against.
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/          # Routes only — pages compose components, fetch via accessors
+├── components/   # layout/ sections/ forms/ shared/ ui/ — see src/components/README.md
+├── lib/
+│   ├── content/  # Phase 1 typed content + accessor functions (the swap contract)
+│   ├── cms/      # Phase 2 WPGraphQL client/queries/adapters (stubs)
+│   ├── actions/  # Server Actions (contact + early-access → CRM)
+│   ├── crm.ts    # Webhook client with retry
+│   ├── seo.ts    # buildMetadata + JSON-LD builders
+│   └── utils.ts  # cn()
+└── types/        # Domain contracts: content, forms, component variants
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Planning docs (read before building)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `driftpilot-strategy.md` — business context and conversion logic
+- `driftpilot-sitemap.md` — page inventory, conversion paths, linking rules
+- `driftpilot-homepage-spec.md` — section-by-section homepage spec
+- `driftpilot-component-inventory.md` — component props and behaviour
+- `driftpilot-design-system.md` — tokens, colors, type, spacing (Tailwind v4)
+- `driftpilot-developer-handoff.md` — the binding engineering reference
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`main` auto-deploys to production on Vercel; every PR gets a preview URL
+(previews are staging — there is no staging branch).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Rollback runbook:** Vercel dashboard → Deployments → ⋯ on a previous
+deployment → Promote to Production.

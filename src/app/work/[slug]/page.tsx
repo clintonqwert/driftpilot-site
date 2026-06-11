@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, caseStudySchema } from '@/lib/seo';
+import { JsonLd } from '@/components/shared/JsonLd';
 import { PageHero } from '@/components/shared/PageHero';
 import { CTABand } from '@/components/shared/CTABand';
 import { getAllCaseStudies, getCaseStudyBySlug } from '@/lib/content/case-studies';
@@ -48,6 +49,8 @@ export default async function CaseStudyPage(props: PageProps<'/work/[slug]'>) {
 
   return (
     <main>
+      <JsonLd schema={caseStudySchema(study)} />
+
       <PageHero
         eyebrow={`${study.industry} · ${study.service.replace(/-/g, ' ')}`}
         heading={study.headline}

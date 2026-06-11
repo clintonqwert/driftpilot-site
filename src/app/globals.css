@@ -41,6 +41,14 @@
   --shadow-brand: 0 8px 24px -8px rgb(37 99 235 / 0.4);
 }
 
+@utility focus-ring {
+  &:focus-visible {
+    outline-width: 2px;
+    outline-offset: 2px;
+    outline-color: var(--color-brand-500);
+  }
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;

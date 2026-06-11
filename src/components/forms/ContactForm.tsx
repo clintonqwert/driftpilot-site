@@ -18,10 +18,10 @@ const inputError =
   'border-danger-600 focus:ring-danger-500';
 const labelBase = 'block text-sm font-medium text-ink-700 mb-1.5';
 
-function FieldError({ message }: { message?: string }) {
+function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p role="alert" className="mt-1.5 text-sm text-danger-600">
+    <p id={id} role="alert" className="mt-1.5 text-sm text-danger-600">
       {message}
     </p>
   );
@@ -42,6 +42,7 @@ export function ContactForm() {
   }, []);
 
   const errors = state && !state.ok ? state.errors : {};
+  const values = state && !state.ok ? state.values : undefined;
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-5">
@@ -69,11 +70,12 @@ export function ContactForm() {
           autoComplete="name"
           required
           placeholder="Alex Johnson"
+          defaultValue={values?.name}
           className={`${inputBase} ${errors.name ? inputError : ''}`}
           aria-describedby={errors.name ? 'cf-name-error' : undefined}
           aria-invalid={Boolean(errors.name)}
         />
-        <FieldError message={errors.name} />
+        <FieldError id="cf-name-error" message={errors.name} />
       </div>
 
       {/* Email */}
@@ -88,11 +90,12 @@ export function ContactForm() {
           autoComplete="email"
           required
           placeholder="alex@company.com"
+          defaultValue={values?.email}
           className={`${inputBase} ${errors.email ? inputError : ''}`}
           aria-describedby={errors.email ? 'cf-email-error' : undefined}
           aria-invalid={Boolean(errors.email)}
         />
-        <FieldError message={errors.email} />
+        <FieldError id="cf-email-error" message={errors.email} />
       </div>
 
       {/* Company */}
@@ -106,6 +109,7 @@ export function ContactForm() {
           type="text"
           autoComplete="organization"
           placeholder="Acme Inc."
+          defaultValue={values?.company}
           className={inputBase}
         />
       </div>
@@ -119,7 +123,7 @@ export function ContactForm() {
           id="cf-budget"
           name="budget"
           required
-          defaultValue=""
+          defaultValue={values?.budget ?? ""}
           className={`${inputBase} ${errors.budget ? inputError : ''}`}
           aria-describedby={errors.budget ? 'cf-budget-error' : undefined}
           aria-invalid={Boolean(errors.budget)}
@@ -131,7 +135,7 @@ export function ContactForm() {
             </option>
           ))}
         </select>
-        <FieldError message={errors.budget} />
+        <FieldError id="cf-budget-error" message={errors.budget} />
       </div>
 
       {/* Message */}
@@ -145,11 +149,12 @@ export function ContactForm() {
           required
           rows={5}
           placeholder="What are you building, and what's the main problem you need solved?"
+          defaultValue={values?.message}
           className={`${inputBase} resize-y min-h-[120px] ${errors.message ? inputError : ''}`}
           aria-describedby={errors.message ? 'cf-message-error' : undefined}
           aria-invalid={Boolean(errors.message)}
         />
-        <FieldError message={errors.message} />
+        <FieldError id="cf-message-error" message={errors.message} />
       </div>
 
       {errors.form && (

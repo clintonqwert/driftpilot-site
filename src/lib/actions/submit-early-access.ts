@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { sendToCrm } from "@/lib/crm";
-import type { FormResult } from "@/types/forms";
+import { type EarlyAccessFormResult, type EarlyAccessFormValues } from "@/types/forms";
 
 const MIN_TIME_TO_SUBMIT_MS = 3000;
 
@@ -19,9 +19,9 @@ const earlyAccessSchema = z.object({
  * at the data layer too (handoff doc §9). Never merge with submitContact.
  */
 export async function submitEarlyAccess(
-  _prevState: FormResult | null,
+  _prevState: EarlyAccessFormResult | null,
   formData: FormData,
-): Promise<FormResult> {
+): Promise<EarlyAccessFormResult> {
   const honeypot = formData.get("website");
   const startedAt = Number(formData.get("startedAt"));
   const isSpam =
@@ -29,9 +29,15 @@ export async function submitEarlyAccess(
     !Number.isFinite(startedAt) ||
     Date.now() - startedAt < MIN_TIME_TO_SUBMIT_MS;
 
+  const submittedValues: EarlyAccessFormValues = {
+    name: String(formData.get("name") ?? ""),
+    email: String(formData.get("email") ?? ""),
+    dealership: String(formData.get("dealership") ?? ""),
+  };
+
   const parsed = earlyAccessSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
+    name: submittedValues.name,
+    email: submittedValues.email,
     dealership: formData.get("dealership") || undefined,
   });
 
@@ -41,7 +47,7 @@ export async function submitEarlyAccess(
       const field = String(issue.path[0] ?? "form");
       errors[field] ??= issue.message;
     }
-    return { ok: false, errors };
+    return { ok: false, errors, values: submittedValues };
   }
 
   if (!isSpam) {

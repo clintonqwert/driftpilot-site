@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { sendToCrm } from "@/lib/crm";
-import { BUDGET_OPTIONS, type FormResult } from "@/types/forms";
+import { BUDGET_OPTIONS, type FormResult, type ContactFormValues } from "@/types/forms";
 
 /** Minimum ms between form render and submit — bots fill instantly. */
 const MIN_TIME_TO_SUBMIT_MS = 3000;
@@ -34,12 +34,21 @@ export async function submitContact(
     !Number.isFinite(startedAt) ||
     Date.now() - startedAt < MIN_TIME_TO_SUBMIT_MS;
 
+  // Capture safe-to-echo values before validation (excludes honeypot/startedAt).
+  const submittedValues: ContactFormValues = {
+    name: String(formData.get("name") ?? ""),
+    email: String(formData.get("email") ?? ""),
+    company: String(formData.get("company") ?? ""),
+    budget: String(formData.get("budget") ?? ""),
+    message: String(formData.get("message") ?? ""),
+  };
+
   const parsed = contactSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
+    name: submittedValues.name,
+    email: submittedValues.email,
     company: formData.get("company") || undefined,
-    budget: formData.get("budget"),
-    message: formData.get("message"),
+    budget: submittedValues.budget,
+    message: submittedValues.message,
   });
 
   if (!parsed.success) {
@@ -48,7 +57,7 @@ export async function submitContact(
       const field = String(issue.path[0] ?? "form");
       errors[field] ??= issue.message;
     }
-    return { ok: false, errors };
+    return { ok: false, errors, values: submittedValues };
   }
 
   if (!isSpam) {

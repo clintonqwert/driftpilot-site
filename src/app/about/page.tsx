@@ -14,11 +14,11 @@ export const metadata: Metadata = buildMetadata({
 const values = [
   {
     title: 'Own the outcome',
-    body: 'The website is only half the job. We wire in lead capture, CRM integration, and analytics from day one — because a site that doesn't convert is just an expensive brochure.',
+    body: "The website is only half the job. We wire in lead capture, CRM integration, and analytics from day one — because a site that doesn't convert is just an expensive brochure.",
   },
   {
     title: 'You own the code',
-    body: 'No proprietary CMS you can't escape. No platform fees for data you generated. The code, the content, the leads — they're yours the day we launch.',
+    body: "No proprietary CMS you can't escape. No platform fees for data you generated. The code, the content, the leads — they're yours the day we launch.",
   },
   {
     title: 'Vertical depth',
@@ -51,7 +51,7 @@ export default function AboutPage() {
               </h2>
               <div className="flex flex-col gap-4 text-base leading-relaxed text-ink-600">
                 <p>
-                  Driftpilot started with a simple frustration: great web development shouldn't take six months and cost a small fortune. Most agencies are structured around process, not outcomes — discovery sprints that drag, design rounds that loop, launch dates that slip.
+                  Driftpilot started with a simple frustration: great web development shouldn&apos;t take six months and cost a small fortune. Most agencies are structured around process, not outcomes — discovery sprints that drag, design rounds that loop, launch dates that slip.
                 </p>
                 <p>
                   We flipped the model. Projects start with a fixed scope document, build in production from day one, and ship with lead generation systems already wired in. Typical time from first call to production: 2–4 weeks.

@@ -24,7 +24,7 @@ export default function PrivacyPage() {
             <section aria-labelledby="overview-heading">
               <h2 id="overview-heading" className="text-xl font-semibold text-ink-900 mb-3">Overview</h2>
               <p>
-                Driftpilot ("we", "us", "our") operates driftpilot.com. This policy explains what information we collect, how we use it, and what rights you have over it. We collect the minimum data required to respond to inquiries and improve the site. We do not sell your data.
+                Driftpilot (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) operates driftpilot.com. This policy explains what information we collect, how we use it, and what rights you have over it. We collect the minimum data required to respond to inquiries and improve the site. We do not sell your data.
               </p>
             </section>
 
@@ -65,9 +65,9 @@ export default function PrivacyPage() {
             <section aria-labelledby="retention-heading">
               <h2 id="retention-heading" className="text-xl font-semibold text-ink-900 mb-3">Data retention</h2>
               <p>
-                Contact form submissions are retained for up to 24 months from the date of inquiry. If you'd like your information removed earlier, email us at{' '}
+                Contact form submissions are retained for up to 24 months from the date of inquiry. If you&apos;d like your information removed earlier, email us at{' '}
                 <a href="mailto:hello@driftpilot.com" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.com</a>{' '}
-                and we'll action it within 7 business days.
+                and we&apos;ll action it within 7 business days.
               </p>
             </section>
 

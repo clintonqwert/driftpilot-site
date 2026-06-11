@@ -4,7 +4,7 @@ import { PageHero } from '@/components/shared/PageHero';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Terms of Service — Driftpilot',
-  description: 'Terms governing the use of Driftpilot's website and professional services.',
+  description: "Terms governing the use of Driftpilot's website and professional services.",
   path: '/terms',
 });
 
@@ -67,7 +67,7 @@ export default function TermsPage() {
             <section aria-labelledby="liability-heading">
               <h2 id="liability-heading" className="text-xl font-semibold text-ink-900 mb-3">Limitation of liability</h2>
               <p>
-                To the maximum extent permitted by law, Driftpilot's total liability for any claim arising from its services is limited to the amount paid by you for the specific engagement giving rise to the claim. Driftpilot is not liable for indirect, incidental, or consequential damages including lost revenue, lost data, or business interruption.
+                To the maximum extent permitted by law, Driftpilot&apos;s total liability for any claim arising from its services is limited to the amount paid by you for the specific engagement giving rise to the claim. Driftpilot is not liable for indirect, incidental, or consequential damages including lost revenue, lost data, or business interruption.
               </p>
             </section>
 

@@ -6,22 +6,22 @@ import { CTABand } from '@/components/shared/CTABand';
 export const metadata: Metadata = buildMetadata({
   title: 'Careers — Driftpilot',
   description:
-    'We hire when it's the right person, not when it's convenient. See what we look for and how to reach us.',
+    "We hire when it's the right person, not when it's convenient. See what we look for and how to reach us.",
   path: '/careers',
 });
 
 const traits = [
   {
     title: 'Strong opinions about web performance',
-    body: 'You've shipped sites and thought hard about why they're fast or slow. You have a point of view on Core Web Vitals, rendering strategies, and what "production-ready" actually means.',
+    body: `You've shipped sites and thought hard about why they're fast or slow. You have a point of view on Core Web Vitals, rendering strategies, and what "production-ready" actually means.`,
   },
   {
     title: 'Takes ownership',
-    body: 'You treat a project like it's yours — from scope to launch. You notice what's missing, flag it early, and fix it without being asked.',
+    body: "You treat a project like it's yours — from scope to launch. You notice what's missing, flag it early, and fix it without being asked.",
   },
   {
     title: 'Ships without being told',
-    body: 'You don't wait for perfect information. You make a call, ship the work, and update people. Async-first, outcome-driven.',
+    body: "You don't wait for perfect information. You make a call, ship the work, and update people. Async-first, outcome-driven.",
   },
 ];
 
@@ -44,10 +44,10 @@ export default function CareersPage() {
               </h2>
               <div className="flex flex-col gap-4 text-base leading-relaxed text-ink-600">
                 <p>
-                  Driftpilot is a solo-founded studio that operates lean by design. When we hire, it's because there's more good work than one person can take on — not because headcount is a milestone.
+                  Driftpilot is a solo-founded studio that operates lean by design. When we hire, it&apos;s because there&apos;s more good work than one person can take on — not because headcount is a milestone.
                 </p>
                 <p>
-                  We work async-first. No daily standups, no status meetings. Outcomes matter more than hours. If you need a structured corporate environment to do your best work, we're probably not the right fit.
+                  We work async-first. No daily standups, no status meetings. Outcomes matter more than hours. If you need a structured corporate environment to do your best work, we&apos;re probably not the right fit.
                 </p>
                 <p>
                   What we do care about: shipping fast, caring about quality, and being honest about tradeoffs. We build with a modern open-source stack (Next.js, TypeScript, Tailwind, Headless WordPress) and we expect the people we work with to have strong opinions about it.
@@ -112,7 +112,7 @@ export default function CareersPage() {
           <div className="max-w-2xl rounded-2xl border border-ink-200 bg-ink-50 p-6 md:p-8">
             <p className="text-base font-semibold text-ink-900 mb-2">No open roles right now.</p>
             <p className="text-base text-ink-600 leading-relaxed">
-              We're heads-down building. Check back, or send a cold email with your work — if it's impressive, we'll find a way to work together.
+              We&apos;re heads-down building. Check back, or send a cold email with your work — if it&apos;s impressive, we&apos;ll find a way to work together.
             </p>
             <a
               href="mailto:hello@driftpilot.com"

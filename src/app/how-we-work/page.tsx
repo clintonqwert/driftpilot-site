@@ -16,7 +16,7 @@ export const metadata: Metadata = buildMetadata({
 const principles = [
   {
     title: 'No scope creep',
-    body: 'We agree on exactly what's being built before a line of code is written. Change requests outside the original scope are quoted separately — always.',
+    body: "We agree on exactly what's being built before a line of code is written. Change requests outside the original scope are quoted separately — always.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-brand-600">
         <path d="M9 12l2 2 4-4M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
@@ -25,7 +25,7 @@ const principles = [
   },
   {
     title: 'Weekly check-ins',
-    body: 'One short async update per week — what's shipped, what's next, any decisions needed. No email chains. No status-update meetings.',
+    body: "One short async update per week — what's shipped, what's next, any decisions needed. No email chains. No status-update meetings.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-brand-600">
         <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.75"/>
@@ -35,7 +35,7 @@ const principles = [
   },
   {
     title: 'You own everything on launch day',
-    body: 'Code repo, CMS credentials, Vercel project, domain, analytics — all transferred to you. We don't hold infrastructure hostage.',
+    body: "Code repo, CMS credentials, Vercel project, domain, analytics — all transferred to you. We don't hold infrastructure hostage.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-brand-600">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
@@ -47,7 +47,7 @@ const principles = [
 const faqItems: FAQItem[] = [
   {
     question: 'How do you keep projects from going over budget?',
-    answer: 'Fixed-price scope documents. Before work starts, we agree on exactly what's included. Anything outside that scope is a separate quote. No open-ended billing.',
+    answer: "Fixed-price scope documents. Before work starts, we agree on exactly what's included. Anything outside that scope is a separate quote. No open-ended billing.",
   },
   {
     question: 'How many revision rounds are included?',
@@ -55,15 +55,15 @@ const faqItems: FAQItem[] = [
   },
   {
     question: 'What does "build in production" mean?',
-    answer: 'We don't maintain a staging environment you never see until launch. You get a live preview URL from day three — you watch real progress, not a demo. This catches misalignments early.',
+    answer: "We don't maintain a staging environment you never see until launch. You get a live preview URL from day three — you watch real progress, not a demo. This catches misalignments early.",
   },
   {
-    question: 'What's included in the 30-day support window?',
+    question: "What's included in the 30-day support window?",
     answer: 'Bug fixes, content updates, and minor copy changes within the existing scope. Not new features or major layout changes — those are scoped separately.',
   },
   {
     question: 'Do you work with clients outside the US?',
-    answer: 'Yes. All client communication is async-first via Notion and Loom, which works well across time zones. We've worked with teams across North America and Europe.',
+    answer: "Yes. All client communication is async-first via Notion and Loom, which works well across time zones. We've worked with teams across North America and Europe.",
   },
 ];
 

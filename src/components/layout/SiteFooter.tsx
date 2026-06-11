@@ -51,7 +51,7 @@ export function SiteFooter() {
               Driftpilot
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-ink-400">
-              AI-powered web development for businesses that want results.
+              Performance-first web development for businesses that want results.
             </p>
             <p
               className="mt-4 font-mono text-xs tabular-nums text-ink-500"

@@ -1,26 +1,27 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PRIMARY_NAV } from '@/lib/content/navigation';
 
+function subscribeToScroll(cb: () => void) {
+  window.addEventListener('scroll', cb, { passive: true });
+  return () => window.removeEventListener('scroll', cb);
+}
+const getScrollSnapshot = () => window.scrollY > 60;
+const getServerScrollSnapshot = () => false;
+
 export function NavBar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const isScrolled = useSyncExternalStore(
+    subscribeToScroll,
+    getScrollSnapshot,
+    getServerScrollSnapshot,
+  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isHomepage = pathname === '/';
   const showScrolled = isScrolled || !isHomepage;
-
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
-    setIsScrolled(window.scrollY > 60);
-  }, [pathname]);
 
   useEffect(() => {
     if (isMenuOpen) {

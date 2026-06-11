@@ -115,10 +115,10 @@ export default function CareersPage() {
               We&apos;re heads-down building. Check back, or send a cold email with your work — if it&apos;s impressive, we&apos;ll find a way to work together.
             </p>
             <a
-              href="mailto:hello@driftpilot.com"
+              href="mailto:hello@driftpilot.ca"
               className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:text-brand-700 transition-colors underline-offset-4 hover:underline"
             >
-              hello@driftpilot.com →
+              hello@driftpilot.ca →
             </a>
           </div>
         </div>

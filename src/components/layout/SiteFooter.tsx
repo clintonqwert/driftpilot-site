@@ -99,10 +99,10 @@ export function SiteFooter() {
               Book a Scope Call
             </Link>
             <a
-              href="mailto:hello@driftpilot.com"
+              href="mailto:hello@driftpilot.ca"
               className="mt-4 flex items-center gap-2 text-sm text-ink-400 hover:text-white transition-colors"
             >
-              hello@driftpilot.com
+              hello@driftpilot.ca
             </a>
           </div>
         </div>

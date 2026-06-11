@@ -82,7 +82,7 @@ export default function TermsPage() {
               <h2 id="contact-terms-heading" className="text-xl font-semibold text-ink-900 mb-3">Contact</h2>
               <p>
                 Questions about these terms? Email us at{' '}
-                <a href="mailto:hello@driftpilot.com" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.com</a>.
+                <a href="mailto:hello@driftpilot.ca" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.ca</a>.
               </p>
             </section>
 

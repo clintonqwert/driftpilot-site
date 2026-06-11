@@ -76,10 +76,10 @@ export default function ContactPage() {
                 Send us a note directly — no form required.
               </p>
               <a
-                href="mailto:hello@driftpilot.com"
+                href="mailto:hello@driftpilot.ca"
                 className="text-sm font-medium text-brand-600 hover:text-brand-700 transition-colors underline-offset-2 hover:underline"
               >
-                hello@driftpilot.com
+                hello@driftpilot.ca
               </a>
             </div>
 

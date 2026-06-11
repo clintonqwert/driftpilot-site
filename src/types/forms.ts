@@ -23,6 +23,15 @@ export interface EarlyAccessFormData {
   dealership?: string;
 }
 
+/** Safe-to-echo values returned alongside validation errors (excludes honeypot/startedAt). */
+export interface ContactFormValues {
+  name: string;
+  email: string;
+  company: string;
+  budget: string;
+  message: string;
+}
+
 export type FormResult =
   | { ok: true }
-  | { ok: false; errors: Record<string, string> };
+  | { ok: false; errors: Record<string, string>; values: ContactFormValues };

@@ -24,7 +24,7 @@ export default function TermsPage() {
             <section aria-labelledby="acceptance-heading">
               <h2 id="acceptance-heading" className="text-xl font-semibold text-ink-900 mb-3">Acceptance of terms</h2>
               <p>
-                By accessing driftpilot.com or engaging Driftpilot for professional services, you agree to these terms. If you are entering into these terms on behalf of a company or organisation, you represent that you have authority to bind that entity.
+                By accessing driftpilot.ca or engaging Driftpilot for professional services, you agree to these terms. If you are entering into these terms on behalf of a company or organisation, you represent that you have authority to bind that entity.
               </p>
             </section>
 

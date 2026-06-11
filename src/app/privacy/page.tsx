@@ -24,7 +24,7 @@ export default function PrivacyPage() {
             <section aria-labelledby="overview-heading">
               <h2 id="overview-heading" className="text-xl font-semibold text-ink-900 mb-3">Overview</h2>
               <p>
-                Driftpilot (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) operates driftpilot.com. This policy explains what information we collect, how we use it, and what rights you have over it. We collect the minimum data required to respond to inquiries and improve the site. We do not sell your data.
+                Driftpilot (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) operates driftpilot.ca. This policy explains what information we collect, how we use it, and what rights you have over it. We collect the minimum data required to respond to inquiries and improve the site. We do not sell your data.
               </p>
             </section>
 

@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Parallel-session worktrees are full repo copies; lint only this checkout.
+    ".claude/**",
   ]),
 ]);
 

@@ -16,7 +16,7 @@ export default function AutomotivePage() {
       <h1 className="text-4xl font-semibold tracking-tight">
         Own your website. Own your leads.
       </h1>
-      <p className="mt-4 max-w-2xl text-lg text-zinc-600">
+      <p className="mt-4 max-w-2xl text-lg text-ink-600">
         Driftpilot Drive is dealership software in the making — websites you
         own, on infrastructure that performs.
       </p>

@@ -19,9 +19,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entry = (
     path: string,
     priority: number,
+    lastModified?: string | Date,
   ): MetadataRoute.Sitemap[number] => ({
     url: path === "/" ? SITE_URL : `${SITE_URL}${path}`,
-    lastModified: new Date(),
+    ...(lastModified ? { lastModified } : {}),
     priority,
   });
 
@@ -36,9 +37,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entry("/how-we-work", 0.8),
     entry("/pricing", 0.8),
     entry("/careers", 0.8),
-    ...caseStudies.map((c) => entry(`/work/${c.slug}`, 0.8)),
+    ...caseStudies.map((c) => entry(`/work/${c.slug}`, 0.8, c.publishedAt)),
     entry("/insights", 0.7),
-    ...articles.map((a) => entry(`/insights/${a.slug}`, 0.7)),
+    ...articles.map((a) => entry(`/insights/${a.slug}`, 0.7, a.publishedAt)),
     ...tags.map((t) => entry(`/insights/tag/${t}`, 0.7)),
     entry("/automotive/early-access", 0.5),
     entry("/privacy", 0.5),

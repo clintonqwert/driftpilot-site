@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 const navLinks = [
@@ -12,6 +12,8 @@ const navLinks = [
 export function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 60);
@@ -22,11 +24,48 @@ export function NavBar() {
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
+      // Move focus to first focusable element in drawer
+      const firstFocusable = drawerRef.current?.querySelector<HTMLElement>(
+        'a[href], button:not([disabled])'
+      );
+      firstFocusable?.focus();
     } else {
       document.body.style.overflow = '';
     }
     return () => { document.body.style.overflow = ''; };
   }, [isMenuOpen]);
+
+  // Close on Escape
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMenuOpen(false);
+        hamburgerRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isMenuOpen]);
+
+  const handleDrawerKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key !== 'Tab') return;
+    const focusable = Array.from(
+      drawerRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled])'
+      ) ?? []
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
 
   const textColor = isScrolled ? 'text-ink-900' : 'text-white';
   const hoverColor = isScrolled ? 'hover:text-ink-600' : 'hover:text-ink-300';
@@ -82,9 +121,11 @@ export function NavBar() {
 
             {/* Mobile hamburger */}
             <button
+              ref={hamburgerRef}
               type="button"
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
               onClick={() => setIsMenuOpen((v) => !v)}
               className={`md:hidden flex flex-col justify-center gap-1.5 w-11 h-11 rounded-lg transition-colors ${textColor}`}
             >
@@ -111,10 +152,12 @@ export function NavBar() {
       {/* Mobile drawer */}
       {isMenuOpen && (
         <div
+          id="mobile-nav"
           className="fixed inset-0 z-40 md:hidden"
           aria-modal="true"
           role="dialog"
           aria-label="Navigation menu"
+          onKeyDown={handleDrawerKeyDown}
         >
           {/* Backdrop */}
           <div
@@ -122,7 +165,7 @@ export function NavBar() {
             onClick={() => setIsMenuOpen(false)}
           />
           {/* Drawer panel */}
-          <div className="absolute right-0 top-0 h-full w-4/5 max-w-xs bg-ink-950 flex flex-col">
+          <div ref={drawerRef} className="absolute right-0 top-0 h-full w-4/5 max-w-xs bg-ink-950 flex flex-col">
             <div className="flex items-center justify-between h-16 px-5">
               <Link
                 href="/"

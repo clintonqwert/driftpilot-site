@@ -47,10 +47,10 @@ const services = [
 
 export function ServicesGrid() {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-16 md:py-24" aria-labelledby="services-heading">
       <div className="mx-auto max-w-container px-5 md:px-8">
         <div className="max-w-2xl">
-          <h2 className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-ink-900">
+          <h2 id="services-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-ink-900">
             What we build.
           </h2>
           <p className="mt-3 text-lg text-ink-500">

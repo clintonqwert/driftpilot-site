@@ -16,7 +16,7 @@ export default function ContactPage() {
       <h1 className="text-4xl font-semibold tracking-tight">
         Book a Scope Call
       </h1>
-      <p className="mt-4 max-w-2xl text-lg text-zinc-600">
+      <p className="mt-4 max-w-2xl text-lg text-ink-600">
         The intake form lands with the component build. Until then:{" "}
         <a href="mailto:hello@driftpilot.com" className="underline">
           hello@driftpilot.com

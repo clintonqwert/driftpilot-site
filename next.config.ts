@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
 
-const securityHeaders = [
+const httpHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  // performance — enables DNS pre-resolution for linked origins
   { key: "X-DNS-Prefetch-Control", value: "on" },
 ];
 
@@ -12,7 +13,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/(.*)",
-        headers: securityHeaders,
+        headers: httpHeaders,
       },
     ];
   },

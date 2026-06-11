@@ -47,7 +47,7 @@ export default function RootLayout({
             Skip to main content
           </a>
           <NavBar />
-          <div id="main-content" className="flex-1">{children}</div>
+          <div id="main-content" tabIndex={-1} className="flex-1 outline-none">{children}</div>
           <SiteFooter />
         </body>
     </html>

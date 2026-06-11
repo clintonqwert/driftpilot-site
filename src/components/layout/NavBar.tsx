@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useSyncExternalStore } from 'react';
+import { useState, useEffect, useRef, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PRIMARY_NAV } from '@/lib/content/navigation';
@@ -19,6 +19,7 @@ export function NavBar() {
     getServerScrollSnapshot,
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const drawerFirstFocusRef = useRef<HTMLAnchorElement>(null);
   const pathname = usePathname();
   const isHomepage = pathname === '/';
   const showScrolled = isScrolled || !isHomepage;
@@ -34,6 +35,7 @@ export function NavBar() {
 
   useEffect(() => {
     if (!isMenuOpen) return;
+    drawerFirstFocusRef.current?.focus();
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') setIsMenuOpen(false);
     }
@@ -92,6 +94,7 @@ export function NavBar() {
               type="button"
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav-drawer"
               onClick={() => setIsMenuOpen((v) => !v)}
               className={`md:hidden flex flex-col justify-center gap-1.5 w-11 h-11 rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 ${textColor}`}
             >
@@ -129,11 +132,12 @@ export function NavBar() {
             onClick={() => setIsMenuOpen(false)}
           />
           {/* Drawer panel */}
-          <div className="absolute right-0 top-0 h-full w-4/5 max-w-xs bg-ink-950 flex flex-col">
+          <div id="mobile-nav-drawer" className="absolute right-0 top-0 h-full w-4/5 max-w-xs bg-ink-950 flex flex-col">
             <div className="flex items-center justify-between h-16 px-5">
               <Link
                 href="/"
-                className="text-lg font-semibold tracking-tight text-white"
+                ref={drawerFirstFocusRef}
+                className="text-lg font-semibold tracking-tight text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Driftpilot
@@ -166,7 +170,7 @@ export function NavBar() {
             <div className="px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
               <Link
                 href="/contact"
-                className="flex items-center justify-center h-12 w-full rounded-lg bg-brand-600 text-white text-base font-semibold transition-colors duration-150 hover:bg-brand-700 active:bg-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300"
+                className="flex items-center justify-center h-12 w-full rounded-lg bg-brand-600 text-white text-base font-semibold transition-colors duration-150 hover:bg-brand-700 active:bg-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Book a Scope Call

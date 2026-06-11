@@ -2,10 +2,15 @@ import type { Metadata } from "next";
 import type { Article, CaseStudy, FAQItem, Service } from "@/types/content";
 
 export const SITE_NAME = "Driftpilot";
-if (!process.env.NEXT_PUBLIC_SITE_URL) {
-  throw new Error("NEXT_PUBLIC_SITE_URL is required — set it in .env.local or Vercel environment variables.");
+const _siteUrlFallback = "https://driftpilot.ca";
+if (!process.env.NEXT_PUBLIC_SITE_URL && process.env.NODE_ENV === "production") {
+  throw new Error(
+    "NEXT_PUBLIC_SITE_URL is required in production — set it in Vercel environment variables before deploying.",
+  );
 }
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? _siteUrlFallback
+).replace(/\/$/, "");
 export const SITE_DESCRIPTION =
   "Performance-first web development agency. High-performance websites on Next.js and headless WordPress, built to generate leads.";
 

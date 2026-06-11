@@ -19,7 +19,7 @@ import { getAllCaseStudies } from "@/lib/content/case-studies";
 import { homeFAQ } from "@/lib/content/faq/home";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Driftpilot — AI Web Development Agency",
+  title: "Driftpilot — Web Development Studio",
   description: SITE_DESCRIPTION,
   path: "/",
 });

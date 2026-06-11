@@ -3,7 +3,7 @@ import Link from 'next/link';
 const services = [
   {
     name: 'AI Website Development',
-    outcome: 'Ship a production site in weeks, not months — built with AI tooling that compresses timelines without cutting corners.',
+    outcome: 'Ship a production site in weeks, not months — using modern tooling that compresses timelines without cutting corners.',
     href: '/services/ai-website-development',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-brand-600">

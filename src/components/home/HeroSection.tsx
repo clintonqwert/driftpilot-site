@@ -9,7 +9,7 @@ export function HeroSection() {
             className="text-[13px] font-mono font-medium uppercase tracking-[0.14em] text-brand-400 motion-safe:animate-[fadeUp_0.5s_ease-out_both]"
             style={{ animationDelay: '0ms' }}
           >
-            AI-Powered Web Development
+            Web Development Studio
           </p>
 
           <h1

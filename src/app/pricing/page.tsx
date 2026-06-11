@@ -7,7 +7,7 @@ import { pricingFAQ } from "@/lib/content/faq/pricing";
 
 export const metadata: Metadata = buildMetadata({
   title: "Pricing — Driftpilot",
-  description: "Transparent project pricing for AI-built websites and lead generation systems.",
+  description: "Transparent project pricing for modern websites and lead generation systems. Flat rates, no hourly billing.",
   path: "/pricing",
 });
 

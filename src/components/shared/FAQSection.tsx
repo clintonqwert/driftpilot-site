@@ -5,17 +5,18 @@ import type { FAQItem } from '@/types/content';
 
 interface FAQSectionProps {
   items: FAQItem[];
+  heading?: string;
   showCTA?: boolean;
 }
 
-export function FAQSection({ items, showCTA = true }: FAQSectionProps) {
+export function FAQSection({ items, heading = 'Questions we get before the first call.', showCTA = true }: FAQSectionProps) {
   return (
     <section className="bg-white py-16 md:py-24" aria-labelledby="faq-heading">
       <JsonLd schema={faqSchema(items)} />
       <div className="mx-auto max-w-container px-5 md:px-8">
         <div className="max-w-2xl mb-10">
           <h2 id="faq-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-ink-900">
-            Questions we get before the first call.
+            {heading}
           </h2>
         </div>
 

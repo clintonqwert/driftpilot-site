@@ -1,8 +1,8 @@
 const items = [
   {
     number: '01',
-    title: 'AI-native, not AI-flavoured',
-    body: 'Most agencies use AI to write their proposals. We use it inside the actual build — component scaffolding, copy iteration, testing — which is why we deliver in weeks, not months. The result shows up in your timeline and your Lighthouse score, not our pitch deck.',
+    title: 'Speed-native, not speed-flavoured',
+    body: 'Most agencies talk about speed. We engineer for it — component scaffolding, accelerated iteration, rigorous testing — which is why we deliver in weeks, not months. The result shows up in your timeline and your Lighthouse score, not our pitch deck.',
   },
   {
     number: '02',

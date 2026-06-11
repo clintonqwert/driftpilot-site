@@ -21,6 +21,10 @@ export interface Service {
   /** Short card copy for ServicesGrid */
   excerpt: string;
   primaryKeyword: string;
+  /** Phase 1 page-level content — replaced by CMS fields in Phase 2 */
+  benefits?: string[];
+  deliverables?: string[];
+  pageFaq?: FAQItem[];
 }
 
 export interface CaseStudy {
@@ -50,6 +54,8 @@ export interface Article {
   tags: string[];
   /** ISO date */
   publishedAt: string;
+  /** Phase 1 inline body — replaced by WPGraphQL richText in Phase 2. Paragraph-separated by \n\n */
+  body: string;
 }
 
 export interface FAQItem {

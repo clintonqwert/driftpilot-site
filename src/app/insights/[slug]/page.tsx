@@ -1,8 +1,10 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { JsonLd } from "@/components/shared/JsonLd";
-import { getAllArticles, getArticleBySlug } from "@/lib/content/articles";
-import { articleSchema, buildMetadata } from "@/lib/seo";
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { JsonLd } from '@/components/shared/JsonLd';
+import { PageHero } from '@/components/shared/PageHero';
+import { CTABand } from '@/components/shared/CTABand';
+import { getAllArticles, getArticleBySlug } from '@/lib/content/articles';
+import { articleSchema, buildMetadata } from '@/lib/seo';
 
 export async function generateStaticParams() {
   const articles = await getAllArticles();
@@ -10,7 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  props: PageProps<"/insights/[slug]">,
+  props: PageProps<'/insights/[slug]'>,
 ): Promise<Metadata> {
   const { slug } = await props.params;
   const article = await getArticleBySlug(slug);
@@ -22,22 +24,64 @@ export async function generateMetadata(
   });
 }
 
-export default async function ArticlePage(
-  props: PageProps<"/insights/[slug]">,
-) {
+function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
+export default async function ArticlePage(props: PageProps<'/insights/[slug]'>) {
   const { slug } = await props.params;
   const article = await getArticleBySlug(slug);
   if (!article) notFound();
 
+  const paragraphs = article.body.split('\n\n').filter(Boolean);
+
   return (
-    <main className="mx-auto w-full max-w-5xl px-5 py-16 md:px-8 md:py-24">
+    <main>
       <JsonLd schema={articleSchema(article)} />
-      <h1 className="text-4xl font-semibold tracking-tight">
-        {article.title}
-      </h1>
-      <p className="mt-4 max-w-2xl text-lg text-zinc-600">
-        {article.description}
-      </p>
+
+      <PageHero
+        eyebrow={article.topic}
+        heading={article.title}
+        subheading={article.description}
+      />
+
+      {/* Meta bar */}
+      <div className="bg-white border-b border-ink-100">
+        <div className="mx-auto max-w-container px-5 md:px-8 py-4 flex flex-wrap items-center gap-4">
+          <time dateTime={article.publishedAt} className="text-sm text-ink-400">
+            {formatDate(article.publishedAt)}
+          </time>
+          <div className="flex flex-wrap gap-1.5">
+            {article.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-ink-50 border border-ink-200 text-ink-500"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Article body */}
+      <section className="bg-white py-12 md:py-16" aria-label="Article content">
+        <div className="mx-auto max-w-container px-5 md:px-8">
+          <div className="max-w-3xl flex flex-col gap-5">
+            {paragraphs.map((para, i) => (
+              <p key={i} className="text-base leading-[1.85] text-ink-700">
+                {para}
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CTABand />
     </main>
   );
 }

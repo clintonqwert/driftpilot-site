@@ -2,7 +2,7 @@
 
 **An AI-native web development studio for growth-stage businesses and automotive dealerships.**
 
-This repository contains the production site for [driftpilot.com](https://driftpilot.com) — built with Next.js 16, TypeScript, and Tailwind CSS v4, deployed on Vercel. The site is also the portfolio piece: it ships with the same performance budget we hold client work to (Lighthouse 95+, LCP under 1.5s).
+This repository contains the production site for [driftpilot.ca](https://driftpilot.ca) — built with Next.js 16, TypeScript, and Tailwind CSS v4, deployed on Vercel. The site is also the portfolio piece: it ships with the same performance budget we hold client work to (Lighthouse 95+, LCP under 1.5s).
 
 ---
 
@@ -115,7 +115,7 @@ The long-term plan builds on the agency in tiers:
 - **Driftpilot Drive** — a dealership platform covering websites, lead capture, inventory display, and CRM integration as a product rather than a project. Seeded by agency engagements with dealers, so the product is shaped by real rooftop operations, not assumptions.
 - **Beyond Drive** — an automotive operations layer: VIN data, financing APIs, service scheduling, and first-party analytics that dealers actually own.
 
-Every dealership engagement today sharpens that product. The `/automotive` page on the site captures early-access interest now — if you run a dealership and want off the platform tax, [join the early access list](https://driftpilot.com/automotive).
+Every dealership engagement today sharpens that product. The `/automotive` page on the site captures early-access interest now — if you run a dealership and want off the platform tax, [join the early access list](https://driftpilot.ca/automotive).
 
 ---
 
@@ -123,4 +123,4 @@ Every dealership engagement today sharpens that product. The `/automotive` page 
 
 If you're evaluating Driftpilot for a project: this repository is the sales pitch. The performance numbers, the architecture, and the delivery speed you see here are what your engagement gets.
 
-**Start a conversation:** [driftpilot.com/contact](https://driftpilot.com/contact)
+**Start a conversation:** [driftpilot.ca/contact](https://driftpilot.ca/contact)

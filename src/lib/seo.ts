@@ -3,7 +3,7 @@ import type { Article, CaseStudy, FAQItem, Service } from "@/types/content";
 
 export const SITE_NAME = "Driftpilot";
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://driftpilot.com"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://driftpilot.ca"
 ).replace(/\/$/, "");
 export const SITE_DESCRIPTION =
   "Performance-first web development agency. High-performance websites on Next.js and headless WordPress, built to generate leads.";

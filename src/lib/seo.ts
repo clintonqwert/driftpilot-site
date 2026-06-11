@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import type { Article, FAQItem, Service } from "@/types/content";
+import type { Article, CaseStudy, FAQItem, Service } from "@/types/content";
 
 export const SITE_NAME = "Driftpilot";
 export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://driftpilot.com"
 ).replace(/\/$/, "");
 export const SITE_DESCRIPTION =
-  "AI-powered web development agency. High-performance websites on Next.js and headless WordPress, built to generate leads.";
+  "Performance-first web development agency. High-performance websites on Next.js and headless WordPress, built to generate leads.";
 
 interface BuildMetadataInput {
   /** Full title — patterns per sitemap §8.2, e.g. "[Service Name] — Driftpilot" */
@@ -107,5 +107,20 @@ export function articleSchema(article: Article) {
     datePublished: article.publishedAt,
     url: `${SITE_URL}/insights/${article.slug}`,
     author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+  };
+}
+
+export function caseStudySchema(study: CaseStudy) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: study.headline,
+    description: `${study.stat} for a ${study.industry} client — ${study.methodology}.`,
+    datePublished: study.publishedAt,
+    url: `${SITE_URL}/work/${study.slug}`,
+    about: {
+      "@type": "Service",
+      provider: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    },
   };
 }

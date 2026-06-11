@@ -72,7 +72,7 @@ export function organizationSchema() {
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    email: "hello@driftpilot.com",
+    email: "hello@driftpilot.ca",
   };
 }
 

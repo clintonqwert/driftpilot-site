@@ -66,7 +66,7 @@ export default function PrivacyPage() {
               <h2 id="retention-heading" className="text-xl font-semibold text-ink-900 mb-3">Data retention</h2>
               <p>
                 Contact form submissions are retained for up to 24 months from the date of inquiry. If you&apos;d like your information removed earlier, email us at{' '}
-                <a href="mailto:hello@driftpilot.com" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.com</a>{' '}
+                <a href="mailto:hello@driftpilot.ca" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.ca</a>{' '}
                 and we&apos;ll action it within 7 business days.
               </p>
             </section>
@@ -75,7 +75,7 @@ export default function PrivacyPage() {
               <h2 id="rights-heading" className="text-xl font-semibold text-ink-900 mb-3">Your rights</h2>
               <p>
                 You have the right to request access to, correction of, or deletion of your personal data at any time. To exercise these rights, contact us at{' '}
-                <a href="mailto:hello@driftpilot.com" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.com</a>.
+                <a href="mailto:hello@driftpilot.ca" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.ca</a>.
               </p>
             </section>
 
@@ -90,7 +90,7 @@ export default function PrivacyPage() {
               <h2 id="contact-privacy-heading" className="text-xl font-semibold text-ink-900 mb-3">Contact</h2>
               <p>
                 Questions about this policy? Email us at{' '}
-                <a href="mailto:hello@driftpilot.com" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.com</a>.
+                <a href="mailto:hello@driftpilot.ca" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.ca</a>.
               </p>
             </section>
 

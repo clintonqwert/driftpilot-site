@@ -19,7 +19,8 @@ export function NavBar() {
     getServerScrollSnapshot,
   );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const drawerFirstFocusRef = useRef<HTMLAnchorElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const isHomepage = pathname === '/';
   const showScrolled = isScrolled || !isHomepage;
@@ -35,13 +36,38 @@ export function NavBar() {
 
   useEffect(() => {
     if (!isMenuOpen) return;
-    drawerFirstFocusRef.current?.focus();
+    const firstFocusable = drawerRef.current?.querySelector<HTMLElement>(
+      'a[href], button:not([disabled])',
+    );
+    firstFocusable?.focus();
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') setIsMenuOpen(false);
+      if (e.key === 'Escape') {
+        setIsMenuOpen(false);
+        hamburgerRef.current?.focus();
+      }
     }
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [isMenuOpen]);
+
+  const handleDrawerKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key !== 'Tab') return;
+    const focusable = Array.from(
+      drawerRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled])',
+      ) ?? [],
+    );
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
 
   const textColor = showScrolled ? 'text-ink-900' : 'text-white';
   const hoverColor = showScrolled ? 'hover:text-ink-600' : 'hover:text-ink-300';
@@ -91,6 +117,7 @@ export function NavBar() {
 
             {/* Mobile hamburger */}
             <button
+              ref={hamburgerRef}
               type="button"
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMenuOpen}
@@ -125,6 +152,7 @@ export function NavBar() {
           aria-modal="true"
           role="dialog"
           aria-label="Navigation menu"
+          onKeyDown={handleDrawerKeyDown}
         >
           {/* Backdrop */}
           <div
@@ -132,11 +160,10 @@ export function NavBar() {
             onClick={() => setIsMenuOpen(false)}
           />
           {/* Drawer panel */}
-          <div id="mobile-nav-drawer" className="absolute right-0 top-0 h-full w-4/5 max-w-xs bg-ink-950 flex flex-col">
+          <div ref={drawerRef} id="mobile-nav-drawer" className="absolute right-0 top-0 h-full w-4/5 max-w-xs bg-ink-950 flex flex-col">
             <div className="flex items-center justify-between h-16 px-5">
               <Link
                 href="/"
-                ref={drawerFirstFocusRef}
                 className="text-lg font-semibold tracking-tight text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
                 onClick={() => setIsMenuOpen(false)}
               >

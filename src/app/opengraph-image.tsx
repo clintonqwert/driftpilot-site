@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/seo";
+import { SITE_NAME } from "@/lib/seo";
 
 export const alt = `${SITE_NAME} — Web Development Studio`;
 export const size = { width: 1200, height: 630 };
@@ -37,6 +37,7 @@ export default function Image() {
           style={{
             fontSize: "28px",
             fontWeight: 600,
+            fontFamily: "sans-serif",
             color: "#60A5FA",
             letterSpacing: "0.05em",
             textTransform: "uppercase",
@@ -52,6 +53,7 @@ export default function Image() {
           style={{
             fontSize: "64px",
             fontWeight: 700,
+            fontFamily: "sans-serif",
             color: "#FFFFFF",
             lineHeight: 1.1,
             maxWidth: "900px",
@@ -61,18 +63,19 @@ export default function Image() {
           Performance-first Web Development
         </div>
 
-        {/* Description */}
+        {/* Description — second sentence only to avoid repeating the headline */}
         <div
           style={{
             marginTop: "28px",
             fontSize: "28px",
+            fontFamily: "sans-serif",
             color: "#94A3B8",
             lineHeight: 1.5,
             maxWidth: "820px",
             display: "flex",
           }}
         >
-          {SITE_DESCRIPTION}
+          High-performance websites on Next.js and headless WordPress, built to generate leads.
         </div>
 
         {/* Bottom badge */}

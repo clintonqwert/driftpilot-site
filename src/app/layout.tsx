@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
+import { Analytics } from "@vercel/analytics/next";
 import { NavBar } from "@/components/layout/NavBar";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import "./globals.css";
@@ -49,6 +50,7 @@ export default function RootLayout({
           <NavBar />
           <div id="main-content" tabIndex={-1} className="flex-1 outline-none">{children}</div>
           <SiteFooter />
+          <Analytics />
         </body>
     </html>
   );

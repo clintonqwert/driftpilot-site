@@ -1,6 +1,6 @@
 # Driftpilot
 
-**An AI-native web development studio for growth-stage businesses and automotive dealerships.**
+**An AI-native web development studio for small businesses, contractors, and growth-stage companies — with a dedicated automotive dealership practice.**
 
 This repository contains the production site for [driftpilot.ca](https://driftpilot.ca) — built with Next.js 16, TypeScript, and Tailwind CSS v4, deployed on Vercel. The site is also the portfolio piece: it ships with the same performance budget we hold client work to (Lighthouse 95+, LCP under 1.5s).
 
@@ -8,10 +8,10 @@ This repository contains the production site for [driftpilot.ca](https://driftpi
 
 ## Overview
 
-Driftpilot delivers production-ready Next.js and headless WordPress sites in weeks, not months, with lead generation built in from day one. The studio serves two audiences:
+Driftpilot delivers production-ready Next.js and headless WordPress sites in weeks, not months, with lead generation built in from day one. The client base spans industries — the case studies on the site cover home services, SaaS, and professional services:
 
-- **Growth-stage SMBs** that need a high-performance digital presence without a large agency retainer.
-- **Automotive dealerships** paying $1,500+/month for template websites they don't own, with leads going into a vendor's black box.
+- **Small and growth-stage businesses** — contractors and home services, professional services like law firms and clinics, and SaaS companies — that need a high-performance digital presence without a large agency retainer.
+- **Automotive dealerships**, the studio's specialized vertical — dealers paying $1,500+/month for template websites they don't own, with leads going into a vendor's black box.
 
 Web development and lead generation are treated as one engagement, not two. Every site ships with conversion paths, CRM integration, structured data, and analytics wired in — because a fast site that doesn't capture leads is just an expensive brochure.
 
@@ -106,9 +106,9 @@ npm run build       # production build — all routes static in Phase 1
 
 Near-term site work: case study expansion, insights publishing cadence, and structured-data coverage for service and article pages.
 
-## The dealership platform vision
+## Vertical focus: the dealership platform
 
-Driftpilot's automotive focus is deliberate. Dealerships are locked into legacy website vendors — template sites at $1,500–$2,000/month, no code ownership, no data portability, leads filtered through someone else's CRM.
+The playbook is the same for every client — a fast site they own, leads flowing into their own CRM, analytics they control. It works for contractors, trades, clinics, and law firms today, and automotive is where Driftpilot is productizing it first, because the pain there is sharpest: dealerships are locked into legacy website vendors — template sites at $1,500–$2,000/month, no code ownership, no data portability, leads filtered through someone else's CRM.
 
 The long-term plan builds on the agency in tiers:
 

@@ -25,8 +25,12 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      # Only the build evaluates src/lib/seo.ts, which throws in production
+      # builds without this var. Keep in sync with _siteUrlFallback there.
       - name: Build
         run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://driftpilot.ca
 
       # TODO(phase 1 launch): Lighthouse CI against the Vercel preview URL
       # asserting perf ≥ 95, LCP < 1.5s, CLS < 0.05, TBT < 150ms, and a

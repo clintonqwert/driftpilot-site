@@ -45,12 +45,13 @@
   --text-display-xl: 6.875rem;
   --text-display-xl--line-height: 1;
 
-  /* ── Radii (Kivo) ──────────────────────────────────────────────────── */
+  /* ── Radii (Kivo) — pill is explicit; rounded-xl keeps its Tailwind
+     default so the standard scale isn't silently repurposed ─────────── */
   --radius-xs: 6px;
   --radius-sm: 10px;
   --radius-md: 12px;
   --radius-lg: 16px;
-  --radius-xl: 100px;
+  --radius-pill: 100px;
 
   /* ── Layout ────────────────────────────────────────────────────────── */
   --container-container: 1200px;

@@ -42,7 +42,7 @@ export function ShaderBackground() {
       {showShader && (
         <MeshGradient
           className="absolute inset-0 h-full w-full"
-          colors={[KIVO.surface, KIVO.raised, KIVO.surface, KIVO.accent, KIVO.line]}
+          colors={[KIVO.surface, KIVO.raised, KIVO.surface, KIVO.accentShader, KIVO.line]}
           speed={0.25}
           distortion={0.6}
           swirl={0.4}

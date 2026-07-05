@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { buildMetadata } from '@/lib/seo';
 import { PageHero } from '@/components/shared/PageHero';
+import { buttonClasses } from '@/components/ui/button';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Dealership Websites You Own — Driftpilot Drive',
@@ -158,7 +159,7 @@ export default function AutomotivePage() {
           <div className="mt-8">
             <Link
               href="/automotive/early-access"
-              className="inline-flex items-center justify-center gap-2 h-13 px-8 rounded-xl bg-surface text-fg text-base font-semibold transition-colors duration-150 hover:bg-surface/85 active:bg-surface/75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-fg"
+              className={buttonClasses({ variant: 'inverse', size: 'lg', className: 'px-8' })}
             >
               Join the early access list →
             </Link>

@@ -4,6 +4,7 @@ import { FAQSection } from "@/components/shared/FAQSection";
 import { CTABand } from "@/components/shared/CTABand";
 import { buildMetadata } from "@/lib/seo";
 import { pricingFAQ } from "@/lib/content/faq/pricing";
+import { buttonClasses } from "@/components/ui/button";
 
 export const metadata: Metadata = buildMetadata({
   title: "Pricing — Driftpilot",
@@ -19,11 +20,11 @@ const oneTimePackages = [
     paymentType: "One-time payment",
     featured: false,
     features: [
- "1–5 page responsive marketing site",
- "Contact form integration",
- "Basic SEO setup — meta, sitemap, schema",
- "Deployed and ready to launch",
- "Delivered in 1–2 weeks",
+      "1–5 page responsive marketing site",
+      "Contact form integration",
+      "Basic SEO setup — meta, sitemap, schema",
+      "Deployed and ready to launch",
+      "Delivered in 1–2 weeks",
     ],
     cta: "Get started",
   },
@@ -34,11 +35,11 @@ const oneTimePackages = [
     paymentType: "One-time payment",
     featured: true,
     features: [
- "Up to 10 pages with custom layout",
- "Lead generation + CRM integration",
- "Headless CMS for content updates",
- "Advanced SEO — structured data, schema",
- "30-day post-launch support window",
+      "Up to 10 pages with custom layout",
+      "Lead generation + CRM integration",
+      "Headless CMS for content updates",
+      "Advanced SEO — structured data, schema",
+      "30-day post-launch support window",
     ],
     cta: "Get started",
   },
@@ -52,10 +53,10 @@ const monthlyPlans = [
     paymentType: "per month",
     comingSoon: false,
     features: [
- "Secure modern hosting",
- "SSL certificate management",
- "Uptime monitoring",
- "Up to 1hr content updates/month",
+      "Secure modern hosting",
+      "SSL certificate management",
+      "Uptime monitoring",
+      "Up to 1hr content updates/month",
     ],
     cta: "Get started",
   },
@@ -66,10 +67,10 @@ const monthlyPlans = [
     paymentType: "per month",
     comingSoon: false,
     features: [
- "Everything in Hosting & Support",
- "Security patches and dependency updates",
- "Up to 3hrs content updates/month",
- "Monthly performance report",
+      "Everything in Hosting & Support",
+      "Security patches and dependency updates",
+      "Up to 3hrs content updates/month",
+      "Monthly performance report",
     ],
     cta: "Get started",
   },
@@ -80,10 +81,10 @@ const monthlyPlans = [
     paymentType: "per month",
     comingSoon: true,
     features: [
- "Inventory sync and display",
- "AI-powered lead capture",
- "CRM integration",
- "Monthly analytics and optimization",
+      "Inventory sync and display",
+      "AI-powered lead capture",
+      "CRM integration",
+      "Monthly analytics and optimization",
     ],
     cta: "Join the waitlist",
   },
@@ -169,7 +170,7 @@ export default function PricingPage() {
                   </ul>
                   <Link
                     href="/contact"
-                    className="mt-8 inline-flex items-center justify-center gap-2 h-12 px-6 w-full rounded-xl bg-accent text-accent-fg text-base font-semibold transition-colors duration-150 hover:bg-accent-hover active:bg-accent-active focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent shadow-accent"
+                    className={buttonClasses({ size: "md", className: "mt-8 w-full text-base" })}
                   >
                     {pkg.cta} →
                   </Link>
@@ -201,7 +202,7 @@ export default function PricingPage() {
                   </ul>
                   <Link
                     href="/contact"
-                    className="mt-8 inline-flex items-center justify-center gap-2 h-12 px-6 w-full rounded-xl bg-accent text-accent-fg text-base font-semibold transition-colors duration-150 hover:bg-accent-hover active:bg-accent-active focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    className={buttonClasses({ size: "md", className: "mt-8 w-full text-base" })}
                   >
                     {pkg.cta} →
                   </Link>
@@ -269,7 +270,7 @@ export default function PricingPage() {
                 ) : (
                   <Link
                     href="/contact"
-                    className="mt-8 inline-flex items-center justify-center gap-2 h-12 px-6 w-full rounded-xl bg-accent text-accent-fg text-base font-semibold transition-colors duration-150 hover:bg-accent-hover active:bg-accent-active focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    className={buttonClasses({ size: "md", className: "mt-8 w-full text-base" })}
                   >
                     {plan.cta} →
                   </Link>

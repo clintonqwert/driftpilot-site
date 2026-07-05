@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { buttonClasses } from '@/components/ui/button';
 
 interface CTABandProps {
   headline?: string;
@@ -26,7 +27,7 @@ export function CTABand({
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href={primaryCTA.href}
-              className="inline-flex items-center justify-center gap-2 h-13 px-7 w-full sm:w-auto rounded-xl bg-surface text-fg text-base font-semibold transition-colors duration-150 hover:bg-surface/85 active:bg-surface/75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-fg"
+              className={buttonClasses({ variant: 'inverse', size: 'lg', className: 'w-full sm:w-auto' })}
             >
               {primaryCTA.label}
             </Link>

@@ -6,7 +6,7 @@ import { CTABand } from '@/components/shared/CTABand';
 export const metadata: Metadata = buildMetadata({
   title: 'Careers — Driftpilot',
   description:
- "We hire when it's the right person, not when it's convenient. See what we look for and how to reach us.",
+    "We hire when it's the right person, not when it's convenient. See what we look for and how to reach us.",
   path: '/careers',
 });
 

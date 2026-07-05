@@ -1,17 +1,18 @@
-import { cn } from "@/lib/utils";
-
-export type ButtonVariant = "primary" | "secondary" | "ghost";
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "inverse";
 export type ButtonSize = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none";
+  "inline-flex items-center justify-center gap-2 rounded-pill font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none";
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-accent text-accent-fg hover:bg-accent-hover active:bg-accent-active shadow-accent",
+    "bg-accent text-accent-fg hover:bg-accent-hover active:bg-accent-active focus-visible:outline-accent shadow-accent",
   secondary:
-    "bg-white/5 text-fg border border-line-strong hover:bg-white/10 hover:border-fg/25 active:bg-white/15",
-  ghost: "text-muted hover:text-fg active:text-fg",
+    "bg-white/5 text-fg border border-line-strong hover:bg-white/10 hover:border-fg/25 active:bg-white/15 focus-visible:outline-accent",
+  ghost: "text-muted hover:text-fg active:text-fg focus-visible:outline-accent",
+  /** Dark button for accent-surface contexts (green CTA bands). */
+  inverse:
+    "bg-surface text-fg hover:bg-surface/85 active:bg-surface/75 focus-visible:outline-accent-fg",
 };
 
 const sizes: Record<ButtonSize, string> = {
@@ -22,7 +23,10 @@ const sizes: Record<ButtonSize, string> = {
 
 /**
  * Shared button recipe. A class-string function rather than a component
- * because most call-sites are <Link>, not <button>.
+ * because most call-sites are <Link>, not <button>. Plain concatenation —
+ * no tailwind-merge — so client components (NavBar) don't pull the merge
+ * runtime into the first-load bundle; `className` must not repeat recipe
+ * utilities.
  */
 export function buttonClasses({
   variant = "primary",
@@ -33,5 +37,7 @@ export function buttonClasses({
   size?: ButtonSize;
   className?: string;
 } = {}) {
-  return cn(base, variants[variant], sizes[size], className);
+  return [base, variants[variant], sizes[size], className]
+    .filter(Boolean)
+    .join(" ");
 }

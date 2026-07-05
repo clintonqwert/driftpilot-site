@@ -28,8 +28,8 @@ export default function ContactPage() {
 
           {/* Trust signals — 2/5 on desktop */}
           <aside className="lg:col-span-2 flex flex-col gap-8">
-            <div className="rounded-2xl border border-ink-100 bg-ink-50 p-6 md:p-8">
-              <h2 className="text-base font-semibold text-ink-900 mb-4">
+            <div className="rounded-lg border border-line bg-raised p-6 md:p-8">
+              <h2 className="text-base font-semibold text-fg mb-4">
                 What happens next
               </h2>
               <ol className="flex flex-col gap-4">
@@ -56,38 +56,38 @@ export default function ContactPage() {
                   },
                 ].map(({ step, title, body }) => (
                   <li key={step} className="flex gap-3">
-                    <span className="shrink-0 w-6 h-6 mt-0.5 rounded-full bg-brand-600 text-white text-xs font-semibold flex items-center justify-center">
+                    <span className="shrink-0 w-6 h-6 mt-0.5 rounded-full bg-accent text-accent-fg text-xs font-semibold flex items-center justify-center">
                       {step}
                     </span>
                     <div>
-                      <p className="text-sm font-semibold text-ink-900">{title}</p>
-                      <p className="mt-0.5 text-sm text-ink-500 leading-relaxed">{body}</p>
+                      <p className="text-sm font-semibold text-fg">{title}</p>
+                      <p className="mt-0.5 text-sm text-muted leading-relaxed">{body}</p>
                     </div>
                   </li>
                 ))}
               </ol>
             </div>
 
-            <div className="rounded-2xl border border-ink-100 bg-white p-6 md:p-8">
-              <h2 className="text-base font-semibold text-ink-900 mb-3">
+            <div className="rounded-lg border border-line bg-surface p-6 md:p-8">
+              <h2 className="text-base font-semibold text-fg mb-3">
                 Prefer email?
               </h2>
-              <p className="text-sm text-ink-500 leading-relaxed mb-3">
+              <p className="text-sm text-muted leading-relaxed mb-3">
                 Send us a note directly — no form required.
               </p>
               <a
                 href="mailto:hello@driftpilot.ca"
-                className="text-sm font-medium text-brand-600 hover:text-brand-700 transition-colors underline-offset-2 hover:underline"
+                className="text-sm font-medium text-accent hover:text-accent-hover transition-colors underline-offset-2 hover:underline"
               >
                 hello@driftpilot.ca
               </a>
             </div>
 
             <div className="flex items-start gap-3 px-1">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="shrink-0 mt-0.5 text-brand-600" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="shrink-0 mt-0.5 text-accent" aria-hidden="true">
                 <path d="M9 12l2 2 4-4M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              <p className="text-sm text-ink-500 leading-relaxed">
+              <p className="text-sm text-muted leading-relaxed">
                 No unsolicited sales calls. No newsletter sign-ups. Your information is used only to follow up on your project inquiry.
               </p>
             </div>

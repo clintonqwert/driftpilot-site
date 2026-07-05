@@ -18,7 +18,7 @@ const principles = [
     title: 'No scope creep',
     body: "We agree on exactly what's being built before a line of code is written. Change requests outside the original scope are quoted separately — always.",
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-brand-600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-accent">
         <path d="M9 12l2 2 4-4M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
@@ -27,7 +27,7 @@ const principles = [
     title: 'Weekly check-ins',
     body: "One short async update per week — what's shipped, what's next, any decisions needed. No email chains. No status-update meetings.",
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-brand-600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-accent">
         <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.75"/>
         <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
       </svg>
@@ -37,7 +37,7 @@ const principles = [
     title: 'You own everything on launch day',
     body: "Code repo, CMS credentials, Vercel project, domain, analytics — all transferred to you. We don't hold infrastructure hostage.",
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-brand-600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-accent">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
@@ -79,13 +79,13 @@ export default function HowWeWorkPage() {
       <ProcessSection />
 
       {/* Principles */}
-      <section className="bg-white py-16 md:py-24" aria-labelledby="principles-heading">
+      <section className="bg-surface py-16 md:py-24" aria-labelledby="principles-heading">
         <div className="mx-auto max-w-container px-5 md:px-8">
           <div className="max-w-2xl mb-12">
-            <h2 id="principles-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-ink-900">
+            <h2 id="principles-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg">
               How we stay on track.
             </h2>
-            <p className="mt-3 text-lg text-ink-500">
+            <p className="mt-3 text-lg text-muted">
               Three rules that keep every project clean.
             </p>
           </div>
@@ -93,15 +93,15 @@ export default function HowWeWorkPage() {
             {principles.map((p) => (
               <div
                 key={p.title}
-                className="rounded-2xl border border-ink-200 bg-white p-6 md:p-8 shadow-xs"
+                className="rounded-lg border border-line bg-raised p-6 md:p-8"
               >
-                <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center mb-4">
+                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
                   {p.icon}
                 </div>
-                <h3 className="text-xl font-semibold tracking-tight text-ink-900 mb-2">
+                <h3 className="text-xl font-semibold tracking-tight text-fg mb-2">
                   {p.title}
                 </h3>
-                <p className="text-base leading-relaxed text-ink-600">{p.body}</p>
+                <p className="text-base leading-relaxed text-muted">{p.body}</p>
               </div>
             ))}
           </div>

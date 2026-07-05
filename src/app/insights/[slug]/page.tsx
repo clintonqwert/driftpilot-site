@@ -50,16 +50,16 @@ export default async function ArticlePage(props: PageProps<'/insights/[slug]'>) 
       />
 
       {/* Meta bar */}
-      <div className="bg-white border-b border-ink-100">
+      <div className="bg-surface border-b border-line">
         <div className="mx-auto max-w-container px-5 md:px-8 py-4 flex flex-wrap items-center gap-4">
-          <time dateTime={article.publishedAt} className="text-sm text-ink-400">
+          <time dateTime={article.publishedAt} className="text-sm text-muted">
             {formatDate(article.publishedAt)}
           </time>
           <div className="flex flex-wrap gap-1.5">
             {article.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-ink-50 border border-ink-200 text-ink-500"
+                className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-raised border border-line text-muted"
               >
                 {tag}
               </span>
@@ -69,11 +69,11 @@ export default async function ArticlePage(props: PageProps<'/insights/[slug]'>) 
       </div>
 
       {/* Article body */}
-      <section className="bg-white py-12 md:py-16" aria-label="Article content">
+      <section className="bg-surface py-12 md:py-16" aria-label="Article content">
         <div className="mx-auto max-w-container px-5 md:px-8">
           <div className="max-w-3xl flex flex-col gap-5">
             {paragraphs.map((para, i) => (
-              <p key={i} className="text-base leading-[1.85] text-ink-700">
+              <p key={i} className="text-base leading-[1.85] text-fg">
                 {para}
               </p>
             ))}

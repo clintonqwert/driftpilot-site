@@ -34,41 +34,41 @@ export default function EarlyAccessPage() {
         subheading="No commitment. First to know. We will reach out before public launch."
       />
 
-      <section className="bg-ink-50 py-16 md:py-24">
+      <section className="bg-raised py-16 md:py-24">
         <div className="mx-auto max-w-container px-5 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
 
             {/* Form */}
             <div className="lg:col-span-3">
-              <div className="rounded-2xl border border-ink-200 bg-white p-6 md:p-8 shadow-xs">
-                <h2 className="text-xl font-semibold text-ink-900 mb-1">Request early access</h2>
-                <p className="text-sm text-ink-500 mb-6">Takes 30 seconds. No card required.</p>
+              <div className="rounded-lg border border-line bg-raised p-6 md:p-8">
+                <h2 className="text-xl font-semibold text-fg mb-1">Request early access</h2>
+                <p className="text-sm text-muted mb-6">Takes 30 seconds. No card required.</p>
                 <EarlyAccessForm />
               </div>
             </div>
 
             {/* Sidebar */}
             <div className="lg:col-span-2">
-              <h2 className="text-lg font-semibold text-ink-900 mb-6">
+              <h2 className="text-lg font-semibold text-fg mb-6">
                 What early access gets you.
               </h2>
               <div className="flex flex-col gap-5">
                 {benefits.map((item, i) => (
                   <div key={item.heading} className="flex gap-4 items-start">
-                    <span className="shrink-0 font-mono text-xl font-semibold text-brand-600 w-7 tabular-nums">
+                    <span className="shrink-0 font-mono text-xl font-semibold text-accent w-7 tabular-nums">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <div>
-                      <h3 className="text-base font-semibold text-ink-900">{item.heading}</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-ink-600">{item.body}</p>
+                      <h3 className="text-base font-semibold text-fg">{item.heading}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-muted">{item.body}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="mt-8 rounded-xl border border-ink-200 bg-white p-4">
-                <p className="text-xs text-ink-400 leading-relaxed">
+              <div className="mt-8 rounded-xl border border-line bg-raised p-4">
+                <p className="text-xs text-muted leading-relaxed">
                   Your information is used only to contact you about Driftpilot Drive. We do not share it with anyone.{' '}
-                  <a href="/privacy" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">
+                  <a href="/privacy" className="text-accent hover:text-accent-hover underline-offset-2 hover:underline">
                     Privacy policy →
                   </a>
                 </p>

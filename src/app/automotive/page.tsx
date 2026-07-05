@@ -14,7 +14,7 @@ export const metadata: Metadata = buildMetadata({
 const problems = [
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-ink-400">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-muted">
         <path d="M11 2a9 9 0 100 18A9 9 0 0011 2zM11 8v4M11 14h.01" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
       </svg>
     ),
@@ -23,7 +23,7 @@ const problems = [
   },
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-ink-400">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-muted">
         <circle cx="11" cy="11" r="9" stroke="currentColor" strokeWidth="1.75"/>
         <path d="M11 7v4l3 3" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
       </svg>
@@ -33,7 +33,7 @@ const problems = [
   },
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-ink-400">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-muted">
         <path d="M3 8l8 5 8-5M3 8v8l8 5 8-5V8" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
@@ -45,7 +45,7 @@ const problems = [
 const features = [
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-brand-600">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-accent">
         <path d="M11 2L2 7l9 5 9-5-9-5zM2 17l9 5 9-5M2 12l9 5 9-5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
@@ -54,7 +54,7 @@ const features = [
   },
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-brand-600">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-accent">
         <path d="M4 17L10 11 4 5M12 19h8" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
@@ -63,7 +63,7 @@ const features = [
   },
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-brand-600">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" className="text-accent">
         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
@@ -83,16 +83,16 @@ export default function AutomotivePage() {
       />
 
       {/* Problem */}
-      <section className="bg-white py-16 md:py-24" aria-labelledby="problem-heading">
+      <section className="bg-surface py-16 md:py-24" aria-labelledby="problem-heading">
         <div className="mx-auto max-w-container px-5 md:px-8">
           <div className="max-w-2xl mb-10">
             <h2
               id="problem-heading"
-              className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-ink-900"
+              className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg"
             >
               The current deal is not great.
             </h2>
-            <p className="mt-3 text-lg text-ink-500">
+            <p className="mt-3 text-lg text-muted">
               Most dealer website vendors share the same model. You pay monthly. They own the platform. When you stop paying, it goes away.
             </p>
           </div>
@@ -100,13 +100,13 @@ export default function AutomotivePage() {
             {problems.map((item) => (
               <div
                 key={item.heading}
-                className="rounded-2xl border border-ink-200 bg-ink-50 p-6 md:p-8"
+                className="rounded-lg border border-line bg-raised p-6 md:p-8"
               >
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-white border border-ink-200">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-raised border border-line">
                   {item.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-ink-900">{item.heading}</h3>
-                <p className="mt-2 text-base leading-relaxed text-ink-600">{item.body}</p>
+                <h3 className="text-lg font-semibold text-fg">{item.heading}</h3>
+                <p className="mt-2 text-base leading-relaxed text-muted">{item.body}</p>
               </div>
             ))}
           </div>
@@ -114,16 +114,16 @@ export default function AutomotivePage() {
       </section>
 
       {/* Solution */}
-      <section className="bg-ink-50 py-16 md:py-24" aria-labelledby="solution-heading">
+      <section className="bg-raised py-16 md:py-24" aria-labelledby="solution-heading">
         <div className="mx-auto max-w-container px-5 md:px-8">
           <div className="max-w-2xl mb-10">
             <h2
               id="solution-heading"
-              className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-ink-900"
+              className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg"
             >
               {"Here's what we're building."}
             </h2>
-            <p className="mt-3 text-lg text-ink-500">
+            <p className="mt-3 text-lg text-muted">
               Driftpilot Drive is a platform purpose-built for automotive dealers — designed around ownership, speed, and lead integrity.
             </p>
           </div>
@@ -131,13 +131,13 @@ export default function AutomotivePage() {
             {features.map((item) => (
               <div
                 key={item.heading}
-                className="rounded-2xl border border-ink-200 bg-white p-6 md:p-8 shadow-xs"
+                className="rounded-lg border border-line bg-raised p-6 md:p-8"
               >
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
                   {item.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-ink-900">{item.heading}</h3>
-                <p className="mt-2 text-base leading-relaxed text-ink-600">{item.body}</p>
+                <h3 className="text-lg font-semibold text-fg">{item.heading}</h3>
+                <p className="mt-2 text-base leading-relaxed text-muted">{item.body}</p>
               </div>
             ))}
           </div>
@@ -145,21 +145,21 @@ export default function AutomotivePage() {
       </section>
 
       {/* Early access CTA — isolated funnel, not CTABand */}
-      <section className="bg-brand-600 py-16 md:py-20" aria-labelledby="drive-cta-heading">
+      <section className="bg-accent py-16 md:py-20" aria-labelledby="drive-cta-heading">
         <div className="mx-auto max-w-container px-5 md:px-8 text-center">
           <h2
             id="drive-cta-heading"
-            className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-white"
+            className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-accent-fg"
           >
             Be first when we launch.
           </h2>
-          <p className="mt-4 text-lg text-white/80 max-w-xl mx-auto">
+          <p className="mt-4 text-lg text-accent-fg/80 max-w-xl mx-auto">
             Join the early access list. No commitment, no spam — just first access to the platform and locked pricing before public launch.
           </p>
           <div className="mt-8">
             <Link
               href="/automotive/early-access"
-              className="inline-flex items-center justify-center gap-2 h-13 px-8 rounded-lg bg-white text-brand-700 text-base font-semibold transition-colors duration-150 hover:bg-brand-50 active:bg-brand-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white shadow-md"
+              className="inline-flex items-center justify-center gap-2 h-13 px-8 rounded-xl bg-surface text-fg text-base font-semibold transition-colors duration-150 hover:bg-surface/85 active:bg-surface/75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-fg"
             >
               Join the early access list →
             </Link>

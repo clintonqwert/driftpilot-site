@@ -44,8 +44,8 @@ export default function PrivacyPage() {
             <section aria-labelledby="analytics-heading">
               <h2 id="analytics-heading" className="text-xl font-semibold text-ink-900 mb-3">Analytics</h2>
               <p>
-                We use <strong className="text-ink-800">Plausible Analytics</strong>, a privacy-first analytics provider. Plausible does not use cookies, does not collect personal data, and is fully GDPR-compliant. Page views and referrer information are aggregated and anonymous. You can learn more at{' '}
-                <a href="https://plausible.io/privacy" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline" target="_blank" rel="noopener noreferrer">plausible.io/privacy</a>.
+                We use <strong className="text-ink-800">Vercel Web Analytics</strong>, a privacy-friendly analytics service. It does not use cookies and does not track visitors across sites or devices. Page views and referrer information are aggregated and anonymous. You can learn more at{' '}
+                <a href="https://vercel.com/docs/analytics/privacy-policy" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline" target="_blank" rel="noopener noreferrer">vercel.com/docs/analytics/privacy-policy</a>.
               </p>
             </section>
 

@@ -46,6 +46,7 @@ $ARGUMENTS
 ## PR workflow
 
 - Create a new PR for the task. One PR at a time — revisions go as additional commits on the same PR branch, never a second PR.
+- Branch names describe the change with a `feat/`, `fix/`, `docs/`, or `chore/` prefix (e.g. `feat/vercel-analytics`) — never generic worktree names.
 - Never merge to main. The user merges after Reviewer and Tester sign-off.
 - Before pushing: `npm run build` and `tsc --noEmit` must pass.
 

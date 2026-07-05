@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { buttonClasses } from '@/components/ui/button';
 
 const serviceLinks = [
   { label: 'AI Website Development', href: '/services/ai-website-development' },
@@ -22,7 +23,7 @@ const companyLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-ink-950 text-ink-400" aria-label="Site footer">
+    <footer className="bg-surface border-t border-line text-muted" aria-label="Site footer">
       <div className="mx-auto max-w-container px-5 md:px-8 pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
           {/* Col 1 — Brand */}
@@ -30,15 +31,15 @@ export function SiteFooter() {
             <Link
               href="/"
               aria-label="Driftpilot home"
-              className="text-lg font-semibold text-white tracking-tight"
+              className="text-lg font-semibold text-fg tracking-tight"
             >
               Driftpilot
             </Link>
-            <p className="mt-3 text-sm leading-relaxed text-ink-400">
+            <p className="mt-3 text-sm leading-relaxed text-muted">
               Performance-first web development for businesses that want results.
             </p>
             <p
-              className="mt-4 font-mono text-xs tabular-nums text-ink-500"
+              className="mt-4 font-mono text-xs tabular-nums text-accent"
               aria-label="This site scores 98 on Lighthouse with LCP of 0.9 seconds"
             >
               Lighthouse 98 · LCP 0.9s
@@ -47,7 +48,7 @@ export function SiteFooter() {
 
           {/* Col 2 — Services */}
           <div>
-            <p className="text-[11px] font-mono font-medium uppercase tracking-[0.14em] text-ink-500 mb-4">
+            <p className="text-[11px] font-mono font-medium uppercase tracking-[0.14em] text-muted mb-4">
               Services
             </p>
             <nav aria-label="Footer services navigation">
@@ -56,7 +57,7 @@ export function SiteFooter() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-ink-400 hover:text-white transition-colors"
+                      className="text-sm text-muted hover:text-accent transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -68,7 +69,7 @@ export function SiteFooter() {
 
           {/* Col 3 — Company */}
           <div>
-            <p className="text-[11px] font-mono font-medium uppercase tracking-[0.14em] text-ink-500 mb-4">
+            <p className="text-[11px] font-mono font-medium uppercase tracking-[0.14em] text-muted mb-4">
               Company
             </p>
             <nav aria-label="Footer company navigation">
@@ -77,7 +78,7 @@ export function SiteFooter() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-ink-400 hover:text-white transition-colors"
+                      className="text-sm text-muted hover:text-accent transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -89,18 +90,18 @@ export function SiteFooter() {
 
           {/* Col 4 — Get Started */}
           <div>
-            <p className="text-[11px] font-mono font-medium uppercase tracking-[0.14em] text-ink-500 mb-4">
+            <p className="text-[11px] font-mono font-medium uppercase tracking-[0.14em] text-muted mb-4">
               Get Started
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 h-10 px-5 rounded-lg bg-brand-600 text-white text-sm font-semibold transition-colors duration-150 hover:bg-brand-700 active:bg-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+              className={buttonClasses({ size: "sm" })}
             >
               Book a Scope Call
             </Link>
             <a
               href="mailto:hello@driftpilot.ca"
-              className="mt-4 flex items-center gap-2 text-sm text-ink-400 hover:text-white transition-colors"
+              className="mt-4 flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors"
             >
               hello@driftpilot.ca
             </a>
@@ -108,8 +109,8 @@ export function SiteFooter() {
         </div>
 
         {/* Copyright bar */}
-        <div className="mt-12 pt-6 border-t border-white/10">
-          <p className="text-xs text-ink-600">
+        <div className="mt-12 pt-6 border-t border-line">
+          <p className="text-xs text-muted/70">
             © 2026 Driftpilot. Built with Next.js + Headless WordPress.
           </p>
         </div>

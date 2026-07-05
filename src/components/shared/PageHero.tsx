@@ -11,15 +11,24 @@ export function PageHero({ eyebrow, heading, subheading }: PageHeroProps) {
       <div className="relative mx-auto max-w-container px-5 md:px-8">
         <div className="max-w-[720px]">
           {eyebrow && (
-            <p className="text-[13px] font-mono font-medium uppercase tracking-[0.14em] text-accent mb-4">
+            <p
+              className="text-[13px] font-mono font-medium uppercase tracking-[0.14em] text-accent mb-4 motion-safe:animate-[fadeUp_0.5s_ease-out_both]"
+              style={{ animationDelay: '0ms' }}
+            >
               {eyebrow}
             </p>
           )}
-          <h1 className="text-display-sm md:text-display font-semibold tracking-tight text-fg text-balance">
+          <h1
+            className="text-display-sm md:text-display font-semibold tracking-tight text-fg text-balance motion-safe:animate-[fadeUp_0.5s_ease-out_both]"
+            style={{ animationDelay: '80ms' }}
+          >
             {heading}
           </h1>
           {subheading && (
-            <p className="mt-5 text-lg md:text-xl leading-relaxed text-muted max-w-xl">
+            <p
+              className="mt-5 text-lg md:text-xl leading-relaxed text-muted max-w-xl motion-safe:animate-[fadeUp_0.5s_ease-out_both]"
+              style={{ animationDelay: '160ms' }}
+            >
               {subheading}
             </p>
           )}

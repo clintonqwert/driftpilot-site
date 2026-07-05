@@ -25,7 +25,7 @@ export function WhySection() {
   return (
     <section className="py-16 md:py-24" aria-labelledby="why-heading">
       <div className="mx-auto max-w-container px-5 md:px-8">
-        <div className="max-w-2xl mb-12">
+        <div className="max-w-2xl mb-12" data-reveal>
           <h2 id="why-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg">
             Why teams come back.
           </h2>
@@ -38,6 +38,7 @@ export function WhySection() {
           {items.map((item, i) => (
             <div
               key={item.number}
+              data-reveal
               className={`flex gap-6 md:gap-10 py-8 md:py-10 border-t border-line ${
                 i % 2 === 0 ? 'bg-surface' : 'bg-raised'
               } -mx-5 px-5 md:-mx-8 md:px-8`}

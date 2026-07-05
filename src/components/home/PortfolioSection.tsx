@@ -28,7 +28,7 @@ export function PortfolioSection({ featured, grid }: PortfolioSectionProps) {
   return (
     <section className="bg-surface py-16 md:py-24" aria-labelledby="portfolio-heading">
       <div className="mx-auto max-w-container px-5 md:px-8">
-        <div className="max-w-2xl mb-10">
+        <div className="max-w-2xl mb-10" data-reveal>
           <h2 id="portfolio-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg">
             The work.
           </h2>
@@ -38,7 +38,7 @@ export function PortfolioSection({ featured, grid }: PortfolioSectionProps) {
         </div>
 
         {featured ? (
-          <div className="rounded-lg border border-line bg-raised p-8 md:p-10 mb-8">
+          <div className="rounded-lg border border-line bg-raised p-8 md:p-10 mb-8" data-reveal>
             <div className="flex flex-wrap gap-2 mb-5">
               <span className="text-[11px] font-mono font-medium uppercase tracking-[0.1em] px-2.5 py-1 rounded-md bg-overlay border border-line text-muted">
                 {featured.industry}
@@ -85,10 +85,12 @@ export function PortfolioSection({ featured, grid }: PortfolioSectionProps) {
 
         {grid.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {grid.map((study) => (
+            {grid.map((study, i) => (
               <Link
                 key={study.slug}
                 href={`/work/${study.slug}`}
+                data-reveal
+                style={{ "--reveal-i": i % 2 } as React.CSSProperties}
                 className="group block rounded-lg p-6 bg-raised border border-line transition-all duration-300 hover:border-line-strong hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 <p className="font-mono text-2xl md:text-3xl font-semibold text-accent tabular-nums">

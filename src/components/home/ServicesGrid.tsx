@@ -49,7 +49,7 @@ export function ServicesGrid() {
   return (
     <section className="bg-surface py-16 md:py-24" aria-labelledby="services-heading">
       <div className="mx-auto max-w-container px-5 md:px-8">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl" data-reveal>
           <h2 id="services-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg">
             What we build.
           </h2>
@@ -59,10 +59,12 @@ export function ServicesGrid() {
         </div>
 
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {services.map((service) => (
+          {services.map((service, i) => (
             <Link
               key={service.href}
               href={service.href}
+              data-reveal
+              style={{ "--reveal-i": i % 2 } as React.CSSProperties}
               className={`group block rounded-lg p-6 md:p-8 border transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
                 service.featured
                   ? 'bg-raised border-accent/30 hover:border-accent/60'

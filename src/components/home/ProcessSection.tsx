@@ -25,7 +25,7 @@ export function ProcessSection() {
   return (
     <section className="bg-raised py-16 md:py-24" aria-labelledby="process-heading">
       <div className="mx-auto max-w-container px-5 md:px-8">
-        <div className="max-w-2xl mb-12">
+        <div className="max-w-2xl mb-12" data-reveal>
           <h2 id="process-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg">
             From first call to live site.
           </h2>
@@ -42,7 +42,7 @@ export function ProcessSection() {
           />
 
           {phases.map((phase, i) => (
-            <div key={phase.number} className="relative flex flex-col gap-4">
+            <div key={phase.number} data-reveal style={{ "--reveal-i": i } as React.CSSProperties} className="relative flex flex-col gap-4">
               {/* Mobile connector arrow */}
               {i < phases.length - 1 && (
                 <div className="md:hidden flex justify-center py-2" aria-hidden="true">

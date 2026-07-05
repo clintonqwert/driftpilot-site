@@ -17,7 +17,7 @@ export function CTABand({
   return (
     <section className="bg-accent text-accent-fg py-16 md:py-20" aria-labelledby="cta-band-heading">
       <div className="mx-auto max-w-container px-5 md:px-8">
-        <div className="max-w-[640px] mx-auto text-center">
+        <div className="max-w-[640px] mx-auto text-center" data-reveal>
           <h2 id="cta-band-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-accent-fg">
             {headline}
           </h2>

@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NavBar } from "@/components/layout/NavBar";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import "./globals.css";
 
 // opsz axis = Inter Display optical cuts at the 40–110px headline sizes.
@@ -51,6 +52,7 @@ export default function RootLayout({
             Skip to main content
           </a>
           <NavBar />
+          <ScrollReveal />
           <div id="main-content" tabIndex={-1} className="flex-1 outline-none">{children}</div>
           <SiteFooter />
           <Analytics />

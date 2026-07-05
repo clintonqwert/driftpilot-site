@@ -15,13 +15,13 @@ export function FAQSection({ items, heading = 'Questions we get before the first
     <section className="bg-surface py-16 md:py-24" aria-labelledby="faq-heading">
       <JsonLd schema={faqSchema(items)} />
       <div className="mx-auto max-w-container px-5 md:px-8">
-        <div className="max-w-2xl mb-10">
+        <div className="max-w-2xl mb-10" data-reveal>
           <h2 id="faq-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg">
             {heading}
           </h2>
         </div>
 
-        <div className="max-w-3xl flex flex-col divide-y divide-line border-y border-line">
+        <div className="max-w-3xl flex flex-col divide-y divide-line border-y border-line" data-reveal style={{ "--reveal-i": 1 } as React.CSSProperties}>
           {items.map((item, i) => (
             <details
               key={item.question}

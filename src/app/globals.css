@@ -87,6 +87,34 @@
   }
 }
 
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Scroll-triggered reveals (Kivo motion language). The hidden state only
+   applies once ScrollReveal has hydrated and stamped html.js — no-JS
+   visitors and reduced-motion users always see content. Stagger siblings
+   by setting --reveal-i inline. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 350ms ease-out,
+      transform 350ms ease-out;
+    transition-delay: calc(var(--reveal-i, 0) * 70ms);
+  }
+  html.js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 body {
   @apply bg-surface text-muted font-sans antialiased;
   color-scheme: dark;

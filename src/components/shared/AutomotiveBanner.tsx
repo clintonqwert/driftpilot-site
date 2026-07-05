@@ -22,7 +22,7 @@ export function AutomotiveBanner() {
   return (
     <section className="bg-surface border-t border-line py-8" aria-label="Automotive dealership signal">
       <div className="mx-auto max-w-container px-5 md:px-8">
-        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6" data-reveal>
           <SteeringWheelIcon />
           <div className="flex-1 min-w-0">
             <p className="text-base font-semibold text-fg">

@@ -7,15 +7,15 @@ const stats = [
 
 export function SocialProofBar() {
   return (
-    <section className="bg-ink-50 border-y border-ink-100" aria-label="Social proof statistics">
+    <section className="bg-raised border-y border-line" aria-label="Social proof statistics">
       <div className="mx-auto max-w-container px-5 md:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x md:divide-ink-200">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 md:divide-x md:divide-line">
           {stats.map((stat) => (
             <div key={stat.figure} className="flex flex-col gap-1 md:px-8 first:md:pl-0 last:md:pr-0">
-              <p className="text-lg font-semibold text-ink-900 leading-snug tabular-nums">
+              <p className="text-lg font-semibold text-fg leading-snug tabular-nums">
                 {stat.figure}
               </p>
-              <p className="text-sm text-ink-500">{stat.label}</p>
+              <p className="text-sm text-muted">{stat.label}</p>
             </div>
           ))}
         </div>

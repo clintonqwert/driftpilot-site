@@ -23,13 +23,13 @@ const phases = [
 
 export function ProcessSection() {
   return (
-    <section className="bg-ink-50 py-16 md:py-24" aria-labelledby="process-heading">
+    <section className="bg-raised py-16 md:py-24" aria-labelledby="process-heading">
       <div className="mx-auto max-w-container px-5 md:px-8">
         <div className="max-w-2xl mb-12">
-          <h2 id="process-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-ink-900">
+          <h2 id="process-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg">
             From first call to live site.
           </h2>
-          <p className="mt-3 text-lg text-ink-500">
+          <p className="mt-3 text-lg text-muted">
             Three phases. No surprises. Typical project: 2–4 weeks to production.
           </p>
         </div>
@@ -37,7 +37,7 @@ export function ProcessSection() {
         <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {/* Connecting line (desktop) */}
           <div
-            className="hidden md:block absolute top-10 left-[calc(33.333%+1rem)] right-[calc(33.333%+1rem)] h-px bg-ink-200"
+            className="hidden md:block absolute top-10 left-[calc(33.333%+1rem)] right-[calc(33.333%+1rem)] h-px bg-line-strong"
             aria-hidden="true"
           />
 
@@ -47,24 +47,24 @@ export function ProcessSection() {
               {i < phases.length - 1 && (
                 <div className="md:hidden flex justify-center py-2" aria-hidden="true">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M10 3v14M5 13l5 5 5-5" stroke="#CBD5E1" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M10 3v14M5 13l5 5 5-5" stroke="var(--color-line-strong)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
               )}
 
-              <div className="bg-white rounded-2xl p-6 md:p-8 border border-ink-200 shadow-xs h-full flex flex-col">
+              <div className="bg-surface rounded-lg p-6 md:p-8 border border-line h-full flex flex-col">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="font-mono text-4xl font-semibold text-ink-100 select-none tabular-nums leading-none">
+                  <span className="font-mono text-4xl font-semibold text-line-strong select-none tabular-nums leading-none">
                     {phase.number}
                   </span>
                 </div>
-                <h3 className="text-xl font-semibold tracking-tight text-ink-900">
+                <h3 className="text-xl font-semibold tracking-tight text-fg">
                   {phase.name}
                 </h3>
-                <p className="mt-1 font-mono text-[13px] font-medium text-brand-600 tracking-[0.05em]">
+                <p className="mt-1 font-mono text-[13px] font-medium text-accent tracking-[0.05em]">
                   {phase.timeline}
                 </p>
-                <p className="mt-3 text-base leading-relaxed text-ink-600 flex-1">
+                <p className="mt-3 text-base leading-relaxed text-muted flex-1">
                   {phase.description}
                 </p>
               </div>
@@ -75,7 +75,7 @@ export function ProcessSection() {
         <div className="mt-8 text-center">
           <Link
             href="/how-we-work"
-            className="text-sm font-medium text-brand-600 hover:text-brand-700 underline-offset-4 hover:underline transition-colors"
+            className="text-sm font-medium text-accent hover:text-accent-hover underline-offset-4 hover:underline transition-colors"
           >
             Curious about the details? See exactly how we work →
           </Link>

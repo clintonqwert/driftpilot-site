@@ -3,16 +3,14 @@
 import { useActionState, useEffect, useRef } from 'react';
 import { submitEarlyAccess } from '@/lib/actions/submit-early-access';
 import type { EarlyAccessFormResult } from '@/types/forms';
+import { inputBase, inputError, labelBase, errorBanner, errorText } from '@/components/ui/field';
+import { buttonClasses } from '@/components/ui/button';
 
-const inputBase =
-  'w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-base text-ink-900 placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-shadow';
-const inputError = 'border-danger-600 focus:ring-danger-500';
-const labelBase = 'block text-sm font-medium text-ink-700 mb-1.5';
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p id={id} role="alert" className="mt-1.5 text-sm text-danger-600">
+    <p id={id} role="alert" className={errorText}>
       {message}
     </p>
   );
@@ -47,7 +45,7 @@ export function EarlyAccessForm() {
       {/* Name */}
       <div>
         <label htmlFor="ea-name" className={labelBase}>
-          Full name <span className="text-danger-600" aria-hidden="true">*</span>
+          Full name <span className="text-danger" aria-hidden="true">*</span>
         </label>
         <input
           id="ea-name"
@@ -67,7 +65,7 @@ export function EarlyAccessForm() {
       {/* Email */}
       <div>
         <label htmlFor="ea-email" className={labelBase}>
-          Email address <span className="text-danger-600" aria-hidden="true">*</span>
+          Email address <span className="text-danger" aria-hidden="true">*</span>
         </label>
         <input
           id="ea-email"
@@ -87,7 +85,7 @@ export function EarlyAccessForm() {
       {/* Dealership */}
       <div>
         <label htmlFor="ea-dealership" className={labelBase}>
-          Dealership name <span className="text-ink-400 font-normal">(optional)</span>
+          Dealership name <span className="text-muted font-normal">(optional)</span>
         </label>
         <input
           id="ea-dealership"
@@ -101,7 +99,7 @@ export function EarlyAccessForm() {
       </div>
 
       {errors.form && (
-        <p role="alert" className="text-sm text-danger-600 bg-danger-50 border border-danger-200 rounded-lg px-4 py-3">
+        <p role="alert" className={errorBanner}>
           {errors.form}
         </p>
       )}
@@ -109,12 +107,12 @@ export function EarlyAccessForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="mt-1 inline-flex items-center justify-center gap-2 h-13 px-7 w-full rounded-lg bg-brand-600 text-white text-base font-semibold transition-colors duration-150 hover:bg-brand-700 active:bg-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 shadow-brand disabled:opacity-60 disabled:cursor-not-allowed"
+        className={buttonClasses({ size: 'lg', className: 'mt-1 w-full' })}
       >
         {isPending ? 'Joining…' : 'Join the waitlist →'}
       </button>
 
-      <p className="text-xs text-ink-400 text-center">
+      <p className="text-xs text-muted text-center">
         No commitment. No spam. First to know when we launch.
       </p>
     </form>

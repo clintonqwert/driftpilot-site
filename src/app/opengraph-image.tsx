@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { SITE_NAME } from "@/lib/seo";
+import { KIVO } from "@/lib/design-tokens";
 
 export const alt = `${SITE_NAME} — Web Development Studio`;
 export const size = { width: 1200, height: 630 };
@@ -16,7 +17,7 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#0B1120",
+          background: KIVO.surface,
           position: "relative",
         }}
       >
@@ -28,7 +29,7 @@ export default function Image() {
             left: 0,
             width: "8px",
             height: "100%",
-            background: "#2563EB",
+            background: KIVO.accent,
           }}
         />
 
@@ -38,7 +39,7 @@ export default function Image() {
             fontSize: "28px",
             fontWeight: 600,
             fontFamily: "sans-serif",
-            color: "#60A5FA",
+            color: KIVO.accent,
             letterSpacing: "0.05em",
             textTransform: "uppercase",
             marginBottom: "32px",
@@ -54,7 +55,7 @@ export default function Image() {
             fontSize: "64px",
             fontWeight: 700,
             fontFamily: "sans-serif",
-            color: "#FFFFFF",
+            color: KIVO.fg,
             lineHeight: 1.1,
             maxWidth: "900px",
             display: "flex",
@@ -69,7 +70,7 @@ export default function Image() {
             marginTop: "28px",
             fontSize: "28px",
             fontFamily: "sans-serif",
-            color: "#94A3B8",
+            color: KIVO.muted,
             lineHeight: 1.5,
             maxWidth: "820px",
             display: "flex",
@@ -88,8 +89,8 @@ export default function Image() {
             alignItems: "center",
             gap: "12px",
             padding: "12px 24px",
-            background: "#172554",
-            border: "1px solid #1E40AF",
+            background: KIVO.raised,
+            border: `1px solid ${KIVO.lineStrong}`,
             borderRadius: "12px",
           }}
         >
@@ -98,14 +99,14 @@ export default function Image() {
               width: "10px",
               height: "10px",
               borderRadius: "50%",
-              background: "#2563EB",
+              background: KIVO.accent,
               display: "flex",
             }}
           />
           <div
             style={{
               fontSize: "20px",
-              color: "#CBD5E1",
+              color: KIVO.muted,
               fontFamily: "monospace",
               display: "flex",
             }}

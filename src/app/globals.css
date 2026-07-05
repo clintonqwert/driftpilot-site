@@ -58,32 +58,6 @@
 
   /* ── Shadow ────────────────────────────────────────────────────────── */
   --shadow-accent: 0 8px 32px -12px rgb(162 250 142 / 0.35);
-
-  /* ── LEGACY tokens — removed in the final redesign commit. Do not use
-     in new code; they exist only so unmigrated files keep compiling. ── */
-  --color-brand-50:  #EFF6FF;
-  --color-brand-100: #DBEAFE;
-  --color-brand-200: #BFDBFE;
-  --color-brand-400: #60A5FA;
-  --color-brand-500: #3B82F6;
-  --color-brand-600: #2563EB;
-  --color-brand-700: #1D4ED8;
-  --color-brand-800: #1E40AF;
-  --color-brand-950: #172554;
-  --color-ink-50:  #F8FAFC;
-  --color-ink-100: #F1F5F9;
-  --color-ink-200: #E2E8F0;
-  --color-ink-300: #CBD5E1;
-  --color-ink-400: #94A3B8;
-  --color-ink-500: #64748B;
-  --color-ink-600: #475569;
-  --color-ink-800: #1E293B;
-  --color-ink-900: #0F172A;
-  --color-ink-950: #0B1120;
-  --color-success-600: #16A34A;
-  --color-warning-600: #D97706;
-  --color-danger-600:  #DC2626;
-  --shadow-brand: 0 8px 24px -8px rgb(37 99 235 / 0.4);
 }
 
 /* Static accent washes for dark heroes — also the shader's no-JS fallback. */

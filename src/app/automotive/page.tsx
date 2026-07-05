@@ -76,7 +76,6 @@ export default function AutomotivePage() {
   return (
     <main>
       <PageHero
-        dark
         eyebrow="Driftpilot Drive"
         heading="Own your website. Own your leads."
         subheading="Most dealership websites are rented. We are building the alternative."

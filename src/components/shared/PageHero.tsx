@@ -2,8 +2,6 @@ interface PageHeroProps {
   eyebrow?: string;
   heading: string;
   subheading?: string;
-  /** @deprecated No-op — every hero is dark now. Removed once call-sites drop it. */
-  dark?: boolean;
 }
 
 export function PageHero({ eyebrow, heading, subheading }: PageHeroProps) {

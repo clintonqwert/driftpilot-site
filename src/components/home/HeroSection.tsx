@@ -4,7 +4,7 @@ import { ShaderBackground } from './ShaderBackground';
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-surface -mt-16 pt-28 pb-16 md:pt-40 md:pb-28">
+    <section className="relative overflow-hidden bg-surface -mt-16 pt-28 pb-14 md:pt-32 md:pb-16">
       <ShaderBackground />
       <div className="relative z-10 mx-auto max-w-container px-5 md:px-8">
         <div className="max-w-[880px] mx-auto text-center">
@@ -15,7 +15,7 @@ export function HeroSection() {
             Web Development Studio
           </p>
 
-          <h1 className="mt-4 text-display-sm md:text-display lg:text-display-lg font-semibold tracking-tight text-fg text-balance motion-safe:animate-[riseIn_0.5s_ease-out_both]">
+          <h1 className="mt-4 text-display-sm md:text-display font-semibold tracking-tight text-fg text-balance motion-safe:animate-[riseIn_0.5s_ease-out_both]">
             Your next website should generate leads before it finishes loading.
           </h1>
 

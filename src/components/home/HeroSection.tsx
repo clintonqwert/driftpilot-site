@@ -15,10 +15,7 @@ export function HeroSection() {
             Web Development Studio
           </p>
 
-          <h1
-            className="mt-4 text-display-sm md:text-display lg:text-display-lg font-semibold tracking-tight text-fg text-balance motion-safe:animate-[fadeUp_0.5s_ease-out_both]"
-            style={{ animationDelay: '100ms' }}
-          >
+          <h1 className="mt-4 text-display-sm md:text-display lg:text-display-lg font-semibold tracking-tight text-fg text-balance motion-safe:animate-[riseIn_0.5s_ease-out_both]">
             Your next website should generate leads before it finishes loading.
           </h1>
 

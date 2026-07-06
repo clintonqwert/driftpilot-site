@@ -18,10 +18,7 @@ export function PageHero({ eyebrow, heading, subheading }: PageHeroProps) {
               {eyebrow}
             </p>
           )}
-          <h1
-            className="text-display-sm md:text-display font-semibold tracking-tight text-fg text-balance motion-safe:animate-[fadeUp_0.5s_ease-out_both]"
-            style={{ animationDelay: '80ms' }}
-          >
+          <h1 className="text-display-sm md:text-display font-semibold tracking-tight text-fg text-balance motion-safe:animate-[riseIn_0.5s_ease-out_both]">
             {heading}
           </h1>
           {subheading && (

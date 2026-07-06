@@ -87,6 +87,17 @@
   }
 }
 
+/* Transform-only entrance for LCP elements (h1) — opacity stays 1 so the
+   largest contentful paint is never delayed. */
+@keyframes riseIn {
+  from {
+    transform: translateY(16px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);

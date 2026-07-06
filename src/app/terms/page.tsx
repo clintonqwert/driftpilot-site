@@ -19,24 +19,24 @@ export default function TermsPage() {
 
       <div className="mx-auto max-w-container px-5 md:px-8 py-16 md:py-24">
         <div className="max-w-3xl">
-          <div className="flex flex-col gap-10 text-base leading-relaxed text-ink-600">
+          <div className="flex flex-col gap-10 text-base leading-relaxed text-muted">
 
             <section aria-labelledby="acceptance-heading">
-              <h2 id="acceptance-heading" className="text-xl font-semibold text-ink-900 mb-3">Acceptance of terms</h2>
+              <h2 id="acceptance-heading" className="text-xl font-semibold text-fg mb-3">Acceptance of terms</h2>
               <p>
                 By accessing driftpilot.ca or engaging Driftpilot for professional services, you agree to these terms. If you are entering into these terms on behalf of a company or organisation, you represent that you have authority to bind that entity.
               </p>
             </section>
 
             <section aria-labelledby="services-heading">
-              <h2 id="services-heading" className="text-xl font-semibold text-ink-900 mb-3">Services</h2>
+              <h2 id="services-heading" className="text-xl font-semibold text-fg mb-3">Services</h2>
               <p>
                 Driftpilot provides web development, lead generation, and related digital services. The specific scope, deliverables, timeline, and price for any engagement are defined in a written scope document or proposal agreed upon by both parties before work begins. Services described on this website are illustrative and do not constitute a binding offer.
               </p>
             </section>
 
             <section aria-labelledby="payment-heading">
-              <h2 id="payment-heading" className="text-xl font-semibold text-ink-900 mb-3">Payment</h2>
+              <h2 id="payment-heading" className="text-xl font-semibold text-fg mb-3">Payment</h2>
               <p className="mb-3">
                 Unless otherwise agreed in writing:
               </p>
@@ -51,38 +51,38 @@ export default function TermsPage() {
             </section>
 
             <section aria-labelledby="ip-heading">
-              <h2 id="ip-heading" className="text-xl font-semibold text-ink-900 mb-3">Intellectual property</h2>
+              <h2 id="ip-heading" className="text-xl font-semibold text-fg mb-3">Intellectual property</h2>
               <p>
                 Upon receipt of full payment, all custom code, designs, and content created specifically for your project are transferred to you. Driftpilot retains the right to display completed work in its portfolio unless you request otherwise in writing before the project begins. Third-party libraries, frameworks, and tools used in the build are subject to their respective open-source licences.
               </p>
             </section>
 
             <section aria-labelledby="revisions-heading">
-              <h2 id="revisions-heading" className="text-xl font-semibold text-ink-900 mb-3">Revisions and changes</h2>
+              <h2 id="revisions-heading" className="text-xl font-semibold text-fg mb-3">Revisions and changes</h2>
               <p>
                 The number of included revision rounds is specified in your scope document. Requests for work outside the agreed scope will be quoted separately and require written approval before being undertaken. Driftpilot reserves the right to decline change requests that materially alter the agreed scope after work has begun.
               </p>
             </section>
 
             <section aria-labelledby="liability-heading">
-              <h2 id="liability-heading" className="text-xl font-semibold text-ink-900 mb-3">Limitation of liability</h2>
+              <h2 id="liability-heading" className="text-xl font-semibold text-fg mb-3">Limitation of liability</h2>
               <p>
                 To the maximum extent permitted by law, Driftpilot&apos;s total liability for any claim arising from its services is limited to the amount paid by you for the specific engagement giving rise to the claim. Driftpilot is not liable for indirect, incidental, or consequential damages including lost revenue, lost data, or business interruption.
               </p>
             </section>
 
             <section aria-labelledby="law-heading">
-              <h2 id="law-heading" className="text-xl font-semibold text-ink-900 mb-3">Governing law</h2>
+              <h2 id="law-heading" className="text-xl font-semibold text-fg mb-3">Governing law</h2>
               <p>
                 These terms are governed by the laws of the State of Nevada, United States, without regard to conflict-of-law principles. Any disputes arising under these terms will be resolved in the courts of Nevada.
               </p>
             </section>
 
             <section aria-labelledby="contact-terms-heading">
-              <h2 id="contact-terms-heading" className="text-xl font-semibold text-ink-900 mb-3">Contact</h2>
+              <h2 id="contact-terms-heading" className="text-xl font-semibold text-fg mb-3">Contact</h2>
               <p>
                 Questions about these terms? Email us at{' '}
-                <a href="mailto:hello@driftpilot.ca" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.ca</a>.
+                <a href="mailto:hello@driftpilot.ca" className="text-accent hover:text-accent-hover underline-offset-2 hover:underline">hello@driftpilot.ca</a>.
               </p>
             </section>
 

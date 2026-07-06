@@ -30,16 +30,16 @@ export default function ThankYouPage() {
   return (
     <main>
       {/* Confirmation */}
-      <section className="bg-white py-20 md:py-32" aria-labelledby="thankyou-heading">
+      <section className="bg-surface py-20 md:py-32" aria-labelledby="thankyou-heading">
         <div className="mx-auto max-w-container px-5 md:px-8 text-center">
-          <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full bg-brand-50">
+          <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10">
             <svg
               width="32"
               height="32"
               viewBox="0 0 32 32"
               fill="none"
               aria-hidden="true"
-              className="text-brand-600"
+              className="text-accent"
             >
               <path
                 d="M6 16l7 7L26 9"
@@ -52,35 +52,35 @@ export default function ThankYouPage() {
           </div>
           <h1
             id="thankyou-heading"
-            className="text-4xl md:text-[3rem] font-semibold tracking-tight leading-[1.1] text-ink-900 text-balance"
+            className="text-4xl md:text-[3rem] font-semibold tracking-tight leading-[1.1] text-fg text-balance"
           >
             {"We've got your message."}
           </h1>
-          <p className="mt-5 text-lg md:text-xl leading-relaxed text-ink-500 max-w-xl mx-auto">
+          <p className="mt-5 text-lg md:text-xl leading-relaxed text-muted max-w-xl mx-auto">
             Expect a reply within one business day — usually sooner.
           </p>
         </div>
       </section>
 
       {/* What happens next */}
-      <section className="bg-ink-50 py-16 md:py-24" aria-labelledby="next-steps-heading">
+      <section className="bg-raised py-16 md:py-24" aria-labelledby="next-steps-heading">
         <div className="mx-auto max-w-container px-5 md:px-8">
           <div className="max-w-2xl mx-auto">
             <h2
               id="next-steps-heading"
-              className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-ink-900 mb-10"
+              className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg mb-10"
             >
               What happens next.
             </h2>
             <div className="flex flex-col gap-8">
               {steps.map((step) => (
                 <div key={step.number} className="flex gap-6 items-start">
-                  <span className="shrink-0 font-mono text-2xl font-semibold text-brand-600 w-10 tabular-nums">
+                  <span className="shrink-0 font-mono text-2xl font-semibold text-accent w-10 tabular-nums">
                     {step.number}
                   </span>
                   <div>
-                    <h3 className="text-lg font-semibold text-ink-900">{step.heading}</h3>
-                    <p className="mt-1.5 text-base leading-relaxed text-ink-600">{step.body}</p>
+                    <h3 className="text-lg font-semibold text-fg">{step.heading}</h3>
+                    <p className="mt-1.5 text-base leading-relaxed text-muted">{step.body}</p>
                   </div>
                 </div>
               ))}
@@ -90,10 +90,10 @@ export default function ThankYouPage() {
       </section>
 
       {/* Back link */}
-      <section className="bg-white py-12 text-center">
+      <section className="bg-surface py-12 text-center">
         <Link
           href="/"
-          className="text-sm font-medium text-brand-600 hover:text-brand-700 underline-offset-4 hover:underline transition-colors"
+          className="text-sm font-medium text-accent hover:text-accent-hover underline-offset-4 hover:underline transition-colors"
         >
           ← Back to homepage
         </Link>

@@ -34,6 +34,8 @@ jobs:
 
       # TODO(phase 1 launch): Lighthouse CI against the Vercel preview URL
       # asserting perf ≥ 95, LCP < 1.5s, CLS < 0.05, TBT < 150ms, and a
-      # first-load JS budget check (< 110 kB) — handoff doc §8, §15.
+      # first-load JS budget check — handoff doc §8, §15. The §15 budget of
+      # 110 kB predates the framework baseline (~190 kB gz measured on the
+      # homepage as of PR #17); re-baseline before implementing this gate.
       # Lab data only — complements @vercel/speed-insights, which already
       # reports field (real-user) metrics in production; not duplicates.

@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef, useSyncExternalStore } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { PRIMARY_NAV } from '@/lib/content/navigation';
+import { buttonClasses } from '@/components/ui/button';
 
 function subscribeToScroll(cb: () => void) {
   window.addEventListener('scroll', cb, { passive: true });
@@ -21,9 +21,6 @@ export function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
-  const isHomepage = pathname === '/';
-  const showScrolled = isScrolled || !isHomepage;
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -69,16 +66,13 @@ export function NavBar() {
     }
   };
 
-  const textColor = showScrolled ? 'text-ink-900' : 'text-white';
-  const hoverColor = showScrolled ? 'hover:text-ink-600' : 'hover:text-ink-300';
-
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-[background-color,box-shadow] duration-200 ${
-          showScrolled
-            ? 'bg-white/90 backdrop-blur-md shadow-sm'
-            : 'bg-transparent'
+        className={`sticky top-0 z-50 transition-[background-color,border-color] duration-300 border-b ${
+          isScrolled
+            ? 'bg-surface/80 backdrop-blur-md border-line'
+            : 'bg-transparent border-transparent'
         }`}
       >
         <div className="mx-auto max-w-container px-5 md:px-8">
@@ -87,7 +81,7 @@ export function NavBar() {
             <Link
               href="/"
               aria-label="Driftpilot home"
-              className={`text-lg font-semibold tracking-tight transition-colors duration-200 ${textColor}`}
+              className="text-lg font-semibold tracking-tight text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               Driftpilot
             </Link>
@@ -98,7 +92,7 @@ export function NavBar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-sm font-medium transition-colors duration-150 ${textColor} ${hoverColor}`}
+                  className="text-sm font-medium text-muted hover:text-fg transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   {link.label}
                 </Link>
@@ -107,10 +101,7 @@ export function NavBar() {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 h-10 px-5 rounded-lg bg-brand-600 text-white text-sm font-semibold transition-colors duration-150 hover:bg-brand-700 active:bg-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
-              >
+              <Link href="/contact" className={buttonClasses({ size: 'sm' })}>
                 Book a Scope Call
               </Link>
             </div>
@@ -123,7 +114,7 @@ export function NavBar() {
               aria-expanded={isMenuOpen}
               aria-controls="mobile-nav-drawer"
               onClick={() => setIsMenuOpen((v) => !v)}
-              className={`md:hidden flex flex-col justify-center gap-1.5 w-11 h-11 rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 ${textColor}`}
+              className="md:hidden flex flex-col justify-center gap-1.5 w-11 h-11 rounded-md text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               <span
                 className={`block h-0.5 w-6 mx-auto rounded-full bg-current transition-transform duration-200 ${
@@ -156,15 +147,15 @@ export function NavBar() {
         >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-ink-950/60"
+            className="absolute inset-0 bg-black/60"
             onClick={() => setIsMenuOpen(false)}
           />
           {/* Drawer panel */}
-          <div ref={drawerRef} id="mobile-nav-drawer" className="absolute right-0 top-0 h-full w-4/5 max-w-xs bg-ink-950 flex flex-col">
+          <div ref={drawerRef} id="mobile-nav-drawer" className="absolute right-0 top-0 h-full w-4/5 max-w-xs bg-surface border-l border-line flex flex-col">
             <div className="flex items-center justify-between h-16 px-5">
               <Link
                 href="/"
-                className="text-lg font-semibold tracking-tight text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+                className="text-lg font-semibold tracking-tight text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Driftpilot
@@ -173,7 +164,7 @@ export function NavBar() {
                 type="button"
                 aria-label="Close menu"
                 onClick={() => setIsMenuOpen(false)}
-                className="w-11 h-11 flex items-center justify-center text-ink-400 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+                className="w-11 h-11 flex items-center justify-center text-muted hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>
@@ -186,7 +177,7 @@ export function NavBar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="py-3 text-lg font-medium text-ink-300 hover:text-white transition-colors"
+                  className="py-3 text-lg font-medium text-muted hover:text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
@@ -197,7 +188,7 @@ export function NavBar() {
             <div className="px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
               <Link
                 href="/contact"
-                className="flex items-center justify-center h-12 w-full rounded-lg bg-brand-600 text-white text-base font-semibold transition-colors duration-150 hover:bg-brand-700 active:bg-brand-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+                className={buttonClasses({ size: 'md', className: 'w-full' })}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Book a Scope Call

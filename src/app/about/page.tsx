@@ -42,14 +42,14 @@ export default function AboutPage() {
       />
 
       {/* Founder section */}
-      <section className="bg-white py-16 md:py-24" aria-labelledby="founder-heading">
+      <section className="bg-surface py-16 md:py-24" aria-labelledby="founder-heading">
         <div className="mx-auto max-w-container px-5 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
             <div className="lg:col-span-3">
-              <h2 id="founder-heading" className="text-2xl md:text-3xl font-semibold tracking-tight text-ink-900 mb-6">
+              <h2 id="founder-heading" className="text-2xl md:text-3xl font-semibold tracking-tight text-fg mb-6">
                 Built by a solo founder who got tired of slow, expensive agencies.
               </h2>
-              <div className="flex flex-col gap-4 text-base leading-relaxed text-ink-600">
+              <div className="flex flex-col gap-4 text-base leading-relaxed text-muted">
                 <p>
                   Driftpilot started with a simple frustration: great web development shouldn&apos;t take six months and cost a small fortune. Most agencies are structured around process, not outcomes — discovery sprints that drag, design rounds that loop, launch dates that slip.
                 </p>
@@ -63,7 +63,7 @@ export default function AboutPage() {
               <div className="mt-8">
                 <Link
                   href="/how-we-work"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:text-brand-700 transition-colors underline-offset-4 hover:underline"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover transition-colors underline-offset-4 hover:underline"
                 >
                   See exactly how we work →
                 </Link>
@@ -71,17 +71,17 @@ export default function AboutPage() {
             </div>
 
             <div className="lg:col-span-2 flex flex-col gap-4">
-              <div className="rounded-2xl border border-ink-100 bg-ink-50 p-6 md:p-8">
-                <p className="font-mono text-4xl font-semibold text-ink-900 tabular-nums">98</p>
-                <p className="mt-1 text-sm text-ink-500">Lighthouse score — this site</p>
+              <div className="rounded-lg border border-line bg-raised p-6 md:p-8">
+                <p className="font-mono text-4xl font-semibold text-fg tabular-nums">98</p>
+                <p className="mt-1 text-sm text-muted">Lighthouse score — this site</p>
               </div>
-              <div className="rounded-2xl border border-ink-100 bg-ink-50 p-6 md:p-8">
-                <p className="font-mono text-4xl font-semibold text-ink-900 tabular-nums">0.9s</p>
-                <p className="mt-1 text-sm text-ink-500">LCP — largest contentful paint</p>
+              <div className="rounded-lg border border-line bg-raised p-6 md:p-8">
+                <p className="font-mono text-4xl font-semibold text-fg tabular-nums">0.9s</p>
+                <p className="mt-1 text-sm text-muted">LCP — largest contentful paint</p>
               </div>
-              <div className="rounded-2xl border border-ink-100 bg-ink-50 p-6 md:p-8">
-                <p className="font-mono text-4xl font-semibold text-ink-900 tabular-nums">9 days</p>
-                <p className="mt-1 text-sm text-ink-500">Delivery time for this site</p>
+              <div className="rounded-lg border border-line bg-raised p-6 md:p-8">
+                <p className="font-mono text-4xl font-semibold text-fg tabular-nums">9 days</p>
+                <p className="mt-1 text-sm text-muted">Delivery time for this site</p>
               </div>
             </div>
           </div>
@@ -89,13 +89,13 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-ink-50 py-16 md:py-24" aria-labelledby="values-heading">
+      <section className="bg-raised py-16 md:py-24" aria-labelledby="values-heading">
         <div className="mx-auto max-w-container px-5 md:px-8">
           <div className="max-w-2xl mb-12">
-            <h2 id="values-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-ink-900">
+            <h2 id="values-heading" className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg">
               How we think.
             </h2>
-            <p className="mt-3 text-lg text-ink-500">
+            <p className="mt-3 text-lg text-muted">
               Three principles that show up in every project.
             </p>
           </div>
@@ -103,12 +103,12 @@ export default function AboutPage() {
             {values.map((v) => (
               <div
                 key={v.title}
-                className="bg-white rounded-2xl border border-ink-200 p-6 md:p-8 shadow-xs"
+                className="bg-surface rounded-lg border border-line p-6 md:p-8"
               >
-                <h3 className="text-xl font-semibold tracking-tight text-ink-900 mb-3">
+                <h3 className="text-xl font-semibold tracking-tight text-fg mb-3">
                   {v.title}
                 </h3>
-                <p className="text-base leading-relaxed text-ink-600">{v.body}</p>
+                <p className="text-base leading-relaxed text-muted">{v.body}</p>
               </div>
             ))}
           </div>
@@ -116,13 +116,13 @@ export default function AboutPage() {
       </section>
 
       {/* Stack signal — recruiter-facing */}
-      <section className="bg-white py-16 md:py-24" aria-labelledby="stack-heading">
+      <section className="bg-surface py-16 md:py-24" aria-labelledby="stack-heading">
         <div className="mx-auto max-w-container px-5 md:px-8">
           <div className="max-w-2xl mb-8">
-            <h2 id="stack-heading" className="text-2xl md:text-3xl font-semibold tracking-tight text-ink-900">
+            <h2 id="stack-heading" className="text-2xl md:text-3xl font-semibold tracking-tight text-fg">
               How we build.
             </h2>
-            <p className="mt-3 text-base text-ink-500">
+            <p className="mt-3 text-base text-muted">
               Every project runs on a modern, open-source stack. No proprietary tooling, no vendor lock-in.
             </p>
           </div>
@@ -130,13 +130,13 @@ export default function AboutPage() {
             {stack.map((tech) => (
               <span
                 key={tech}
-                className="font-mono text-sm font-medium px-3 py-1.5 rounded-lg bg-ink-50 border border-ink-200 text-ink-700"
+                className="font-mono text-sm font-medium px-3 py-1.5 rounded-lg bg-raised border border-line text-fg"
               >
                 {tech}
               </span>
             ))}
           </div>
-          <p className="mt-6 text-sm text-ink-500 max-w-prose">
+          <p className="mt-6 text-sm text-muted max-w-prose">
             Deployed on Vercel with full TypeScript coverage, App Router architecture, and server-first rendering. Performance targets are non-negotiable: Lighthouse 95+ is required before any site ships.
           </p>
         </div>

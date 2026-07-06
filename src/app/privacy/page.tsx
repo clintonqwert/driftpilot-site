@@ -19,17 +19,17 @@ export default function PrivacyPage() {
 
       <div className="mx-auto max-w-container px-5 md:px-8 py-16 md:py-24">
         <div className="max-w-3xl prose prose-ink">
-          <div className="flex flex-col gap-10 text-base leading-relaxed text-ink-600">
+          <div className="flex flex-col gap-10 text-base leading-relaxed text-muted">
 
             <section aria-labelledby="overview-heading">
-              <h2 id="overview-heading" className="text-xl font-semibold text-ink-900 mb-3">Overview</h2>
+              <h2 id="overview-heading" className="text-xl font-semibold text-fg mb-3">Overview</h2>
               <p>
                 Driftpilot (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) operates driftpilot.ca. This policy explains what information we collect, how we use it, and what rights you have over it. We collect the minimum data required to respond to inquiries and improve the site. We do not sell your data.
               </p>
             </section>
 
             <section aria-labelledby="collect-heading">
-              <h2 id="collect-heading" className="text-xl font-semibold text-ink-900 mb-3">Information we collect</h2>
+              <h2 id="collect-heading" className="text-xl font-semibold text-fg mb-3">Information we collect</h2>
               <p className="mb-3">We collect information you provide directly through our contact form:</p>
               <ul className="list-disc pl-5 flex flex-col gap-1.5">
                 <li>Name and email address (required)</li>
@@ -42,15 +42,15 @@ export default function PrivacyPage() {
             </section>
 
             <section aria-labelledby="analytics-heading">
-              <h2 id="analytics-heading" className="text-xl font-semibold text-ink-900 mb-3">Analytics</h2>
+              <h2 id="analytics-heading" className="text-xl font-semibold text-fg mb-3">Analytics</h2>
               <p>
-                We use <strong className="text-ink-800">Vercel Web Analytics</strong>, a privacy-friendly analytics service. It does not use cookies and does not track visitors across sites or devices. Page views and referrer information are aggregated and anonymous. You can learn more at{' '}
-                <a href="https://vercel.com/docs/analytics/privacy-policy" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline" target="_blank" rel="noopener noreferrer">vercel.com/docs/analytics/privacy-policy</a>.
+                We use <strong className="text-fg">Vercel Web Analytics</strong>, a privacy-friendly analytics service. It does not use cookies and does not track visitors across sites or devices. Page views and referrer information are aggregated and anonymous. You can learn more at{' '}
+                <a href="https://vercel.com/docs/analytics/privacy-policy" className="text-accent hover:text-accent-hover underline-offset-2 hover:underline" target="_blank" rel="noopener noreferrer">vercel.com/docs/analytics/privacy-policy</a>.
               </p>
             </section>
 
             <section aria-labelledby="use-heading">
-              <h2 id="use-heading" className="text-xl font-semibold text-ink-900 mb-3">How we use your information</h2>
+              <h2 id="use-heading" className="text-xl font-semibold text-fg mb-3">How we use your information</h2>
               <p className="mb-3">Information collected via the contact form is used only to:</p>
               <ul className="list-disc pl-5 flex flex-col gap-1.5">
                 <li>Respond to your project inquiry</li>
@@ -63,34 +63,34 @@ export default function PrivacyPage() {
             </section>
 
             <section aria-labelledby="retention-heading">
-              <h2 id="retention-heading" className="text-xl font-semibold text-ink-900 mb-3">Data retention</h2>
+              <h2 id="retention-heading" className="text-xl font-semibold text-fg mb-3">Data retention</h2>
               <p>
                 Contact form submissions are retained for up to 24 months from the date of inquiry. If you&apos;d like your information removed earlier, email us at{' '}
-                <a href="mailto:hello@driftpilot.ca" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.ca</a>{' '}
+                <a href="mailto:hello@driftpilot.ca" className="text-accent hover:text-accent-hover underline-offset-2 hover:underline">hello@driftpilot.ca</a>{' '}
                 and we&apos;ll action it within 7 business days.
               </p>
             </section>
 
             <section aria-labelledby="rights-heading">
-              <h2 id="rights-heading" className="text-xl font-semibold text-ink-900 mb-3">Your rights</h2>
+              <h2 id="rights-heading" className="text-xl font-semibold text-fg mb-3">Your rights</h2>
               <p>
                 You have the right to request access to, correction of, or deletion of your personal data at any time. To exercise these rights, contact us at{' '}
-                <a href="mailto:hello@driftpilot.ca" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.ca</a>.
+                <a href="mailto:hello@driftpilot.ca" className="text-accent hover:text-accent-hover underline-offset-2 hover:underline">hello@driftpilot.ca</a>.
               </p>
             </section>
 
             <section aria-labelledby="changes-heading">
-              <h2 id="changes-heading" className="text-xl font-semibold text-ink-900 mb-3">Changes to this policy</h2>
+              <h2 id="changes-heading" className="text-xl font-semibold text-fg mb-3">Changes to this policy</h2>
               <p>
                 We may update this policy as our services evolve. Significant changes will be noted at the top of this page with a revised date. Continued use of the site after changes constitutes acceptance of the updated policy.
               </p>
             </section>
 
             <section aria-labelledby="contact-privacy-heading">
-              <h2 id="contact-privacy-heading" className="text-xl font-semibold text-ink-900 mb-3">Contact</h2>
+              <h2 id="contact-privacy-heading" className="text-xl font-semibold text-fg mb-3">Contact</h2>
               <p>
                 Questions about this policy? Email us at{' '}
-                <a href="mailto:hello@driftpilot.ca" className="text-brand-600 hover:text-brand-700 underline-offset-2 hover:underline">hello@driftpilot.ca</a>.
+                <a href="mailto:hello@driftpilot.ca" className="text-accent hover:text-accent-hover underline-offset-2 hover:underline">hello@driftpilot.ca</a>.
               </p>
             </section>
 

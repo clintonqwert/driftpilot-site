@@ -1,52 +1,79 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand — electric blue */
-  --color-brand-50:  #EFF6FF;
-  --color-brand-100: #DBEAFE;
-  --color-brand-200: #BFDBFE;
-  --color-brand-400: #60A5FA;
-  --color-brand-500: #3B82F6;
-  --color-brand-600: #2563EB;
-  --color-brand-700: #1D4ED8;
-  --color-brand-800: #1E40AF;
-  --color-brand-950: #172554;
+  /* ── Kivo surfaces ─────────────────────────────────────────────────── */
+  --color-surface: #000000;
+  --color-raised: #080a0d;
+  --color-overlay: #0d1014;
 
-  /* Neutrals — ink */
-  --color-ink-50:  #F8FAFC;
-  --color-ink-100: #F1F5F9;
-  --color-ink-200: #E2E8F0;
-  --color-ink-300: #CBD5E1;
-  --color-ink-400: #94A3B8;
-  --color-ink-500: #64748B;
-  --color-ink-600: #475569;
-  --color-ink-800: #1E293B;
-  --color-ink-900: #0F172A;
-  --color-ink-950: #0B1120;
+  /* ── Text ──────────────────────────────────────────────────────────── */
+  --color-fg: #ffffff;
+  --color-muted: #8f8f8f;
 
-  /* Semantic */
-  --color-success-600: #16A34A;
-  --color-warning-600: #D97706;
-  --color-danger-600:  #DC2626;
+  /* ── Accent (neon green) ───────────────────────────────────────────── */
+  --color-accent: #a2fa8e;
+  --color-accent-hover: #b9fca9;
+  --color-accent-active: #8ce878;
+  --color-accent-fg: #222222;
 
-  /* Type */
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  /* ── Lines ─────────────────────────────────────────────────────────── */
+  --color-line: #222222;
+  --color-line-strong: #2f2f2f;
+
+  /* ── Status (dark-tuned) ───────────────────────────────────────────── */
+  --color-danger: #ff8a80;
+  --color-danger-surface: #1a0b0a;
+  --color-danger-line: #4a1f1c;
+  --color-success: #a2fa8e;
+  --color-warning: #ffd479;
+
+  /* ── Type ──────────────────────────────────────────────────────────── */
+  --font-sans: var(--font-inter), "Inter Display", Arial, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Layout */
+  /* Kivo base: 18px / 1.4 */
+  --text-base: 1.125rem;
+  --text-base--line-height: 1.4;
+
+  /* Kivo display scale — additive; body copy keeps Tailwind's text-lg etc. */
+  --text-display-sm: 2.5rem;
+  --text-display-sm--line-height: 1.1;
+  --text-display: 4rem;
+  --text-display--line-height: 1.05;
+  --text-display-lg: 5.625rem;
+  --text-display-lg--line-height: 1.02;
+  --text-display-xl: 6.875rem;
+  --text-display-xl--line-height: 1;
+
+  /* ── Radii (Kivo) — pill is explicit; rounded-xl keeps its Tailwind
+     default so the standard scale isn't silently repurposed ─────────── */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 100px;
+
+  /* ── Layout ────────────────────────────────────────────────────────── */
   --container-container: 1200px;
   --spacing-13: 3.25rem;
 
-  /* Shadow */
-  --shadow-brand: 0 8px 24px -8px rgb(37 99 235 / 0.4);
+  /* ── Shadow ────────────────────────────────────────────────────────── */
+  --shadow-accent: 0 8px 32px -12px rgb(162 250 142 / 0.35);
 }
 
-@utility focus-ring {
-  &:focus-visible {
-    outline-width: 2px;
-    outline-offset: 2px;
-    outline-color: var(--color-brand-500);
-  }
+/* Static accent washes for dark heroes — also the shader's no-JS fallback. */
+@utility hero-glow {
+  background:
+    radial-gradient(
+      55% 45% at 85% -10%,
+      color-mix(in oklab, var(--color-accent) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 35% at -8% 25%,
+      color-mix(in oklab, var(--color-accent) 7%, transparent),
+      transparent 70%
+    );
 }
 
 @keyframes fadeUp {
@@ -60,7 +87,56 @@
   }
 }
 
+/* Transform-only entrance for LCP elements (h1) — opacity stays 1 so the
+   largest contentful paint is never delayed. */
+@keyframes riseIn {
+  from {
+    transform: translateY(16px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Scroll-triggered reveals (Kivo motion language). The hidden state only
+   applies once ScrollReveal has hydrated and stamped html.js — no-JS
+   visitors and reduced-motion users always see content. Stagger siblings
+   by setting --reveal-i inline. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 350ms ease-out,
+      transform 350ms ease-out;
+    transition-delay: calc(var(--reveal-i, 0) * 70ms);
+  }
+  html.js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 body {
-  @apply bg-white text-ink-600 font-sans antialiased;
-  color-scheme: light;
+  @apply bg-surface text-muted font-sans antialiased;
+  color-scheme: dark;
+}
+
+/* Keep autofilled inputs on the dark palette instead of UA yellow/white. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-raised) inset;
+  -webkit-text-fill-color: var(--color-fg);
+  caret-color: var(--color-fg);
 }

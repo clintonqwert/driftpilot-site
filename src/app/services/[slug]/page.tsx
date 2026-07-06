@@ -63,19 +63,19 @@ export default async function ServicePage(props: PageProps<'/services/[slug]'>) 
 
       {/* Benefits + Deliverables */}
       {(hasBenefits || hasDeliverables) && (
-        <section className="bg-ink-50 py-16 md:py-24" aria-labelledby="what-you-get-heading">
+        <section className="bg-raised py-16 md:py-24" aria-labelledby="what-you-get-heading">
           <div className="mx-auto max-w-container px-5 md:px-8">
             <h2
               id="what-you-get-heading"
-              className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-ink-900 mb-10"
+              className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg mb-10"
             >
               What you get.
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
               {/* Benefits */}
               {hasBenefits && (
-                <div className="rounded-2xl border border-ink-200 bg-white p-6 md:p-8 shadow-xs">
-                  <h3 className="text-lg font-semibold text-ink-900 mb-5">Why it matters</h3>
+                <div className="rounded-lg border border-line bg-raised p-6 md:p-8">
+                  <h3 className="text-lg font-semibold text-fg mb-5">Why it matters</h3>
                   <ul className="flex flex-col gap-4">
                     {service.benefits!.map((benefit) => (
                       <li key={benefit} className="flex items-start gap-3">
@@ -85,7 +85,7 @@ export default async function ServicePage(props: PageProps<'/services/[slug]'>) 
                           viewBox="0 0 20 20"
                           fill="none"
                           aria-hidden="true"
-                          className="shrink-0 mt-0.5 text-brand-600"
+                          className="shrink-0 mt-0.5 text-accent"
                         >
                           <path
                             d="M4 10l4 4 8-8"
@@ -95,7 +95,7 @@ export default async function ServicePage(props: PageProps<'/services/[slug]'>) 
                             strokeLinejoin="round"
                           />
                         </svg>
-                        <span className="text-base leading-relaxed text-ink-700">{benefit}</span>
+                        <span className="text-base leading-relaxed text-fg">{benefit}</span>
                       </li>
                     ))}
                   </ul>
@@ -104,12 +104,12 @@ export default async function ServicePage(props: PageProps<'/services/[slug]'>) 
 
               {/* Deliverables */}
               {hasDeliverables && (
-                <div className="rounded-2xl border border-ink-200 bg-white p-6 md:p-8 shadow-xs">
-                  <h3 className="text-lg font-semibold text-ink-900 mb-5">{"What's included"}</h3>
+                <div className="rounded-lg border border-line bg-raised p-6 md:p-8">
+                  <h3 className="text-lg font-semibold text-fg mb-5">{"What's included"}</h3>
                   <ul className="flex flex-col gap-3">
                     {service.deliverables!.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-base text-ink-700">
-                        <span className="shrink-0 mt-1 w-1.5 h-1.5 rounded-full bg-brand-500" aria-hidden="true" />
+                      <li key={item} className="flex items-start gap-3 text-base text-fg">
+                        <span className="shrink-0 mt-1 w-1.5 h-1.5 rounded-full bg-accent/100" aria-hidden="true" />
                         {item}
                       </li>
                     ))}
@@ -122,11 +122,11 @@ export default async function ServicePage(props: PageProps<'/services/[slug]'>) 
       )}
 
       {/* How we approach it */}
-      <section className="bg-white py-16 md:py-24" aria-labelledby="approach-heading">
+      <section className="bg-surface py-16 md:py-24" aria-labelledby="approach-heading">
         <div className="mx-auto max-w-container px-5 md:px-8">
           <h2
             id="approach-heading"
-            className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-ink-900 mb-10"
+            className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg mb-10"
           >
             How we work.
           </h2>
@@ -134,13 +134,13 @@ export default async function ServicePage(props: PageProps<'/services/[slug]'>) 
             {processSteps.map((step) => (
               <div
                 key={step.number}
-                className="rounded-2xl border border-ink-100 bg-ink-50 p-6 md:p-8"
+                className="rounded-lg border border-line bg-raised p-6 md:p-8"
               >
-                <span className="font-mono text-3xl font-semibold text-brand-600 tabular-nums">
+                <span className="font-mono text-3xl font-semibold text-accent tabular-nums">
                   {step.number}
                 </span>
-                <h3 className="mt-3 text-lg font-semibold text-ink-900">{step.heading}</h3>
-                <p className="mt-2 text-base leading-relaxed text-ink-600">{step.body}</p>
+                <h3 className="mt-3 text-lg font-semibold text-fg">{step.heading}</h3>
+                <p className="mt-2 text-base leading-relaxed text-muted">{step.body}</p>
               </div>
             ))}
           </div>

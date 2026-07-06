@@ -1,15 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Geist_Mono } from "next/font/google";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NavBar } from "@/components/layout/NavBar";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// opsz axis = Inter Display optical cuts at the 40–110px headline sizes.
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  axes: ["opsz"],
 });
 
 const geistMono = Geist_Mono({
@@ -39,16 +42,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-brand-600 focus:text-white focus:font-semibold focus:text-sm"
+            className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:rounded-md focus:bg-accent focus:text-accent-fg focus:font-semibold focus:text-sm"
           >
             Skip to main content
           </a>
           <NavBar />
+          <ScrollReveal />
           <div id="main-content" tabIndex={-1} className="flex-1 outline-none">{children}</div>
           <SiteFooter />
           <Analytics />

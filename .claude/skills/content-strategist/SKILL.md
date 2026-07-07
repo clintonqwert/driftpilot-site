@@ -47,6 +47,11 @@ $ARGUMENTS
 3. **Proposed copy** — before/after for each copy change, final wording only
 4. **Structure changes** — page hierarchy, navigation, and internal-link moves, with rationale
 
+## Checkpoint (survive usage-limit resets)
+
+- Before ending any turn — and immediately if a usage-limit warning appears — write `HANDOFF.md` in your working directory: the task or PR in progress, pages already audited, findings and proposed copy drafted so far, exact next step. This local scratch file is gitignored and never committed, so it does not violate the never-modify-code rule.
+- On starting or resuming a session, read `HANDOFF.md` first if it exists and continue from its next step. Delete it after delivering your final brief or PR comment.
+
 ## Handover
 
 For PR reviews, post the report as a comment on the PR (`gh pr comment <number> --body-file <report>`), so the Builder can read it with `gh pr view <number> --comments` and work the findings. For strategy tasks, the brief must stand alone as a handoff the Builder can implement cold. Always show the report in your response to the user.

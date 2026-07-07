@@ -75,6 +75,29 @@
 			},
 			"problemMatcher": [],
 			"runOptions": { "runOn": "folderOpen" }
+		},
+		{
+			"label": "resume-role",
+			"detail": "Retry `claude --continue` in a role's worktree until the usage window resets",
+			"type": "shell",
+			"command": "${workspaceFolder}/scripts/resume-role.sh",
+			"args": ["${input:resumeDir}"],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"focus": false,
+				"close": false
+			},
+			"problemMatcher": []
+		}
+	],
+	"inputs": [
+		{
+			"id": "resumeDir",
+			"type": "promptString",
+			"description": "Directory whose Claude session to resume (the role's worktree)",
+			"default": "${workspaceFolder}"
 		}
 	]
 }

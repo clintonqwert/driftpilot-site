@@ -40,6 +40,11 @@ $ARGUMENTS
 
 Focus on maintainability and scalability.
 
+## Checkpoint (survive usage-limit resets)
+
+- Before ending any turn — and immediately if a usage-limit warning appears — write `HANDOFF.md` in your working directory: PR under review, files already reviewed, findings drafted so far, exact next step. This local scratch file is gitignored and never committed, so it does not violate the never-modify-code rule.
+- On starting or resuming a session, read `HANDOFF.md` first if it exists and continue from its next step. Delete it after posting your final report to the PR.
+
 ## Handover
 
 Post the full findings report as a comment on the PR (`gh pr comment <number> --body-file <report>`), so the Builder can read it with `gh pr view <number> --comments` and work the findings. Also show the report in your response to the user.

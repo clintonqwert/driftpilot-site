@@ -51,7 +51,7 @@ $ARGUMENTS
 
 ## Handover
 
-- Read Reviewer/Tester/Auditor findings on your PR with `gh pr view <number> --comments` — work P0 findings first, then P1.
+- Read Reviewer/Tester/Auditor/Content Strategist findings on your PR with `gh pr view <number> --comments` — work P0 findings first, then P1.
 - Findings carry a propose-before-apply policy: the Reviewer proposes, you apply once the user approves.
 
 ## Repo notes

@@ -3,6 +3,12 @@ import type { CaseStudy } from "@/types/content";
 /**
  * Phase 1 case study content — replaced by lib/cms in Phase 2.
  * THE SWAP CONTRACT: these accessors are the ONLY way pages obtain case studies.
+ *
+ * ARRAY ORDER IS DISPLAY ORDER (deliberate curation, not publishedAt order):
+ *   [0]    featured on /work AND the home portfolio section
+ *   [1-2]  home portfolio grid
+ *   [3+]   /work grid only
+ * Reorder to re-curate; do not sort by date.
  */
 const caseStudies: CaseStudy[] = [
   {
@@ -48,6 +54,27 @@ const caseStudies: CaseStudy[] = [
       "Next phase: a programmatic SEO layer for feature-comparison pages, built on the same content model so the team keeps publishing without engineering support.",
   },
   {
+    slug: "dealership-website-lead-rebuild",
+    industry: "Automotive",
+    service: "lead-generation-systems",
+    headline: "+34% lead submissions after leaving the vendor platform",
+    methodology: "Owned-infrastructure rebuild off a rented dealer template",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
+    stat: "+34% leads",
+    problem:
+      "An independent dealership was paying $1,400 a month for a template website it didn't own. Mobile pages took over four seconds to load, every lead passed through the vendor's routing before reaching the sales team, and leaving the platform meant losing the site entirely.",
+    build:
+      "Rebuilt on Next.js under the dealership's own accounts — domain, hosting, analytics, all transferred on day one. Vehicle inquiry forms route straight to the dealership's CRM with model and trade-in tagging, so a salesperson sees the lead before any middleman does. Mobile LCP dropped from 4.2s to 0.9s.",
+    result:
+      "Lead form submissions rose 34% within 60 days on comparable traffic, and the monthly platform fee went to zero. The sales team now sees every inquiry the moment it arrives, tagged with the vehicle that generated it.",
+    timeframe: "4 weeks",
+    publishedAt: "2026-06-20",
+    status:
+      "In production on the dealership's own infrastructure with the Monthly Maintenance plan. The team updates inventory pages and promotions themselves, and lead attribution reports guide which models get landing-page attention.",
+    futureDirection:
+      "Next phase: automated inventory sync from the dealership's DMS — the same problem our Driftpilot Drive platform is being designed to solve at scale.",
+  },
+  {
     slug: "law-firm-conversion-rebuild",
     industry: "Professional Services",
     service: "lead-generation-systems",
@@ -68,7 +95,11 @@ const caseStudies: CaseStudy[] = [
     futureDirection:
       "Next phase: expanding the callback-request pattern to after-hours coverage and adding practice-area landing pages for two new service lines the firm is launching.",
   },
+
 ];
+
+/** Slug of the dealership study surfaced on /automotive — kept in sync with the entry above. */
+export const DEALERSHIP_CASE_STUDY_SLUG = "dealership-website-lead-rebuild";
 
 export async function getAllCaseStudies(): Promise<CaseStudy[]> {
   return caseStudies;

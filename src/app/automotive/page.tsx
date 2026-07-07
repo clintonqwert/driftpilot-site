@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { automotiveServiceSchema, buildMetadata } from '@/lib/seo';
+import { DEALERSHIP_CASE_STUDY_SLUG, getCaseStudyBySlug } from '@/lib/content/case-studies';
 import { JsonLd } from '@/components/shared/JsonLd';
 import { PageHero } from '@/components/shared/PageHero';
 import { buttonClasses } from '@/components/ui/button';
@@ -98,7 +99,14 @@ const driveGoals = [
   },
 ];
 
-export default function AutomotivePage() {
+export default async function AutomotivePage() {
+  const dealerStudy = await getCaseStudyBySlug(DEALERSHIP_CASE_STUDY_SLUG);
+  // Static page: fail the build loudly rather than silently shipping /automotive
+  // without its proof strip if the study is ever renamed or removed.
+  if (!dealerStudy) {
+    throw new Error(`Missing case study: ${DEALERSHIP_CASE_STUDY_SLUG}`);
+  }
+
   return (
     <main>
       <JsonLd schema={automotiveServiceSchema()} />
@@ -174,6 +182,27 @@ export default function AutomotivePage() {
               </div>
             ))}
           </div>
+          <Link
+            href={`/work/${dealerStudy.slug}`}
+            aria-label={`Read the dealership case study: ${dealerStudy.headline}`}
+            className="group mt-8 block max-w-4xl rounded-lg border border-accent/30 bg-surface p-6 md:p-8 transition-colors duration-200 hover:border-accent/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+              <p className="text-[11px] font-mono font-medium uppercase tracking-[0.1em] text-accent">
+                Dealership case study
+              </p>
+              <div className="mt-3 flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6">
+                <p className="font-mono text-3xl md:text-4xl font-semibold text-accent tabular-nums shrink-0">
+                  {dealerStudy.stat}
+                </p>
+                <h3 className="text-lg md:text-xl font-semibold text-fg leading-snug group-hover:underline underline-offset-4">
+                  {dealerStudy.headline}
+                </h3>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-muted max-w-prose">
+                {dealerStudy.methodology} — delivered in {dealerStudy.timeframe}.
+              </p>
+              <p className="mt-4 text-sm font-medium text-accent">Read the case study →</p>
+          </Link>
           <div className="mt-8">
             <Link
               href="/automotive/early-access"

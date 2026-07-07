@@ -12,8 +12,11 @@ export interface ProcessStep {
   name: string;
   /** One-sentence goal of the step */
   objective: string;
-  /** What the client receives */
-  deliverables: string[];
+  /** What the client receives; items may carry an inline link */
+  deliverables: (
+    | string
+    | { text: string; link: { label: string; href: string }; suffix?: string }
+  )[];
   /** What we need from the client / what they'll experience */
   expectations: string;
   timeline: string;
@@ -68,7 +71,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     objective:
       "Build every page, form, and integration in production, visible to you the entire time.",
     deliverables: [
-      "Live preview URL from day three",
+      "Live preview URL from the first week",
       "CRM-integrated forms with spam protection",
       "SEO wiring: metadata, structured data, sitemap",
       "One short async check-in per week",
@@ -97,8 +100,12 @@ export const PROCESS_STEPS: ProcessStep[] = [
     objective:
       "Keep the site fast, secure, and converting — at whatever level of involvement you want.",
     deliverables: [
-      "30-day support window included with every build",
-      "Optional monthly plans for hosting, maintenance, and updates",
+      {
+        text: "30-day support window included with every build — ",
+        link: { label: "monthly plans", href: "/pricing" },
+        suffix: " are optional after that",
+      },
+      "Hosting, maintenance, and update plans at flat monthly rates",
       "Performance and lead reporting you can act on",
     ],
     expectations:

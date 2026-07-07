@@ -15,7 +15,7 @@ export const processFAQ: FAQItem[] = [
   {
     question: 'What does "build in production" mean?',
     answer:
-      "We don't maintain a staging environment you never see until launch. You get a live preview URL from day three — you watch real progress, not a demo. This catches misalignments early.",
+      "We don't maintain a staging environment you never see until launch. You get a live preview URL from the first week — you watch real progress, not a demo. This catches misalignments early.",
   },
   {
     question: "What's included in the 30-day support window?",

@@ -81,12 +81,11 @@ export default function ProcessPage() {
       <section className="bg-surface py-16 md:py-24" aria-labelledby="journey-heading">
         <div className="mx-auto max-w-container px-5 md:px-8">
           <h2 id="journey-heading" className="sr-only">The client journey</h2>
-          <ol className="relative max-w-3xl flex flex-col gap-8 md:gap-10">
-            {/* Rail */}
-            <div
-              aria-hidden="true"
-              className="absolute left-[19px] top-5 bottom-5 w-px bg-line-strong"
-            />
+          {/* Rail is a ::before so the <ol> keeps only <li> children (valid HTML) */}
+          <ol className="relative max-w-3xl flex flex-col gap-8 md:gap-10 before:absolute before:left-[19px] before:top-5 before:bottom-5 before:w-px before:bg-line-strong before:content-['']">
+            {/* --reveal-i uses i % 2 deliberately: it caps the stagger at one
+                beat — steps enter on scroll, so a full 0..5 ramp would just
+                delay the lower cards. */}
             {PROCESS_STEPS.map((step, i) => (
               <li
                 key={step.number}
@@ -120,22 +119,29 @@ export default function ProcessPage() {
                     What you get
                   </p>
                   <ul className="mt-2 flex flex-col gap-2">
-                    {step.deliverables.map((item) => (
-                      <li key={item} className="flex items-start gap-2.5 text-sm leading-relaxed text-fg">
-                        <CheckIcon />
-                        {item === '30-day support window included with every build' ? (
-                          <span>
-                            30-day support window included with every build —{' '}
-                            <Link href="/pricing" className="text-accent hover:text-accent-hover underline-offset-4 hover:underline transition-colors">
-                              monthly plans
-                            </Link>{' '}
-                            are optional after that
-                          </span>
-                        ) : (
-                          item
-                        )}
-                      </li>
-                    ))}
+                    {step.deliverables.map((item) => {
+                      const isLinked = typeof item !== 'string';
+                      const key = isLinked ? item.text : item;
+                      return (
+                        <li key={key} className="flex items-start gap-2.5 text-sm leading-relaxed text-fg">
+                          <CheckIcon />
+                          {isLinked ? (
+                            <span>
+                              {item.text}
+                              <Link
+                                href={item.link.href}
+                                className="text-accent hover:text-accent-hover underline-offset-4 hover:underline transition-colors"
+                              >
+                                {item.link.label}
+                              </Link>
+                              {item.suffix}
+                            </span>
+                          ) : (
+                            item
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
 
                   <p className="mt-5 text-[11px] font-mono font-medium uppercase tracking-[0.14em] text-muted">

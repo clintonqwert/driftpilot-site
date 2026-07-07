@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { buttonClasses } from '@/components/ui/button';
+import { KIVO } from '@/lib/design-tokens';
 
 /**
  * Click-to-load facade for the Calendly scheduler. The third-party iframe
@@ -10,14 +11,29 @@ import { buttonClasses } from '@/components/ui/button';
  */
 export function CalendlyEmbed({ url }: { url: string }) {
   const [open, setOpen] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // The facade button unmounts on open; move focus to the iframe so
+  // keyboard and screen-reader users land on the scheduler, not <body>.
+  useEffect(() => {
+    if (open) iframeRef.current?.focus();
+  }, [open]);
 
   if (open) {
+    // Theme params come from the design tokens so they can't drift from
+    // globals.css; Calendly wants bare hex (no #).
+    const src = new URL(url);
+    src.searchParams.set('hide_gdpr_banner', '1');
+    src.searchParams.set('background_color', KIVO.raised.slice(1));
+    src.searchParams.set('text_color', KIVO.fg.slice(1));
+    src.searchParams.set('primary_color', KIVO.accent.slice(1));
+
     return (
       <iframe
-        src={`${url}?hide_gdpr_banner=1&background_color=080a0d&text_color=ffffff&primary_color=a2fa8e`}
+        ref={iframeRef}
+        src={src.toString()}
         title="Book a discovery call with Driftpilot"
-        className="w-full rounded-lg border border-line bg-raised"
-        style={{ height: 700 }}
+        className="w-full rounded-lg border border-line bg-raised h-[1000px] md:h-[700px]"
       />
     );
   }

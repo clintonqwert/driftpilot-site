@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import { buttonClasses } from '@/components/ui/button';
-import { FOOTER_COLUMNS, LEGAL_LINKS } from '@/lib/content/navigation';
+import { SERVICES_COLUMN, COMPANY_COLUMN, LEGAL_LINKS } from '@/lib/content/navigation';
 
-const [servicesColumn, companyColumn] = FOOTER_COLUMNS;
-const serviceLinks = servicesColumn.links;
-const companyLinks = [...companyColumn.links, ...LEGAL_LINKS];
+const serviceLinks = SERVICES_COLUMN.links;
+const companyLinks = [...COMPANY_COLUMN.links, ...LEGAL_LINKS];
 
 
 export function SiteFooter() {

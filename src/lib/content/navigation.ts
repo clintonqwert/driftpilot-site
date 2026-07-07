@@ -34,28 +34,33 @@ export const SERVICES_NAV: NavLink[] = [
   },
 ];
 
+export const SERVICES_COLUMN: { heading: string; links: NavLink[] } = {
+  heading: "Services",
+  links: [
+    { label: "Website Development", href: "/services/ai-website-development" },
+    { label: "Headless WordPress", href: "/services/headless-wordpress" },
+    { label: "Next.js Development", href: "/services/nextjs-development" },
+    { label: "Lead Generation Systems", href: "/services/lead-generation-systems" },
+    { label: "For Dealerships", href: "/automotive" },
+  ],
+};
+
+export const COMPANY_COLUMN: { heading: string; links: NavLink[] } = {
+  heading: "Company",
+  links: [
+    { label: "Work", href: "/work" },
+    { label: "About", href: "/about" },
+    { label: "Process", href: "/process" },
+    { label: "Insights", href: "/insights" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Careers", href: "/careers" },
+  ],
+};
+
+/** Kept for callers that want the ordered set; built from the named columns. */
 export const FOOTER_COLUMNS: { heading: string; links: NavLink[] }[] = [
-  {
-    heading: "Services",
-    links: [
-      { label: "Website Development", href: "/services/ai-website-development" },
-      { label: "Headless WordPress", href: "/services/headless-wordpress" },
-      { label: "Next.js Development", href: "/services/nextjs-development" },
-      { label: "Lead Generation Systems", href: "/services/lead-generation-systems" },
-      { label: "For Dealerships", href: "/automotive" },
-    ],
-  },
-  {
-    heading: "Company",
-    links: [
-      { label: "Work", href: "/work" },
-      { label: "About", href: "/about" },
-      { label: "Process", href: "/process" },
-      { label: "Insights", href: "/insights" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Careers", href: "/careers" },
-    ],
-  },
+  SERVICES_COLUMN,
+  COMPANY_COLUMN,
 ];
 
 export const LEGAL_LINKS: NavLink[] = [

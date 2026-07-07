@@ -4,6 +4,8 @@ import { buildMetadata } from '@/lib/seo';
 import { PageHero } from '@/components/shared/PageHero';
 import { CTABand } from '@/components/shared/CTABand';
 import { getAllCaseStudies } from '@/lib/content/case-studies';
+import { getServiceBySlug } from '@/lib/content/services';
+import { TechPill } from '@/components/shared/TechPill';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Work — Driftpilot',
@@ -12,27 +14,10 @@ export const metadata: Metadata = buildMetadata({
   path: '/work',
 });
 
-const techColors: Record<string, string> = {
-  'Next.js': 'bg-overlay text-fg border-line-strong',
-  TypeScript: 'bg-accent/10 text-accent border-accent/30',
-  'Tailwind CSS': 'bg-accent/10 text-accent-hover border-accent/30',
-  Vercel: 'bg-raised text-fg border-line',
-  HubSpot: 'bg-orange-50 text-orange-700 border-orange-200',
-  'Headless WP': 'bg-blue-50 text-blue-700 border-blue-200',
-};
-
-function TechPill({ tech }: { tech: string }) {
-  const cls = techColors[tech] ?? 'bg-raised text-muted border-line';
-  return (
-    <span className={`inline-block text-[11px] font-mono font-medium px-2.5 py-1 rounded-md border ${cls}`}>
-      {tech}
-    </span>
-  );
-}
-
 export default async function WorkPage() {
   const studies = await getAllCaseStudies();
   const [featured, ...grid] = studies;
+  const featuredService = featured ? getServiceBySlug(featured.service) : undefined;
 
   return (
     <main>
@@ -53,9 +38,18 @@ export default async function WorkPage() {
                 <span className="text-[11px] font-mono font-medium uppercase tracking-[0.1em] px-2.5 py-1 rounded-md bg-raised border border-line text-muted">
                   {featured.industry}
                 </span>
-                <span className="text-[11px] font-mono font-medium uppercase tracking-[0.1em] px-2.5 py-1 rounded-md bg-raised border border-line text-muted">
-                  {featured.service.replace(/-/g, ' ')}
-                </span>
+                {featuredService ? (
+                  <Link
+                    href={`/services/${featuredService.slug}`}
+                    className="text-[11px] font-mono font-medium uppercase tracking-[0.1em] px-2.5 py-1 rounded-md bg-raised border border-line text-muted hover:text-fg hover:border-line-strong transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  >
+                    {featuredService.name}
+                  </Link>
+                ) : (
+                  <span className="text-[11px] font-mono font-medium uppercase tracking-[0.1em] px-2.5 py-1 rounded-md bg-raised border border-line text-muted">
+                    {featured.service.replace(/-/g, ' ')}
+                  </span>
+                )}
               </div>
               <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-fg max-w-2xl leading-snug">
                 {featured.headline}

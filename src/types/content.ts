@@ -43,6 +43,10 @@ export interface CaseStudy {
   timeframe: string;
   /** ISO date */
   publishedAt: string;
+  /** Where the engagement stands today — qualitative, no metrics */
+  status?: string;
+  /** Planned next phase — phrased as plans, never as outcomes */
+  futureDirection?: string;
 }
 
 export interface Article {

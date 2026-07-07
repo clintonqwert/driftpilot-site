@@ -110,7 +110,7 @@ export function SiteFooter() {
 
         {/* Copyright bar */}
         <div className="mt-12 pt-6 border-t border-line">
-          <p className="text-xs text-muted/70">
+          <p className="text-xs text-muted">
             © 2026 Driftpilot. Built with Next.js + Headless WordPress.
           </p>
         </div>

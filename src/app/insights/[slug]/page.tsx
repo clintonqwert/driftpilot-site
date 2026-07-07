@@ -35,6 +35,7 @@ function formatDate(iso: string): string {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC', // ISO dates are date-only; render them as written
   });
 }
 

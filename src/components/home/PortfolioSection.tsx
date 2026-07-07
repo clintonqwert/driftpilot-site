@@ -76,8 +76,8 @@ export function PortfolioSection({ featured, grid }: PortfolioSectionProps) {
           <div className="rounded-lg border border-line bg-raised p-8 md:p-10 mb-8">
             <p className="text-muted text-base">
               Our first case studies are in progress.{' '}
-              <Link href="/how-we-work" className="text-accent hover:text-accent-hover underline-offset-4 hover:underline">
-                See how we work →
+              <Link href="/process" className="text-accent hover:text-accent-hover underline-offset-4 hover:underline">
+                See our process →
               </Link>
             </p>
           </div>

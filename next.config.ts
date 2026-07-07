@@ -10,6 +10,12 @@ const httpHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    return [
+      // /how-we-work was replaced by the six-step /process page (308).
+      { source: "/how-we-work", destination: "/process", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

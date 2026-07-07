@@ -76,8 +76,8 @@ export default async function WorkPage() {
             <div className="rounded-lg border border-line bg-raised p-8 md:p-10 mb-8">
               <p className="text-muted text-base">
                 Our first case studies are in progress.{' '}
-                <Link href="/how-we-work" className="text-accent hover:text-accent-hover underline-offset-4 hover:underline">
-                  See how we work →
+                <Link href="/process" className="text-accent hover:text-accent-hover underline-offset-4 hover:underline">
+                  See our process →
                 </Link>
               </p>
             </div>
@@ -122,7 +122,7 @@ export default async function WorkPage() {
       <CTABand
         headline="Ready to be the next case study?"
         primaryCTA={{ label: 'Book a Scope Call', href: '/contact' }}
-        secondaryCTA={{ label: 'See how we work', href: '/how-we-work' }}
+        secondaryCTA={{ label: 'See our process', href: '/process' }}
       />
     </main>
   );

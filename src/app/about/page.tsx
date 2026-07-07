@@ -62,10 +62,10 @@ export default function AboutPage() {
               </div>
               <div className="mt-8">
                 <Link
-                  href="/how-we-work"
+                  href="/process"
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-hover transition-colors underline-offset-4 hover:underline"
                 >
-                  See exactly how we work →
+                  See our full process →
                 </Link>
               </div>
             </div>

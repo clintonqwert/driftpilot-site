@@ -48,7 +48,7 @@ export const FOOTER_COLUMNS: { heading: string; links: NavLink[] }[] = [
     links: [
       { label: "Work", href: "/work" },
       { label: "About", href: "/about" },
-      { label: "How We Work", href: "/how-we-work" },
+      { label: "Process", href: "/process" },
       { label: "Insights", href: "/insights" },
       { label: "Pricing", href: "/pricing" },
       { label: "Careers", href: "/careers" },

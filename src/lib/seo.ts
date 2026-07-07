@@ -113,12 +113,41 @@ export function serviceSchema(service: Service) {
 export function articleSchema(article: Article) {
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: article.title,
     description: article.description,
     datePublished: article.publishedAt,
     url: `${SITE_URL}/insights/${article.slug}`,
     author: orgRef,
+  };
+}
+
+export function blogSchema(articles: Article[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: `${SITE_NAME} Insights`,
+    url: `${SITE_URL}/insights`,
+    publisher: orgRef,
+    blogPost: articles.map((article) => ({
+      "@type": "BlogPosting" as const,
+      headline: article.title,
+      url: `${SITE_URL}/insights/${article.slug}`,
+      datePublished: article.publishedAt,
+    })),
+  };
+}
+
+export function breadcrumbSchema(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem" as const,
+      position: i + 1,
+      name: item.name,
+      item: item.path === "/" ? SITE_URL : `${SITE_URL}${item.path}`,
+    })),
   };
 }
 

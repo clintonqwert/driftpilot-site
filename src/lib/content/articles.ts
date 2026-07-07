@@ -13,6 +13,11 @@ const articles: Article[] = [
     topic: "Headless WordPress",
     tags: ["WordPress", "Next.js", "Performance"],
     publishedAt: "2026-05-20",
+    related: [
+      { label: "Our Headless WordPress service", href: "/services/headless-wordpress" },
+      { label: "Next.js App Router: what it actually means for your website", href: "/insights/nextjs-app-router-what-it-means" },
+      { label: "Case study: 2.1s to 0.6s LCP without changing design", href: "/work/saas-marketing-site-rebuild" },
+    ],
     body: `Page builders are fast to launch. That is their job. You can have a decent-looking site in a weekend with Wix, Squarespace, or even a premium WordPress theme. For most businesses in year one, that trade-off makes sense.
 
 The problem shows up in year two. Your team wants to add a page with a layout the builder does not support. Your developer quotes you eight hours to work around the theme. Your Lighthouse score is 48 and you are wondering why you are spending money on Google Ads for a site that loads in 4 seconds on mobile.
@@ -31,6 +36,12 @@ The migration is less painful than you expect. Content stays in WordPress. URLs 
     topic: "Lead Generation",
     tags: ["Conversion", "Forms", "Lead Generation"],
     publishedAt: "2026-05-10",
+    featured: true,
+    related: [
+      { label: "Our Lead Generation Systems service", href: "/services/lead-generation-systems" },
+      { label: "Case study: +47% leads in 90 days for a home services company", href: "/work/hvac-company-lead-gen-rebuild" },
+      { label: "Transparent pricing for lead generation builds", href: "/pricing" },
+    ],
     body: `Your contact form is probably losing you leads right now. Not because it looks broken — it probably looks fine. The problems are subtler than a broken submit button, which is why most businesses miss them.
 
 The first mistake is asking for too much too soon. Forms with six or more fields see a measurable drop in conversion versus forms with three or four. Every additional field is a reason to abandon. The fix is to ask only for what you need to make first contact — name, email, and a sentence about their project. You can collect the rest on the call.
@@ -49,6 +60,11 @@ None of these are difficult to fix. They are just easy to overlook when the form
     topic: "Next.js",
     tags: ["Next.js", "Performance", "App Router"],
     publishedAt: "2026-05-01",
+    related: [
+      { label: "Our Next.js development service", href: "/services/nextjs-development" },
+      { label: "Why headless WordPress beats a page builder", href: "/insights/headless-wordpress-vs-page-builder" },
+      { label: "Case study: 0.6s LCP on a SaaS marketing site", href: "/work/saas-marketing-site-rebuild" },
+    ],
     body: `If you have had a conversation with a web developer recently, you have probably heard the term App Router. It is the new way Next.js handles pages, and it became the default with Next.js 13. But what does it actually mean for a business owner or marketing lead who just wants a fast website?
 
 The short version: App Router enables React Server Components, which means large parts of your website can be rendered on the server and sent to the browser as plain HTML — with no JavaScript required on the client side to display them. This is a meaningful performance change. Less JavaScript means faster parse times, faster interaction readiness, and better scores on Core Web Vitals like LCP (the metric Google uses most heavily in ranking signals).
@@ -60,7 +76,35 @@ For non-technical stakeholders, the question to ask your developer is simple: ar
 ];
 
 export async function getAllArticles(): Promise<Article[]> {
-  return articles;
+  return [...articles].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+}
+
+export async function getFeaturedArticle(): Promise<Article | undefined> {
+  const all = await getAllArticles();
+  return all.find((article) => article.featured) ?? all[0];
+}
+
+/** Related articles ranked by shared-tag count, then recency. */
+export async function getRelatedArticles(
+  slug: string,
+  limit = 3,
+): Promise<Article[]> {
+  const current = articles.find((article) => article.slug === slug);
+  if (!current) return [];
+  const currentTags = new Set(current.tags);
+  return (await getAllArticles())
+    .filter((article) => article.slug !== slug)
+    .map((article) => ({
+      article,
+      shared: article.tags.filter((t) => currentTags.has(t)).length,
+    }))
+    .sort((a, b) => b.shared - a.shared)
+    .slice(0, limit)
+    .map(({ article }) => article);
+}
+
+export async function getAllTopics(): Promise<string[]> {
+  return [...new Set(articles.map((article) => article.topic))];
 }
 
 export async function getArticleBySlug(

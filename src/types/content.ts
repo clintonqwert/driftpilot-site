@@ -49,13 +49,17 @@ export interface Article {
   slug: string;
   title: string;
   description: string;
-  /** Topic cluster per sitemap §2.4 */
+  /** Topic cluster per sitemap §2.4 — the category axis of the resource hub */
   topic: string;
   tags: string[];
   /** ISO date */
   publishedAt: string;
   /** Phase 1 inline body — replaced by WPGraphQL richText in Phase 2. Paragraph-separated by \n\n */
   body: string;
+  /** Pinned to the hero slot of /insights (one article at a time) */
+  featured?: boolean;
+  /** Curated internal links rendered as a "Keep reading" block after the body */
+  related?: { label: string; href: string }[];
 }
 
 export interface FAQItem {

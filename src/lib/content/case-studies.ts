@@ -3,6 +3,12 @@ import type { CaseStudy } from "@/types/content";
 /**
  * Phase 1 case study content — replaced by lib/cms in Phase 2.
  * THE SWAP CONTRACT: these accessors are the ONLY way pages obtain case studies.
+ *
+ * ARRAY ORDER IS DISPLAY ORDER (deliberate curation, not publishedAt order):
+ *   [0]    featured on /work AND the home portfolio section
+ *   [1-2]  home portfolio grid
+ *   [3+]   /work grid only
+ * Reorder to re-curate; do not sort by date.
  */
 const caseStudies: CaseStudy[] = [
   {
@@ -48,27 +54,6 @@ const caseStudies: CaseStudy[] = [
       "Next phase: a programmatic SEO layer for feature-comparison pages, built on the same content model so the team keeps publishing without engineering support.",
   },
   {
-    slug: "law-firm-conversion-rebuild",
-    industry: "Professional Services",
-    service: "lead-generation-systems",
-    headline: "+61% qualified leads in 60 days",
-    methodology: "Conversion-first rebuild with HubSpot CRM integration",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "HubSpot"],
-    stat: "+61% leads",
-    problem:
-      "A boutique law firm was ranking on page one for several local search terms but converting at under 1%. The site had no clear call to action per practice area, a contact form that emailed a shared inbox with no routing, and no visibility into which pages generated inquiries.",
-    build:
-      "Rebuilt from scratch on Next.js with a dedicated conversion path on every practice area page. Integrated HubSpot for lead routing and attribution. Added a callback-request form with practice area tagging so the right attorney received each inquiry immediately.",
-    result:
-      "Qualified lead submissions increased 61% within 60 days on unchanged traffic. The average lead-to-consultation rate improved from 34% to 52% because better intake pre-qualification meant warmer conversations.",
-    timeframe: "5 weeks",
-    publishedAt: "2026-04-01",
-    status:
-      "In production with HubSpot routing live across all practice areas. Intake tagging still delivers each inquiry to the right attorney, and the firm reviews attribution reports monthly to decide where content effort goes.",
-    futureDirection:
-      "Next phase: expanding the callback-request pattern to after-hours coverage and adding practice-area landing pages for two new service lines the firm is launching.",
-  },
-  {
     slug: "dealership-website-lead-rebuild",
     industry: "Automotive",
     service: "lead-generation-systems",
@@ -89,7 +74,32 @@ const caseStudies: CaseStudy[] = [
     futureDirection:
       "Next phase: automated inventory sync from the dealership's DMS — the same problem our Driftpilot Drive platform is being designed to solve at scale.",
   },
+  {
+    slug: "law-firm-conversion-rebuild",
+    industry: "Professional Services",
+    service: "lead-generation-systems",
+    headline: "+61% qualified leads in 60 days",
+    methodology: "Conversion-first rebuild with HubSpot CRM integration",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "HubSpot"],
+    stat: "+61% leads",
+    problem:
+      "A boutique law firm was ranking on page one for several local search terms but converting at under 1%. The site had no clear call to action per practice area, a contact form that emailed a shared inbox with no routing, and no visibility into which pages generated inquiries.",
+    build:
+      "Rebuilt from scratch on Next.js with a dedicated conversion path on every practice area page. Integrated HubSpot for lead routing and attribution. Added a callback-request form with practice area tagging so the right attorney received each inquiry immediately.",
+    result:
+      "Qualified lead submissions increased 61% within 60 days on unchanged traffic. The average lead-to-consultation rate improved from 34% to 52% because better intake pre-qualification meant warmer conversations.",
+    timeframe: "5 weeks",
+    publishedAt: "2026-04-01",
+    status:
+      "In production with HubSpot routing live across all practice areas. Intake tagging still delivers each inquiry to the right attorney, and the firm reviews attribution reports monthly to decide where content effort goes.",
+    futureDirection:
+      "Next phase: expanding the callback-request pattern to after-hours coverage and adding practice-area landing pages for two new service lines the firm is launching.",
+  },
+
 ];
+
+/** Slug of the dealership study surfaced on /automotive — kept in sync with the entry above. */
+export const DEALERSHIP_CASE_STUDY_SLUG = "dealership-website-lead-rebuild";
 
 export async function getAllCaseStudies(): Promise<CaseStudy[]> {
   return caseStudies;

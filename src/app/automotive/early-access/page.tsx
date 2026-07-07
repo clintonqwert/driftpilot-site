@@ -31,7 +31,7 @@ export default function EarlyAccessPage() {
       <PageHero
         eyebrow="Early Access"
         heading="Join the Driftpilot Drive waitlist."
-        subheading="No commitment. First to know. We will reach out before public launch."
+        subheading="No commitment. First to know when Drive launches — and the same form to talk to us about your dealership site today."
       />
 
       <section className="bg-raised py-16 md:py-24">
@@ -42,7 +42,7 @@ export default function EarlyAccessPage() {
             <div className="lg:col-span-3">
               <div className="rounded-lg border border-line bg-raised p-6 md:p-8">
                 <h2 className="text-xl font-semibold text-fg mb-1">Request early access</h2>
-                <p className="text-sm text-muted mb-6">Takes 30 seconds. No card required.</p>
+                <p className="text-sm text-muted mb-6">Takes 30 seconds. No card required. Need a dealership site before Drive ships? Mention it — we build those today.</p>
                 <EarlyAccessForm />
               </div>
             </div>
@@ -65,9 +65,9 @@ export default function EarlyAccessPage() {
                   </div>
                 ))}
               </div>
-              <div className="mt-8 rounded-xl border border-line bg-raised p-4">
+              <div className="mt-8 rounded-lg border border-line bg-raised p-4">
                 <p className="text-xs text-muted leading-relaxed">
-                  Your information is used only to contact you about Driftpilot Drive. We do not share it with anyone.{' '}
+                  Your information is used only to contact you about Driftpilot Drive or your dealership project. We do not share it with anyone.{' '}
                   <a href="/privacy" className="text-accent hover:text-accent-hover underline-offset-2 hover:underline">
                     Privacy policy →
                   </a>

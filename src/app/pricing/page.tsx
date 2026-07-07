@@ -2,8 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FAQSection } from "@/components/shared/FAQSection";
 import { CTABand } from "@/components/shared/CTABand";
-import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/shared/JsonLd";
+import { buildMetadata, offerCatalogSchema } from "@/lib/seo";
 import { pricingFAQ } from "@/lib/content/faq/pricing";
+import {
+  oneTimePackages,
+  monthlyPlans,
+  type PricingPlan,
+} from "@/lib/content/pricing";
 import { buttonClasses } from "@/components/ui/button";
 
 export const metadata: Metadata = buildMetadata({
@@ -12,83 +18,23 @@ export const metadata: Metadata = buildMetadata({
   path: "/pricing",
 });
 
-const oneTimePackages = [
+const afterBookingSteps = [
   {
-    name: "Website Starter",
-    price: "$1,500",
-    currency: "CAD",
-    paymentType: "One-time payment",
-    featured: false,
-    features: [
-      "1–5 page responsive marketing site",
-      "Contact form integration",
-      "Basic SEO setup — meta, sitemap, schema",
-      "Deployed and ready to launch",
-      "Delivered in 1–2 weeks",
-    ],
-    cta: "Get started",
+    number: "01",
+    heading: "Scope call",
+    body: "A free 30-minute call. We ask the right questions, align on the outcome that matters, and confirm which package fits.",
   },
   {
-    name: "Website Growth",
-    price: "$3,500",
-    currency: "CAD",
-    paymentType: "One-time payment",
-    featured: true,
-    features: [
-      "Up to 10 pages with custom layout",
-      "Lead generation + CRM integration",
-      "Headless CMS for content updates",
-      "Advanced SEO — structured data, schema",
-      "30-day post-launch support window",
-    ],
-    cta: "Get started",
-  },
-] as const;
-
-const monthlyPlans = [
-  {
-    name: "Hosting & Support",
-    price: "$49",
-    currency: "CAD",
-    paymentType: "per month",
-    comingSoon: false,
-    features: [
-      "Secure modern hosting",
-      "SSL certificate management",
-      "Uptime monitoring",
-      "Up to 1hr content updates/month",
-    ],
-    cta: "Get started",
+    number: "02",
+    heading: "Fixed quote in 48 hours",
+    body: "You get a scope document with a fixed price and timeline. 50% upfront, 50% on delivery — never hourly billing.",
   },
   {
-    name: "Monthly Maintenance",
-    price: "$99",
-    currency: "CAD",
-    paymentType: "per month",
-    comingSoon: false,
-    features: [
-      "Everything in Hosting & Support",
-      "Security patches and dependency updates",
-      "Up to 3hrs content updates/month",
-      "Monthly performance report",
-    ],
-    cta: "Get started",
+    number: "03",
+    heading: "Build and launch",
+    body: "Most projects are live within weeks. You own the code, the content, and the leads from day one.",
   },
-  {
-    name: "Dealership Growth Platform",
-    price: "$399",
-    currency: "CAD",
-    paymentType: "per month",
-    comingSoon: true,
-    features: [
-      "Inventory sync and display",
-      "AI-powered lead capture",
-      "CRM integration",
-      "Monthly analytics and optimization",
-    ],
-    cta: "Join the waitlist",
-  },
-] as const;
+];
 
 const CheckIcon = () => (
   <svg
@@ -109,9 +55,75 @@ const CheckIcon = () => (
   </svg>
 );
 
+function PlanCard({ plan }: { plan: PricingPlan }) {
+  return (
+    <div
+      className={`rounded-lg p-6 md:p-8 flex flex-col ${
+        plan.featured
+          ? "bg-raised border-2 border-accent/50 shadow-accent order-first md:order-none"
+          : "bg-raised border border-line"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-[13px] font-mono font-medium uppercase tracking-[0.14em] text-accent">
+          {plan.name}
+        </p>
+        {plan.featured && (
+          <span className="shrink-0 text-[11px] font-mono font-medium uppercase tracking-[0.1em] px-2 py-0.5 rounded-md bg-accent/10 text-accent border border-accent/30">
+            Most popular
+          </span>
+        )}
+        {plan.comingSoon && (
+          <span className="shrink-0 text-[11px] font-mono uppercase tracking-widest bg-overlay text-muted rounded-md px-2 py-0.5">
+            In development
+          </span>
+        )}
+      </div>
+      <p className="mt-4 font-mono text-4xl md:text-5xl font-semibold tabular-nums text-fg">
+        {plan.price}{" "}
+        <span className="text-xl font-sans font-medium text-muted">
+          {plan.currency}
+        </span>
+      </p>
+      <p className="mt-1 text-sm text-muted">{plan.paymentType}</p>
+      <p className="mt-3 text-sm leading-relaxed text-fg">{plan.bestFor}</p>
+      <ul className="mt-6 flex flex-col gap-3 flex-1">
+        {plan.features.map((f) => (
+          <li key={f} className="flex items-start gap-2 text-sm text-muted">
+            <span className="text-accent">
+              <CheckIcon />
+            </span>
+            {f}
+          </li>
+        ))}
+      </ul>
+      {plan.serviceLink && (
+        <Link
+          href={plan.serviceLink.href}
+          className="mt-5 text-sm font-medium text-accent hover:text-accent-hover underline-offset-4 hover:underline transition-colors"
+        >
+          {plan.serviceLink.label} →
+        </Link>
+      )}
+      <Link
+        href={plan.href ?? "/contact"}
+        className={buttonClasses({
+          variant: plan.comingSoon ? "secondary" : "primary",
+          size: "md",
+          className: "mt-8 w-full text-base",
+        })}
+      >
+        {plan.cta} →
+      </Link>
+    </div>
+  );
+}
+
 export default function PricingPage() {
   return (
     <main>
+      <JsonLd schema={offerCatalogSchema([...oneTimePackages, ...monthlyPlans])} />
+
       {/* Page header */}
       <section className="bg-surface py-16 md:py-24" aria-labelledby="pricing-heading">
         <div className="mx-auto max-w-container px-5 md:px-8">
@@ -142,73 +154,9 @@ export default function PricingPage() {
           <p className="mt-4 text-lg text-muted">Pay once. Own it completely.</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 max-w-3xl">
-            {oneTimePackages.map((pkg) =>
-              pkg.featured ? (
-                <div
-                  key={pkg.name}
-                  className="rounded-lg p-6 md:p-8 bg-raised border-2 border-accent/50 shadow-accent flex flex-col"
-                >
-                  <p className="text-[13px] font-mono font-medium uppercase tracking-[0.14em] text-accent">
-                    {pkg.name}
-                  </p>
-                  <p className="mt-4 font-mono text-4xl md:text-5xl font-semibold tabular-nums text-fg">
-                    {pkg.price}{" "}
-                    <span className="text-xl font-sans font-medium text-muted">
-                      {pkg.currency}
-                    </span>
-                  </p>
-                  <p className="mt-1 text-sm text-muted">{pkg.paymentType}</p>
-                  <ul className="mt-6 flex flex-col gap-3 flex-1">
-                    {pkg.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-muted">
-                        <span className="text-accent">
-                          <CheckIcon />
-                        </span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href="/contact"
-                    className={buttonClasses({ size: "md", className: "mt-8 w-full text-base" })}
-                  >
-                    {pkg.cta} →
-                  </Link>
-                </div>
-              ) : (
-                <div
-                  key={pkg.name}
-                  className="rounded-lg p-6 md:p-8 bg-raised border border-line flex flex-col"
-                >
-                  <p className="text-[13px] font-mono font-medium uppercase tracking-[0.14em] text-accent">
-                    {pkg.name}
-                  </p>
-                  <p className="mt-4 font-mono text-4xl md:text-5xl font-semibold tabular-nums text-fg">
-                    {pkg.price}{" "}
-                    <span className="text-xl font-sans font-medium text-muted">
-                      {pkg.currency}
-                    </span>
-                  </p>
-                  <p className="mt-1 text-sm text-muted">{pkg.paymentType}</p>
-                  <ul className="mt-6 flex flex-col gap-3 flex-1">
-                    {pkg.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-muted">
-                        <span className="text-accent">
-                          <CheckIcon />
-                        </span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href="/contact"
-                    className={buttonClasses({ size: "md", className: "mt-8 w-full text-base" })}
-                  >
-                    {pkg.cta} →
-                  </Link>
-                </div>
-              )
-            )}
+            {oneTimePackages.map((pkg) => (
+              <PlanCard key={pkg.name} plan={pkg} />
+            ))}
           </div>
         </div>
       </section>
@@ -223,65 +171,44 @@ export default function PricingPage() {
             Monthly plans
           </h2>
           <p className="mt-4 text-lg text-muted">
-            Ongoing support and growth, month by month.
+            Optional add-ons — your site never requires one.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
             {monthlyPlans.map((plan) => (
+              <PlanCard key={plan.name} plan={plan} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What happens after you book */}
+      <section className="bg-raised py-16 md:py-24 border-y border-line" aria-labelledby="after-booking-heading">
+        <div className="mx-auto max-w-container px-5 md:px-8">
+          <h2
+            id="after-booking-heading"
+            className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg mb-10"
+          >
+            What happens after you book.
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {afterBookingSteps.map((step) => (
               <div
-                key={plan.name}
-                className="rounded-lg p-6 md:p-8 bg-raised border border-line flex flex-col"
+                key={step.number}
+                className="rounded-lg border border-line bg-surface p-6 md:p-8"
               >
-                <div className="flex items-start justify-between gap-2">
-                  <p className="text-[13px] font-mono font-medium uppercase tracking-[0.14em] text-accent">
-                    {plan.name}
-                  </p>
-                  {plan.comingSoon && (
-                    <span className="shrink-0 text-[11px] font-mono uppercase tracking-widest bg-overlay text-muted rounded-md px-2 py-0.5">
-                      Coming Soon
-                    </span>
-                  )}
-                </div>
-                <p className="mt-4 font-mono text-4xl md:text-5xl font-semibold tabular-nums text-fg">
-                  {plan.price}{" "}
-                  <span className="text-xl font-sans font-medium text-muted">
-                    {plan.currency}
-                  </span>
-                </p>
-                <p className="mt-1 text-sm text-muted">{plan.paymentType}</p>
-                <ul className="mt-6 flex flex-col gap-3 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-muted">
-                      <span className="text-accent">
-                        <CheckIcon />
-                      </span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                {plan.comingSoon ? (
-                  <button
-                    type="button"
-                    aria-disabled="true"
-                    className="mt-8 inline-flex items-center justify-center gap-2 h-12 px-6 w-full rounded-lg bg-overlay text-muted text-base font-semibold cursor-not-allowed select-none"
-                  >
-                    {plan.cta}
-                  </button>
-                ) : (
-                  <Link
-                    href="/contact"
-                    className={buttonClasses({ size: "md", className: "mt-8 w-full text-base" })}
-                  >
-                    {plan.cta} →
-                  </Link>
-                )}
+                <span className="font-mono text-3xl font-semibold text-accent tabular-nums">
+                  {step.number}
+                </span>
+                <h3 className="mt-3 text-lg font-semibold text-fg">{step.heading}</h3>
+                <p className="mt-2 text-base leading-relaxed text-muted">{step.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <FAQSection items={pricingFAQ} />
+      <FAQSection items={pricingFAQ} showCTA={false} />
 
       <CTABand
         headline="Ready to get started?"

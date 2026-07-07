@@ -138,6 +138,34 @@ export function blogSchema(articles: Article[]) {
   };
 }
 
+/**
+ * OfferCatalog for /pricing. In-development plans are excluded — only
+ * purchasable offers belong in schema. Prices must match the visible page.
+ */
+export function offerCatalogSchema(
+  plans: { name: string; price: string; currency: string; comingSoon?: boolean }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Web development packages",
+    url: `${SITE_URL}/pricing`,
+    provider: orgRef,
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Driftpilot pricing",
+      itemListElement: plans
+        .filter((plan) => !plan.comingSoon)
+        .map((plan) => ({
+          "@type": "Offer" as const,
+          price: plan.price.replace(/[^0-9.]/g, ""),
+          priceCurrency: plan.currency,
+          itemOffered: { "@type": "Service" as const, name: plan.name },
+        })),
+    },
+  };
+}
+
 export function breadcrumbSchema(items: { name: string; path: string }[]) {
   return {
     "@context": "https://schema.org",

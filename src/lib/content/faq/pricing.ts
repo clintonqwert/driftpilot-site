@@ -22,6 +22,16 @@ export const pricingFAQ: FAQItem[] = [
       "The $49 CAD/month plan covers secure hosting on modern infrastructure, SSL certificate management, uptime monitoring, and up to one hour of minor content updates per month. It's designed for businesses that want their site taken care of without thinking about it.",
   },
   {
+    question: "What are your payment terms?",
+    answer:
+      "50% upfront before work begins, 50% on the agreed delivery date. All pricing is fixed and agreed in the scope document before any work starts — we never bill by the hour.",
+  },
+  {
+    question: "What happens after I purchase?",
+    answer:
+      "We start with a 30-minute scope call, then send a scope document with a fixed timeline within 48 hours. Most projects are live within weeks. At handoff you receive the full codebase, documentation, and — on Growth — a 30-day support window.",
+  },
+  {
     question: "What is the Dealership Growth Platform?",
     answer:
       "It's an automotive-specific platform in development — built for dealerships that need inventory sync, AI-powered lead capture, and CRM integration in one place. We're currently in early access. If you're a dealership owner, get in touch and we'll add you to the waitlist.",

@@ -1,0 +1,80 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "builder",
+			"type": "shell",
+			"command": "${env:SHELL}",
+			"args": ["-l"],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"focus": false,
+				"close": false
+			},
+			"problemMatcher": [],
+			"runOptions": { "runOn": "folderOpen" }
+		},
+		{
+			"label": "reviewer",
+			"type": "shell",
+			"command": "${env:SHELL}",
+			"args": ["-l"],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"focus": false,
+				"close": false
+			},
+			"problemMatcher": [],
+			"runOptions": { "runOn": "folderOpen" }
+		},
+		{
+			"label": "tester",
+			"type": "shell",
+			"command": "${env:SHELL}",
+			"args": ["-l"],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"focus": false,
+				"close": false
+			},
+			"problemMatcher": [],
+			"runOptions": { "runOn": "folderOpen" }
+		},
+		{
+			"label": "auditor",
+			"type": "shell",
+			"command": "${env:SHELL}",
+			"args": ["-l"],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"focus": false,
+				"close": false
+			},
+			"problemMatcher": [],
+			"runOptions": { "runOn": "folderOpen" }
+		},
+		{
+			"label": "content-strategist",
+			"type": "shell",
+			"command": "${env:SHELL}",
+			"args": ["-l"],
+			"isBackground": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"focus": false,
+				"close": false
+			},
+			"problemMatcher": [],
+			"runOptions": { "runOn": "folderOpen" }
+		}
+	]
+}

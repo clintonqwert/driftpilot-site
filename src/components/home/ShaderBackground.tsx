@@ -13,9 +13,16 @@ const MeshGradient = dynamic(
 function canRenderShader(): boolean {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
   const canvas = document.createElement("canvas");
-  return Boolean(
-    canvas.getContext("webgl2") ?? canvas.getContext("webgl"),
-  );
+  const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
+  if (!gl) return false;
+  // Software WebGL (no GPU: CI runners, VMs, remote desktops) rasterizes
+  // every frame on the main thread — observed 39s TBT on GitHub runners.
+  // Those environments get the static hero-glow fallback instead.
+  const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+  const renderer = debugInfo
+    ? String(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL))
+    : "";
+  return !/swiftshader|llvmpipe|software|basic render/i.test(renderer);
 }
 
 /**

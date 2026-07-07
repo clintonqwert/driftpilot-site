@@ -33,7 +33,7 @@ export async function generateMetadata(
 const processSteps = [
   {
     number: '01',
-    heading: 'Scope call',
+    heading: 'Discovery call',
     body: 'We ask the right questions, align on the outcome metric, and produce a fixed quote within 48 hours.',
   },
   {
@@ -225,6 +225,7 @@ export default async function ServicePage(props: PageProps<'/services/[slug]'>) 
       )}
 
       <CTABand
+        primaryCTA={{ label: "Let's discuss your project", href: '/contact' }}
         secondaryCTA={{ label: 'See our work', href: '/work' }}
       />
     </main>

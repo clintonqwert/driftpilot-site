@@ -11,7 +11,7 @@ interface CTABandProps {
 export function CTABand({
   headline = 'Ready to build something that converts?',
   subhead = 'Most projects are in production within 4 weeks.\nNo agency retainer. No surprise invoices.',
-  primaryCTA = { label: 'Book a Free Scope Call', href: '/contact' },
+  primaryCTA = { label: 'Book a Discovery Call', href: '/contact' },
   secondaryCTA = { label: 'See Our Work', href: '/work' },
 }: CTABandProps) {
   return (

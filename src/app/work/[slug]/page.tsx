@@ -156,7 +156,7 @@ export default async function CaseStudyPage(props: PageProps<'/work/[slug]'>) {
 
       <CTABand
         headline="Want results like this?"
-        primaryCTA={{ label: 'Book a Scope Call', href: '/contact' }}
+        primaryCTA={{ label: "Let's build something similar", href: '/contact' }}
         secondaryCTA={{ label: 'See transparent pricing', href: '/pricing' }}
       />
     </main>

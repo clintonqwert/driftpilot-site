@@ -26,7 +26,7 @@ export const pricingFAQ: FAQItem[] = [
   {
     question: "What happens after I purchase?",
     answer:
-      "We start with a 30-minute scope call, then send a scope document with a fixed timeline within 48 hours. Most projects are live within weeks. At handoff you receive the full codebase, documentation, and — on Growth — a 30-day support window.",
+      "We start with a 30-minute discovery call, then send a scope document with a fixed timeline within 48 hours. Most projects are live within weeks. At handoff you receive the full codebase, documentation, and — on Growth — a 30-day support window.",
   },
   {
     question: "What is the Dealership Growth Platform?",

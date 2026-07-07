@@ -123,7 +123,9 @@ export default async function ServicesPage() {
         heading="Common questions about working together."
       />
 
-      <CTABand />
+      <CTABand
+        primaryCTA={{ label: "Let's discuss your project", href: '/contact' }}
+      />
     </main>
   );
 }

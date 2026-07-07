@@ -12,12 +12,14 @@ export const PRIMARY_NAV: NavLink[] = [
   { label: "Services", href: "/services" },
   { label: "Pricing", href: "/pricing" },
   { label: "Work", href: "/work" },
-  { label: "Insights", href: "/insights" },
   { label: "Automotive", href: "/automotive" },
+  { label: "Process", href: "/process" },
+  { label: "Insights", href: "/insights" },
+  { label: "About", href: "/about" },
 ];
 
 export const PRIMARY_CTA: NavLink = {
-  label: "Book a Scope Call",
+  label: "Book a Discovery Call",
   href: "/contact",
 };
 
@@ -32,31 +34,36 @@ export const SERVICES_NAV: NavLink[] = [
   },
 ];
 
+export const SERVICES_COLUMN: { heading: string; links: NavLink[] } = {
+  heading: "Services",
+  links: [
+    { label: "Website Development", href: "/services/ai-website-development" },
+    { label: "Headless WordPress", href: "/services/headless-wordpress" },
+    { label: "Next.js Development", href: "/services/nextjs-development" },
+    { label: "Lead Generation Systems", href: "/services/lead-generation-systems" },
+    { label: "For Dealerships", href: "/automotive" },
+  ],
+};
+
+export const COMPANY_COLUMN: { heading: string; links: NavLink[] } = {
+  heading: "Company",
+  links: [
+    { label: "Work", href: "/work" },
+    { label: "About", href: "/about" },
+    { label: "Process", href: "/process" },
+    { label: "Insights", href: "/insights" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Careers", href: "/careers" },
+  ],
+};
+
+/** Kept for callers that want the ordered set; built from the named columns. */
 export const FOOTER_COLUMNS: { heading: string; links: NavLink[] }[] = [
-  {
-    heading: "Services",
-    links: [
-      { label: "Website Development", href: "/services/ai-website-development" },
-      { label: "Headless WP", href: "/services/headless-wordpress" },
-      { label: "Next.js Dev", href: "/services/nextjs-development" },
-      { label: "Lead Gen", href: "/services/lead-generation-systems" },
-      { label: "Automotive", href: "/automotive" },
-    ],
-  },
-  {
-    heading: "Company",
-    links: [
-      { label: "Work", href: "/work" },
-      { label: "About", href: "/about" },
-      { label: "How We Work", href: "/how-we-work" },
-      { label: "Insights", href: "/insights" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Careers", href: "/careers" },
-    ],
-  },
+  SERVICES_COLUMN,
+  COMPANY_COLUMN,
 ];
 
 export const LEGAL_LINKS: NavLink[] = [
-  { label: "Privacy", href: "/privacy" },
-  { label: "Terms", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Service", href: "/terms" },
 ];

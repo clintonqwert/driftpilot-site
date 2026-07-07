@@ -21,7 +21,7 @@ export const metadata: Metadata = buildMetadata({
 const afterBookingSteps = [
   {
     number: "01",
-    heading: "Scope call",
+    heading: "Discovery call",
     body: "A free 30-minute call. We ask the right questions, align on the outcome that matters, and confirm which package fits.",
   },
   {
@@ -213,7 +213,7 @@ export default function PricingPage() {
       <CTABand
         headline="Ready to get started?"
         subhead={"No contracts. No hidden fees.\nPick a plan and we'll have your site live within weeks."}
-        primaryCTA={{ label: "Book a Free Scope Call", href: "/contact" }}
+        primaryCTA={{ label: "Request a custom quote", href: "/contact" }}
         secondaryCTA={{ label: "See Our Work", href: "/work" }}
       />
     </main>

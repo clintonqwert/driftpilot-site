@@ -74,10 +74,10 @@ export function ProcessSection() {
 
         <div className="mt-8 text-center">
           <Link
-            href="/how-we-work"
+            href="/process"
             className="text-sm font-medium text-accent hover:text-accent-hover underline-offset-4 hover:underline transition-colors"
           >
-            Curious about the details? See exactly how we work →
+            Curious about the details? See the full six-step process →
           </Link>
         </div>
       </div>

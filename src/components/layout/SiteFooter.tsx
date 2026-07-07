@@ -1,24 +1,9 @@
 import Link from 'next/link';
 import { buttonClasses } from '@/components/ui/button';
+import { SERVICES_COLUMN, COMPANY_COLUMN, LEGAL_LINKS } from '@/lib/content/navigation';
 
-const serviceLinks = [
-  { label: 'AI Website Development', href: '/services/ai-website-development' },
-  { label: 'Headless WordPress', href: '/services/headless-wordpress' },
-  { label: 'Next.js Development', href: '/services/nextjs-development' },
-  { label: 'Lead Generation Systems', href: '/services/lead-generation-systems' },
-  { label: 'For Dealerships', href: '/automotive' },
-];
-
-const companyLinks = [
-  { label: 'Work', href: '/work' },
-  { label: 'About', href: '/about' },
-  { label: 'How We Work', href: '/how-we-work' },
-  { label: 'Insights', href: '/insights' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Careers', href: '/careers' },
-  { label: 'Privacy Policy', href: '/privacy' },
-  { label: 'Terms of Service', href: '/terms' },
-];
+const serviceLinks = SERVICES_COLUMN.links;
+const companyLinks = [...COMPANY_COLUMN.links, ...LEGAL_LINKS];
 
 
 export function SiteFooter() {
@@ -97,7 +82,7 @@ export function SiteFooter() {
               href="/contact"
               className={buttonClasses({ size: "sm" })}
             >
-              Book a Scope Call
+              Book a Discovery Call
             </Link>
             <a
               href="mailto:hello@driftpilot.ca"

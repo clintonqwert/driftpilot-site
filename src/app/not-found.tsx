@@ -27,7 +27,7 @@ export default function NotFound() {
         href="/contact"
         className="mt-8 inline-block font-medium text-fg underline underline-offset-4 hover:text-accent transition-colors"
       >
-        Book a Scope Call
+        Book a Discovery Call
       </Link>
     </main>
   );

@@ -44,12 +44,12 @@ export default async function InsightsPage() {
               <p className="text-base font-semibold text-fg">First articles are on the way.</p>
               <p className="mt-2 text-sm text-muted">
                 In the meantime,{' '}
-                <Link href="/how-we-work" className="text-accent hover:text-accent-hover underline-offset-4 hover:underline">
-                  see how we work
+                <Link href="/process" className="text-accent hover:text-accent-hover underline-offset-4 hover:underline">
+                  see our process
                 </Link>{' '}
                 or{' '}
                 <Link href="/contact" className="text-accent hover:text-accent-hover underline-offset-4 hover:underline">
-                  book a scope call
+                  book a discovery call
                 </Link>.
               </p>
             </div>

@@ -1,10 +1,14 @@
 import type { Metadata } from 'next';
-import { buildMetadata } from '@/lib/seo';
+import { breadcrumbSchema, buildMetadata } from '@/lib/seo';
+import { JsonLd } from '@/components/shared/JsonLd';
 import { PageHero } from '@/components/shared/PageHero';
 import { ContactForm } from '@/components/forms/ContactForm';
+import { CalendlySection } from '@/components/shared/CalendlySection';
+import { FAQSection } from '@/components/shared/FAQSection';
+import { contactFAQ } from '@/lib/content/faq/contact';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Book a Scope Call — Driftpilot',
+  title: 'Book a Discovery Call — Driftpilot',
   description:
     'Tell us about your project. We reply within one business day with a scope document and next steps.',
   path: '/contact',
@@ -13,16 +17,22 @@ export const metadata: Metadata = buildMetadata({
 export default function ContactPage() {
   return (
     <main>
+      <JsonLd
+        schema={breadcrumbSchema([
+          { name: 'Home', path: '/' },
+          { name: 'Contact', path: '/contact' },
+        ])}
+      />
       <PageHero
         eyebrow="Get in touch"
-        heading="Book a Free Scope Call"
+        heading="Book your Discovery Call"
         subheading="Tell us about your project. We reply within one business day."
       />
 
       <div className="mx-auto max-w-container px-5 md:px-8 py-16 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
           {/* Form — takes up 3/5 on desktop */}
-          <div className="lg:col-span-3">
+          <div id="contact-form" className="lg:col-span-3 scroll-mt-24">
             <ContactForm />
           </div>
 
@@ -81,6 +91,16 @@ export default function ContactPage() {
               >
                 hello@driftpilot.ca
               </a>
+              <dl className="mt-5 pt-5 border-t border-line flex flex-col gap-2">
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="text-sm text-muted">First reply</dt>
+                  <dd className="text-sm font-medium text-fg">within 1 business day</dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="text-sm text-muted">Scope document</dt>
+                  <dd className="text-sm font-medium text-fg">within 48 hours</dd>
+                </div>
+              </dl>
             </div>
 
             <div className="flex items-start gap-3 px-1">
@@ -94,6 +114,14 @@ export default function ContactPage() {
           </aside>
         </div>
       </div>
+
+      <CalendlySection />
+
+      <FAQSection
+        items={contactFAQ}
+        heading="Before you reach out."
+        showCTA={false}
+      />
     </main>
   );
 }

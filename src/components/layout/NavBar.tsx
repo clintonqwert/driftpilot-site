@@ -87,7 +87,7 @@ export function NavBar() {
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+            <nav className="hidden lg:flex items-center gap-7" aria-label="Main navigation">
               {PRIMARY_NAV.map((link) => (
                 <Link
                   key={link.href}
@@ -100,9 +100,9 @@ export function NavBar() {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-4">
               <Link href="/contact" className={buttonClasses({ size: 'sm' })}>
-                Book a Scope Call
+                Book a Discovery Call
               </Link>
             </div>
 
@@ -114,7 +114,7 @@ export function NavBar() {
               aria-expanded={isMenuOpen}
               aria-controls="mobile-nav-drawer"
               onClick={() => setIsMenuOpen((v) => !v)}
-              className="md:hidden flex flex-col justify-center gap-1.5 w-11 h-11 rounded-md text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="lg:hidden flex flex-col justify-center gap-1.5 w-11 h-11 rounded-md text-fg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               <span
                 className={`block h-0.5 w-6 mx-auto rounded-full bg-current transition-transform duration-200 ${
@@ -139,7 +139,7 @@ export function NavBar() {
       {/* Mobile drawer */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 z-40 md:hidden"
+          className="fixed inset-0 z-40 lg:hidden"
           aria-modal="true"
           role="dialog"
           aria-label="Navigation menu"
@@ -191,7 +191,7 @@ export function NavBar() {
                 className={buttonClasses({ size: 'md', className: 'w-full' })}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Book a Scope Call
+                Book a Discovery Call
               </Link>
             </div>
           </div>

@@ -46,3 +46,6 @@ __pycache__/
 *.tsbuildinfo
 next-env.d.ts
 .devswarm-temp/
+
+# playwright-cli debug artifacts
+.playwright-cli/

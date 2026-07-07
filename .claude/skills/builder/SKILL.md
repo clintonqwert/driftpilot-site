@@ -54,6 +54,12 @@ $ARGUMENTS
 - Read Reviewer/Tester/Auditor/Content Strategist findings on your PR with `gh pr view <number> --comments` — work P0 findings first, then P1.
 - Findings carry a propose-before-apply policy: the Reviewer proposes, you apply once the user approves.
 
+## Checkpoint (survive usage-limit resets)
+
+- Before ending any turn — and immediately if a usage-limit warning appears — commit WIP to your PR branch (`wip:` commits are fine; tidy them before requesting review) and write `HANDOFF.md` at the worktree root: current task, what's done, exact next step, open blockers.
+- `HANDOFF.md` is a local scratch file and gitignored — never commit it or mention it in the PR.
+- On starting or resuming a session, read `HANDOFF.md` first if it exists and continue from its next step. Delete it when the task is fully handed over.
+
 ## Repo notes
 
 - Read `node_modules/next/dist/docs/` for any Next.js API you touch — this version has breaking changes vs. training data.

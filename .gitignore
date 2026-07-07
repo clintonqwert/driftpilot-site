@@ -37,6 +37,7 @@ yarn-error.log*
 # claude code
 .claude/worktrees/
 .claude/settings.local.json
+HANDOFF.md
 __pycache__/
 
 # vercel

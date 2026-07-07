@@ -47,6 +47,11 @@ $ARGUMENTS
 - `npm run build`, TypeScript (`tsc --noEmit`), linting, routing, metadata, static generation
 - Report deployment-blocking issues as findings for the Builder — do not fix them yourself
 
+## Checkpoint (survive usage-limit resets)
+
+- Before ending any turn — and immediately if a usage-limit warning appears — write `HANDOFF.md` in your working directory: PR under test, which of the six steps are complete, PASS/FAIL evidence gathered so far, exact next step. This local scratch file is gitignored and never committed, so it does not violate the never-modify-code rule.
+- On starting or resuming a session, read `HANDOFF.md` first if it exists and continue from its next step. Delete it after posting your final report to the PR.
+
 ## Handover
 
 Post the PASS/FAIL report (with reproduction steps for failures) as a comment on the PR via `gh pr comment`, so the Builder can read it with `gh pr view <number> --comments`. Blocking findings should read as a self-contained handoff prompt the Builder can act on cold. Also show the report in your response to the user.

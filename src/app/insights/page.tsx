@@ -1,9 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { buildMetadata } from '@/lib/seo';
+import { blogSchema, buildMetadata } from '@/lib/seo';
+import { JsonLd } from '@/components/shared/JsonLd';
 import { PageHero } from '@/components/shared/PageHero';
 import { CTABand } from '@/components/shared/CTABand';
-import { getAllArticles } from '@/lib/content/articles';
+import { ArticleCard } from '@/components/shared/ArticleCard';
+import { formatArticleDate } from '@/lib/format';
+import { topicTag } from '@/lib/content/taxonomy';
+import {
+  getAllArticles,
+  getAllTopics,
+  getFeaturedArticle,
+} from '@/lib/content/articles';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Insights — Driftpilot',
@@ -12,23 +20,20 @@ export const metadata: Metadata = buildMetadata({
   path: '/insights',
 });
 
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
-
 export default async function InsightsPage() {
-  const articles = await getAllArticles();
+  const [articles, featured, topics] = await Promise.all([
+    getAllArticles(),
+    getFeaturedArticle(),
+    getAllTopics(),
+  ]);
+  const rest = articles.filter((a) => a.slug !== featured?.slug);
 
   return (
     <main>
       <PageHero
-        eyebrow="Blog"
+        eyebrow="Resources"
         heading="Insights."
-        subheading="Thinking on web performance, conversion, and modern development."
+        subheading="Practical guides on web performance, conversion, and modern development — written for the people who own the outcome, not just the codebase."
       />
 
       <section className="bg-surface py-16 md:py-24" aria-labelledby="articles-heading">
@@ -49,41 +54,70 @@ export default async function InsightsPage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {articles.map((article) => (
+            <>
+              {/* Featured article */}
+              {featured && (
                 <Link
-                  key={article.slug}
-                  href={`/insights/${article.slug}`}
-                  className="group block rounded-lg border border-line bg-raised p-6 transition-all duration-200  hover:border-line-strong hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  href={`/insights/${featured.slug}`}
+                  className="group block rounded-lg border border-line bg-raised p-8 md:p-10 transition-all duration-200 hover:border-line-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
-                  <p className="text-[11px] font-mono font-medium uppercase tracking-[0.1em] text-accent mb-3">
-                    {article.topic}
-                  </p>
-                  <h3 className="text-base font-semibold text-fg leading-snug group-hover:underline underline-offset-2">
-                    {article.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted line-clamp-2">
-                    {article.description}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {article.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-raised border border-line text-muted"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  <div className="flex flex-wrap items-center gap-2 mb-4">
+                    <span className="text-[11px] font-mono font-medium uppercase tracking-[0.1em] px-2.5 py-1 rounded-md bg-accent/10 text-accent border border-accent/30">
+                      Featured
+                    </span>
+                    <span className="text-[11px] font-mono font-medium uppercase tracking-[0.1em] px-2.5 py-1 rounded-md bg-overlay border border-line text-muted">
+                      {featured.topic}
+                    </span>
                   </div>
-                  <p className="mt-4 text-xs text-muted">{formatDate(article.publishedAt)}</p>
+                  <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-fg max-w-2xl leading-snug group-hover:underline underline-offset-4">
+                    {featured.title}
+                  </h3>
+                  <p className="mt-4 text-base leading-relaxed text-muted max-w-prose">
+                    {featured.description}
+                  </p>
+                  <p className="mt-5 text-sm font-medium text-accent">
+                    Read the article →
+                  </p>
+                  <p className="mt-2 text-xs text-muted">{formatArticleDate(featured.publishedAt)}</p>
                 </Link>
-              ))}
-            </div>
+              )}
+
+              {/* Topic navigation */}
+              <nav className="mt-10 flex flex-wrap items-center gap-2" aria-label="Browse by topic">
+                <span className="text-sm text-muted mr-1">Browse by topic:</span>
+                {topics.flatMap((topic) => {
+                  const tag = topicTag(topic);
+                  if (!tag) return [];
+                  return (
+                  <Link
+                    key={topic}
+                    href={`/insights/tag/${encodeURIComponent(tag)}`}
+                    className="text-sm font-medium px-3.5 py-1.5 rounded-md bg-raised border border-line text-muted hover:text-fg hover:border-line-strong transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  >
+                    {topic}
+                  </Link>
+                  );
+                })}
+              </nav>
+
+              {/* Remaining articles */}
+              {rest.length > 0 && (
+                <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {rest.map((article) => (
+                    <ArticleCard key={article.slug} article={article} />
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
 
-      <CTABand />
+      <JsonLd schema={blogSchema(articles)} />
+      <CTABand
+        headline="Want this thinking applied to your site?"
+        subhead={'Every article here comes from real project work.\nBook a call and we\'ll talk about your situation, not ours.'}
+      />
     </main>
   );
 }

@@ -1,4 +1,5 @@
 import type { FAQItem } from "@/types/content";
+import { paymentTermsFAQ } from "./shared";
 
 export const pricingFAQ: FAQItem[] = [
   {
@@ -20,6 +21,12 @@ export const pricingFAQ: FAQItem[] = [
     question: "What does Hosting & Support include?",
     answer:
       "The $49 CAD/month plan covers secure hosting on modern infrastructure, SSL certificate management, uptime monitoring, and up to one hour of minor content updates per month. It's designed for businesses that want their site taken care of without thinking about it.",
+  },
+  paymentTermsFAQ,
+  {
+    question: "What happens after I purchase?",
+    answer:
+      "We start with a 30-minute scope call, then send a scope document with a fixed timeline within 48 hours. Most projects are live within weeks. At handoff you receive the full codebase, documentation, and — on Growth — a 30-day support window.",
   },
   {
     question: "What is the Dealership Growth Platform?",

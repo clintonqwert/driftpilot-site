@@ -113,12 +113,82 @@ export function serviceSchema(service: Service) {
 export function articleSchema(article: Article) {
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: article.title,
     description: article.description,
     datePublished: article.publishedAt,
     url: `${SITE_URL}/insights/${article.slug}`,
     author: orgRef,
+  };
+}
+
+export function blogSchema(articles: Article[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: `${SITE_NAME} Insights`,
+    url: `${SITE_URL}/insights`,
+    publisher: orgRef,
+    blogPost: articles.map((article) => ({
+      "@type": "BlogPosting" as const,
+      headline: article.title,
+      url: `${SITE_URL}/insights/${article.slug}`,
+      datePublished: article.publishedAt,
+    })),
+  };
+}
+
+/**
+ * OfferCatalog for /pricing. In-development plans are excluded — only
+ * purchasable offers belong in schema. Prices must match the visible page.
+ */
+export function offerCatalogSchema(
+  plans: { name: string; price: string; currency: string; comingSoon?: boolean }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Web development packages",
+    url: `${SITE_URL}/pricing`,
+    provider: orgRef,
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Driftpilot pricing",
+      itemListElement: plans
+        .filter((plan) => !plan.comingSoon)
+        .map((plan) => ({
+          "@type": "Offer" as const,
+          price: plan.price.replace(/[^0-9.]/g, ""),
+          priceCurrency: plan.currency,
+          itemOffered: { "@type": "Service" as const, name: plan.name },
+        })),
+    },
+  };
+}
+
+/** Current dealership offering only — the in-development Drive platform stays out of schema. */
+export function automotiveServiceSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Dealership website development and lead generation",
+    description:
+      "Custom dealership websites on Next.js with CRM-integrated lead capture — owned by the dealer, not rented from a vendor.",
+    url: `${SITE_URL}/automotive`,
+    provider: orgRef,
+  };
+}
+
+export function breadcrumbSchema(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem" as const,
+      position: i + 1,
+      name: item.name,
+      item: item.path === "/" ? SITE_URL : `${SITE_URL}${item.path}`,
+    })),
   };
 }
 

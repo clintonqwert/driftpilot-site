@@ -21,6 +21,10 @@ const caseStudies: CaseStudy[] = [
       "Lead submissions up 47% within 90 days on the same traffic. The sales team started closing 20% faster because each lead arrived pre-qualified with job type and zip code.",
     timeframe: "4 weeks",
     publishedAt: "2026-06-01",
+    status:
+      "The site is in production on our Monthly Maintenance plan. The office team manages seasonal service pages themselves, and every lead still routes automatically by job type — no shared inbox in sight.",
+    futureDirection:
+      "Next phase: dedicated landing pages for the two highest-value service lines, with A/B measurement wired into the existing attribution setup before any copy changes.",
   },
   {
     slug: "saas-marketing-site-rebuild",
@@ -38,6 +42,10 @@ const caseStudies: CaseStudy[] = [
       "LCP dropped from 2.1s to 0.6s on mobile. Lighthouse performance score moved from 61 to 97. Trial sign-ups from organic search increased 28% in the first 60 days.",
     timeframe: "3 weeks",
     publishedAt: "2026-05-15",
+    status:
+      "The marketing team ships new pages through the headless CMS without developer involvement. The site remains fully static — performance has held at launch levels through every content update since.",
+    futureDirection:
+      "Next phase: a programmatic SEO layer for feature-comparison pages, built on the same content model so the team keeps publishing without engineering support.",
   },
   {
     slug: "law-firm-conversion-rebuild",
@@ -55,6 +63,10 @@ const caseStudies: CaseStudy[] = [
       "Qualified lead submissions increased 61% within 60 days on unchanged traffic. The average lead-to-consultation rate improved from 34% to 52% because better intake pre-qualification meant warmer conversations.",
     timeframe: "5 weeks",
     publishedAt: "2026-04-01",
+    status:
+      "In production with HubSpot routing live across all practice areas. Intake tagging still delivers each inquiry to the right attorney, and the firm reviews attribution reports monthly to decide where content effort goes.",
+    futureDirection:
+      "Next phase: expanding the callback-request pattern to after-hours coverage and adding practice-area landing pages for two new service lines the firm is launching.",
   },
 ];
 

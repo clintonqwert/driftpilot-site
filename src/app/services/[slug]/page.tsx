@@ -4,8 +4,14 @@ import { JsonLd } from '@/components/shared/JsonLd';
 import { PageHero } from '@/components/shared/PageHero';
 import { FAQSection } from '@/components/shared/FAQSection';
 import { CTABand } from '@/components/shared/CTABand';
+import Link from 'next/link';
 import { getAllServices, getServiceBySlug } from '@/lib/content/services';
-import { buildMetadata, serviceSchema } from '@/lib/seo';
+import { getAllCaseStudies } from '@/lib/content/case-studies';
+import { getArticlesByTag } from '@/lib/content/articles';
+import { ArticleCard } from '@/components/shared/ArticleCard';
+import { PricingStrip } from '@/components/shared/PricingStrip';
+import { breadcrumbSchema, buildMetadata, serviceSchema } from '@/lib/seo';
+import { SERVICE_TAG } from '@/lib/content/taxonomy';
 
 export function generateStaticParams() {
   return getAllServices().map((service) => ({ slug: service.slug }));
@@ -47,6 +53,13 @@ export default async function ServicePage(props: PageProps<'/services/[slug]'>) 
   const service = getServiceBySlug(slug);
   if (!service) notFound();
 
+  const [allStudies, relatedArticles] = await Promise.all([
+    getAllCaseStudies(),
+    getArticlesByTag(SERVICE_TAG[service.slug]),
+  ]);
+  const relatedStudy = allStudies.find((study) => study.service === service.slug);
+  const reading = relatedArticles.slice(0, 2);
+
   const hasBenefits = service.benefits && service.benefits.length > 0;
   const hasDeliverables = service.deliverables && service.deliverables.length > 0;
   const hasFaq = service.pageFaq && service.pageFaq.length > 0;
@@ -54,6 +67,12 @@ export default async function ServicePage(props: PageProps<'/services/[slug]'>) 
   return (
     <main>
       <JsonLd schema={serviceSchema(service)} />
+      <JsonLd
+        schema={breadcrumbSchema([
+          { name: 'Services', path: '/services' },
+          { name: service.name, path: `/services/${service.slug}` },
+        ])}
+      />
 
       <PageHero
         eyebrow="Service"
@@ -146,6 +165,56 @@ export default async function ServicePage(props: PageProps<'/services/[slug]'>) 
           </div>
         </div>
       </section>
+
+      {/* Related work */}
+      {relatedStudy && (
+        <section className="bg-raised py-16 md:py-24 border-t border-line" aria-labelledby="related-work-heading">
+          <div className="mx-auto max-w-container px-5 md:px-8">
+            <h2
+              id="related-work-heading"
+              className="text-2xl font-semibold tracking-tight text-fg mb-8"
+            >
+              This service, in the wild.
+            </h2>
+            <Link
+              href={`/work/${relatedStudy.slug}`}
+              className="group block max-w-3xl rounded-lg border border-line bg-surface p-6 md:p-8 transition-all duration-200 hover:border-line-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              <p className="font-mono text-2xl md:text-3xl font-semibold text-accent tabular-nums">
+                {relatedStudy.stat}
+              </p>
+              <h3 className="mt-2 text-lg font-semibold text-fg leading-snug group-hover:underline underline-offset-2">
+                {relatedStudy.headline}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted line-clamp-2">
+                {relatedStudy.methodology}
+              </p>
+              <p className="mt-4 text-sm font-medium text-accent">Read the case study →</p>
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {/* Related reading */}
+      {reading.length > 0 && (
+        <section className="bg-surface py-16 md:py-24" aria-labelledby="related-reading-heading">
+          <div className="mx-auto max-w-container px-5 md:px-8">
+            <h2
+              id="related-reading-heading"
+              className="text-2xl font-semibold tracking-tight text-fg mb-8"
+            >
+              Related reading.
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
+              {reading.map((article) => (
+                <ArticleCard key={article.slug} article={article} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <PricingStrip />
 
       {/* FAQ */}
       {hasFaq && (

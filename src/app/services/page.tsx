@@ -4,7 +4,10 @@ import { PageHero } from '@/components/shared/PageHero';
 import { ServicesGrid } from '@/components/home/ServicesGrid';
 import { FAQSection } from '@/components/shared/FAQSection';
 import { CTABand } from '@/components/shared/CTABand';
-import type { FAQItem } from '@/types/content';
+import Link from 'next/link';
+import { PricingStrip } from '@/components/shared/PricingStrip';
+import { servicesFAQ } from '@/lib/content/faq/services';
+import { getAllCaseStudies } from '@/lib/content/case-studies';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Services — Driftpilot',
@@ -43,35 +46,9 @@ const whyItems = [
   },
 ];
 
-const faqItems: FAQItem[] = [
-  {
-    question: "Can I work with you if I already have a designer?",
-    answer:
-      "Yes. We work from Figma files, brand guidelines, or design systems you already have. If you do not have a designer, we design directly in the browser using your brand assets.",
-  },
-  {
-    question: "How long does a typical project take?",
-    answer:
-      "Most projects are live within 4 weeks from the scope call. Complex builds with multiple integrations or bespoke design may take 6–8 weeks. We agree on a timeline before any work begins.",
-  },
-  {
-    question: "What are your payment terms?",
-    answer:
-      "50% upfront before work begins, 50% on the agreed delivery date. We do not bill by the hour — all pricing is fixed and agreed in the scope document.",
-  },
-  {
-    question: "How many revision rounds are included?",
-    answer:
-      "Each project scope includes a defined number of revision rounds, typically two. Requests outside the agreed scope are quoted separately before any additional work is undertaken.",
-  },
-  {
-    question: "How do I start?",
-    answer:
-      "Book a free 30-minute scope call. We will ask the right questions, understand your goal, and come back with a fixed quote and timeline. No commitment until you approve the scope.",
-  },
-];
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const [featuredStudy] = await getAllCaseStudies();
   return (
     <main>
       <PageHero
@@ -110,8 +87,39 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Proof */}
+      {featuredStudy && (
+        <section className="bg-surface py-16 md:py-24" aria-labelledby="proof-heading">
+          <div className="mx-auto max-w-container px-5 md:px-8">
+            <h2
+              id="proof-heading"
+              className="text-3xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.1] text-fg mb-10"
+            >
+              The standard, in practice.
+            </h2>
+            <Link
+              href={`/work/${featuredStudy.slug}`}
+              className="group block rounded-lg border border-line bg-raised p-8 md:p-10 transition-all duration-200 hover:border-line-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              <p className="font-mono text-3xl md:text-4xl font-semibold text-accent tabular-nums">
+                {featuredStudy.stat}
+              </p>
+              <h3 className="mt-3 text-xl md:text-2xl font-semibold tracking-tight text-fg max-w-2xl leading-snug group-hover:underline underline-offset-4">
+                {featuredStudy.headline}
+              </h3>
+              <p className="mt-3 text-base leading-relaxed text-muted max-w-prose">
+                {featuredStudy.methodology} — delivered in {featuredStudy.timeframe}.
+              </p>
+              <p className="mt-4 text-sm font-medium text-accent">Read the case study →</p>
+            </Link>
+          </div>
+        </section>
+      )}
+
+      <PricingStrip />
+
       <FAQSection
-        items={faqItems}
+        items={servicesFAQ}
         heading="Common questions about working together."
       />
 

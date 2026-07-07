@@ -20,6 +20,8 @@ export interface Service {
   description: string;
   /** Short card copy for ServicesGrid */
   excerpt: string;
+  /** One-line outcome statement for the services grid card */
+  outcome?: string;
   primaryKeyword: string;
   /** Phase 1 page-level content — replaced by CMS fields in Phase 2 */
   benefits?: string[];
@@ -43,19 +45,27 @@ export interface CaseStudy {
   timeframe: string;
   /** ISO date */
   publishedAt: string;
+  /** Where the engagement stands today — qualitative, no metrics */
+  status?: string;
+  /** Planned next phase — phrased as plans, never as outcomes */
+  futureDirection?: string;
 }
 
 export interface Article {
   slug: string;
   title: string;
   description: string;
-  /** Topic cluster per sitemap §2.4 */
+  /** Topic cluster per sitemap §2.4 — the category axis of the resource hub */
   topic: string;
   tags: string[];
   /** ISO date */
   publishedAt: string;
   /** Phase 1 inline body — replaced by WPGraphQL richText in Phase 2. Paragraph-separated by \n\n */
   body: string;
+  /** Pinned to the hero slot of /insights (one article at a time) */
+  featured?: boolean;
+  /** Curated internal links rendered as a "Keep reading" block after the body */
+  related?: { label: string; href: string }[];
 }
 
 export interface FAQItem {

@@ -3,6 +3,8 @@ import type { Service, ServiceSlug } from "@/types/content";
 const services: Service[] = [
   {
     slug: "ai-website-development",
+    outcome:
+      "Ship a production site in weeks, not months — using modern tooling that compresses timelines without cutting corners.",
     name: "Website Development",
     title: "Website Development — Driftpilot",
     description:
@@ -46,6 +48,8 @@ const services: Service[] = [
   },
   {
     slug: "headless-wordpress",
+    outcome:
+      "Keep the CMS your team knows. Get the performance your users deserve. Next.js front end, WordPress back end.",
     name: "Headless WordPress",
     title: "Headless WordPress — Driftpilot",
     description:
@@ -89,6 +93,8 @@ const services: Service[] = [
   },
   {
     slug: "nextjs-development",
+    outcome:
+      "A front end your engineers will be proud of and your users will notice. App Router, TypeScript, Vercel-deployed.",
     name: "Next.js Development",
     title: "Next.js Development — Driftpilot",
     description:
@@ -132,6 +138,8 @@ const services: Service[] = [
   },
   {
     slug: "lead-generation-systems",
+    outcome:
+      "Your website should be your best salesperson. CRM integration, conversion-optimised pages, attribution from day one.",
     name: "Lead Generation Systems",
     title: "Lead Generation Systems — Driftpilot",
     description:

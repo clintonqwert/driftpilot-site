@@ -23,7 +23,7 @@ export const PRIMARY_CTA: NavLink = {
 
 /** Services mega-dropdown / mobile drawer sub-items (sitemap §1.2–1.3) */
 export const SERVICES_NAV: NavLink[] = [
-  { label: "AI Website Development", href: "/services/ai-website-development" },
+  { label: "Website Development", href: "/services/ai-website-development" },
   { label: "Headless WordPress", href: "/services/headless-wordpress" },
   { label: "Next.js Development", href: "/services/nextjs-development" },
   {
@@ -36,7 +36,7 @@ export const FOOTER_COLUMNS: { heading: string; links: NavLink[] }[] = [
   {
     heading: "Services",
     links: [
-      { label: "AI Websites", href: "/services/ai-website-development" },
+      { label: "Website Development", href: "/services/ai-website-development" },
       { label: "Headless WP", href: "/services/headless-wordpress" },
       { label: "Next.js Dev", href: "/services/nextjs-development" },
       { label: "Lead Gen", href: "/services/lead-generation-systems" },

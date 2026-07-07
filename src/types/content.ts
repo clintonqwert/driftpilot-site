@@ -20,6 +20,8 @@ export interface Service {
   description: string;
   /** Short card copy for ServicesGrid */
   excerpt: string;
+  /** One-line outcome statement for the services grid card */
+  outcome?: string;
   primaryKeyword: string;
   /** Phase 1 page-level content — replaced by CMS fields in Phase 2 */
   benefits?: string[];

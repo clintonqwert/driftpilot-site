@@ -32,10 +32,10 @@ export function HeroSection() {
           >
             <Link
               href="/contact"
-              aria-label="Book a free scope call with Driftpilot"
+              aria-label="Book a discovery call with Driftpilot"
               className={buttonClasses({ size: 'lg', className: 'w-full sm:w-auto' })}
             >
-              Book a Free Scope Call
+              Book a Discovery Call
             </Link>
             <Link
               href="/work"

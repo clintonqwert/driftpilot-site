@@ -179,7 +179,7 @@ export default function AutomotivePage() {
               href="/automotive/early-access"
               className={buttonClasses({ size: 'md' })}
             >
-              Talk to us about your dealership site →
+              Talk about your dealership →
             </Link>
           </div>
         </div>

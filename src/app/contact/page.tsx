@@ -8,7 +8,7 @@ import { FAQSection } from '@/components/shared/FAQSection';
 import { contactFAQ } from '@/lib/content/faq/contact';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Book a Scope Call — Driftpilot',
+  title: 'Book a Discovery Call — Driftpilot',
   description:
     'Tell us about your project. We reply within one business day with a scope document and next steps.',
   path: '/contact',
@@ -25,7 +25,7 @@ export default function ContactPage() {
       />
       <PageHero
         eyebrow="Get in touch"
-        heading="Book a Free Scope Call"
+        heading="Book your Discovery Call"
         subheading="Tell us about your project. We reply within one business day."
       />
 

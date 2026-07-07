@@ -11,7 +11,7 @@ export const servicesFAQ: FAQItem[] = [
   {
     question: "How long does a typical project take?",
     answer:
-      "Most projects are live within 4 weeks from the scope call. Complex builds with multiple integrations or bespoke design may take 6–8 weeks. We agree on a timeline before any work begins.",
+      "Most projects are live within 4 weeks from the discovery call. Complex builds with multiple integrations or bespoke design may take 6–8 weeks. We agree on a timeline before any work begins.",
   },
   paymentTermsFAQ,
   {
@@ -22,6 +22,6 @@ export const servicesFAQ: FAQItem[] = [
   {
     question: "How do I start?",
     answer:
-      "Book a free 30-minute scope call. We will ask the right questions, understand your goal, and come back with a fixed quote and timeline. No commitment until you approve the scope.",
+      "Book a free 30-minute discovery call. We will ask the right questions, understand your goal, and come back with a fixed quote and timeline. No commitment until you approve the scope.",
   },
 ];

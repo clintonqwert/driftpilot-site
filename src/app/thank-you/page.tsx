@@ -21,7 +21,7 @@ const steps = [
   },
   {
     number: "03",
-    heading: "We book a 30-minute scope call",
+    heading: "We book a 30-minute discovery call",
     body: "If it looks like a fit, we will send a calendar link so we can ask the right questions and give you an accurate quote.",
   },
 ];

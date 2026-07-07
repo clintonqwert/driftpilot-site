@@ -49,7 +49,7 @@ export default async function InsightsPage() {
                 </Link>{' '}
                 or{' '}
                 <Link href="/contact" className="text-accent hover:text-accent-hover underline-offset-4 hover:underline">
-                  book a scope call
+                  book a discovery call
                 </Link>.
               </p>
             </div>

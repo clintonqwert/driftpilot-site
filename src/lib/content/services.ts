@@ -27,7 +27,7 @@ const services: Service[] = [
       {
         question: "How long does a project take?",
         answer:
-          "Most builds are live within 4 weeks from the scope call. Complex projects with multiple integrations or custom design work may take 6–8 weeks. We agree on a timeline before any work begins — no moving goalposts.",
+          "Most builds are live within 4 weeks from the discovery call. Complex projects with multiple integrations or custom design work may take 6–8 weeks. We agree on a timeline before any work begins — no moving goalposts.",
       },
       {
         question: "Do I need to know how to code to work with you?",

@@ -12,12 +12,14 @@ export const PRIMARY_NAV: NavLink[] = [
   { label: "Services", href: "/services" },
   { label: "Pricing", href: "/pricing" },
   { label: "Work", href: "/work" },
-  { label: "Insights", href: "/insights" },
   { label: "Automotive", href: "/automotive" },
+  { label: "Process", href: "/process" },
+  { label: "Insights", href: "/insights" },
+  { label: "About", href: "/about" },
 ];
 
 export const PRIMARY_CTA: NavLink = {
-  label: "Book a Scope Call",
+  label: "Book a Discovery Call",
   href: "/contact",
 };
 
@@ -37,10 +39,10 @@ export const FOOTER_COLUMNS: { heading: string; links: NavLink[] }[] = [
     heading: "Services",
     links: [
       { label: "Website Development", href: "/services/ai-website-development" },
-      { label: "Headless WP", href: "/services/headless-wordpress" },
-      { label: "Next.js Dev", href: "/services/nextjs-development" },
-      { label: "Lead Gen", href: "/services/lead-generation-systems" },
-      { label: "Automotive", href: "/automotive" },
+      { label: "Headless WordPress", href: "/services/headless-wordpress" },
+      { label: "Next.js Development", href: "/services/nextjs-development" },
+      { label: "Lead Generation Systems", href: "/services/lead-generation-systems" },
+      { label: "For Dealerships", href: "/automotive" },
     ],
   },
   {
@@ -57,6 +59,6 @@ export const FOOTER_COLUMNS: { heading: string; links: NavLink[] }[] = [
 ];
 
 export const LEGAL_LINKS: NavLink[] = [
-  { label: "Privacy", href: "/privacy" },
-  { label: "Terms", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Service", href: "/terms" },
 ];

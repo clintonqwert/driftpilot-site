@@ -121,7 +121,7 @@ export default async function WorkPage() {
 
       <CTABand
         headline="Ready to be the next case study?"
-        primaryCTA={{ label: 'Book a Scope Call', href: '/contact' }}
+        primaryCTA={{ label: "Let's build something similar", href: '/contact' }}
         secondaryCTA={{ label: 'See our process', href: '/process' }}
       />
     </main>

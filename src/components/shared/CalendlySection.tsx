@@ -1,8 +1,10 @@
 import { buttonClasses } from '@/components/ui/button';
+import { CalendlyEmbed } from '@/components/shared/CalendlyEmbed';
 
 /**
  * Discovery-call booking band. Env-gated: when NEXT_PUBLIC_CALENDLY_URL is
- * set the Calendly scheduling page renders as a lazy iframe (no widget.js);
+ * set, a click-to-load facade swaps to the Calendly iframe on demand (the
+ * third-party script payload would otherwise blow the Lighthouse budgets);
  * when unset, a zero-JS placeholder card points visitors at the form/email.
  */
 export function CalendlySection() {
@@ -24,13 +26,7 @@ export function CalendlySection() {
         </div>
 
         {url ? (
-          <iframe
-            src={`${url}?hide_gdpr_banner=1&background_color=080a0d&text_color=ffffff&primary_color=a2fa8e`}
-            title="Book a discovery call with Driftpilot"
-            loading="lazy"
-            className="w-full rounded-lg border border-line bg-raised"
-            style={{ height: 700 }}
-          />
+          <CalendlyEmbed url={url} />
         ) : (
           <div className="max-w-xl rounded-lg border border-line bg-surface p-6 md:p-8">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="text-accent mb-4">

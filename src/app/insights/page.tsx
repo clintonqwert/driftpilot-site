@@ -4,7 +4,9 @@ import { blogSchema, buildMetadata } from '@/lib/seo';
 import { JsonLd } from '@/components/shared/JsonLd';
 import { PageHero } from '@/components/shared/PageHero';
 import { CTABand } from '@/components/shared/CTABand';
-import { ArticleCard, formatArticleDate } from '@/components/shared/ArticleCard';
+import { ArticleCard } from '@/components/shared/ArticleCard';
+import { formatArticleDate } from '@/lib/format';
+import { topicTag } from '@/lib/content/taxonomy';
 import {
   getAllArticles,
   getAllTopics,
@@ -17,13 +19,6 @@ export const metadata: Metadata = buildMetadata({
     'Practical thinking on web performance, conversion, headless WordPress, and Next.js development.',
   path: '/insights',
 });
-
-/** Each topic links to the tag page that best represents it. */
-const topicTagMap: Record<string, string> = {
-  'Headless WordPress': 'WordPress',
-  'Lead Generation': 'Lead Generation',
-  'Next.js': 'Next.js',
-};
 
 export default async function InsightsPage() {
   const [articles, featured, topics] = await Promise.all([
@@ -90,15 +85,19 @@ export default async function InsightsPage() {
               {/* Topic navigation */}
               <nav className="mt-10 flex flex-wrap items-center gap-2" aria-label="Browse by topic">
                 <span className="text-sm text-muted mr-1">Browse by topic:</span>
-                {topics.map((topic) => (
+                {topics.flatMap((topic) => {
+                  const tag = topicTag(topic);
+                  if (!tag) return [];
+                  return (
                   <Link
                     key={topic}
-                    href={`/insights/tag/${encodeURIComponent(topicTagMap[topic] ?? topic)}`}
+                    href={`/insights/tag/${encodeURIComponent(tag)}`}
                     className="text-sm font-medium px-3.5 py-1.5 rounded-md bg-raised border border-line text-muted hover:text-fg hover:border-line-strong transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                   >
                     {topic}
                   </Link>
-                ))}
+                  );
+                })}
               </nav>
 
               {/* Remaining articles */}

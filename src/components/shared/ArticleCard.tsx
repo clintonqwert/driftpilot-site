@@ -1,14 +1,6 @@
 import Link from 'next/link';
 import type { Article } from '@/types/content';
-
-export function formatArticleDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC', // ISO dates are date-only; render them as written
-  });
-}
+import { formatArticleDate } from '@/lib/format';
 
 /** Shared article card — used by the insights index, tag pages, and related-posts blocks. */
 export function ArticleCard({ article }: { article: Article }) {

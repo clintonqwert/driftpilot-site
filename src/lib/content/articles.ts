@@ -98,6 +98,7 @@ export async function getRelatedArticles(
       article,
       shared: article.tags.filter((t) => currentTags.has(t)).length,
     }))
+    .filter(({ shared }) => shared > 0)
     .sort((a, b) => b.shared - a.shared)
     .slice(0, limit)
     .map(({ article }) => article);

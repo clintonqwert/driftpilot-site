@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { buildMetadata, SITE_NAME, SITE_URL } from '@/lib/seo';
+import { automotiveServiceSchema, buildMetadata } from '@/lib/seo';
 import { JsonLd } from '@/components/shared/JsonLd';
 import { PageHero } from '@/components/shared/PageHero';
 import { buttonClasses } from '@/components/ui/button';
@@ -11,17 +11,6 @@ export const metadata: Metadata = buildMetadata({
     'We build dealership websites and lead systems you own today — and Driftpilot Drive, a dealer platform in development. Fast, lead-generating, never rented.',
   path: '/automotive',
 });
-
-/** Current dealership offering only — Drive is in development and stays out of schema. */
-const automotiveServiceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Dealership website development and lead generation',
-  description:
-    'Custom dealership websites on Next.js with CRM-integrated lead capture — owned by the dealer, not rented from a vendor.',
-  url: `${SITE_URL}/automotive`,
-  provider: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
-};
 
 // Isolated funnel — all CTA buttons link to /automotive/early-access, never
 // /contact. Informational links to service pages are allowed.
@@ -112,7 +101,7 @@ const driveGoals = [
 export default function AutomotivePage() {
   return (
     <main>
-      <JsonLd schema={automotiveServiceSchema} />
+      <JsonLd schema={automotiveServiceSchema()} />
 
       <PageHero
         eyebrow="Automotive"

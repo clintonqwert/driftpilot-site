@@ -1,4 +1,5 @@
 import type { FAQItem } from "@/types/content";
+import { paymentTermsFAQ } from "./shared";
 
 /** Services index FAQ — same module pattern as faq/pricing.ts. */
 export const servicesFAQ: FAQItem[] = [
@@ -12,11 +13,7 @@ export const servicesFAQ: FAQItem[] = [
     answer:
       "Most projects are live within 4 weeks from the scope call. Complex builds with multiple integrations or bespoke design may take 6–8 weeks. We agree on a timeline before any work begins.",
   },
-  {
-    question: "What are your payment terms?",
-    answer:
-      "50% upfront before work begins, 50% on the agreed delivery date. We do not bill by the hour — all pricing is fixed and agreed in the scope document.",
-  },
+  paymentTermsFAQ,
   {
     question: "How many revision rounds are included?",
     answer:

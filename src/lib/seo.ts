@@ -166,6 +166,19 @@ export function offerCatalogSchema(
   };
 }
 
+/** Current dealership offering only — the in-development Drive platform stays out of schema. */
+export function automotiveServiceSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Dealership website development and lead generation",
+    description:
+      "Custom dealership websites on Next.js with CRM-integrated lead capture — owned by the dealer, not rented from a vendor.",
+    url: `${SITE_URL}/automotive`,
+    provider: orgRef,
+  };
+}
+
 export function breadcrumbSchema(items: { name: string; path: string }[]) {
   return {
     "@context": "https://schema.org",

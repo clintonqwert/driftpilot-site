@@ -111,7 +111,3 @@ export const monthlyPlans: PricingPlan[] = [
     serviceLink: { label: "Learn about Driftpilot Drive", href: "/automotive" },
   },
 ];
-
-export function getPricingPlans() {
-  return { oneTimePackages, monthlyPlans };
-}

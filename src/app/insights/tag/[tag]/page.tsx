@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllTags, getArticlesByTag } from "@/lib/content/articles";
+import { notFound } from "next/navigation";
 import { buildMetadata } from "@/lib/seo";
 import { PageHero } from "@/components/shared/PageHero";
 import { CTABand } from "@/components/shared/CTABand";
 import { ArticleCard } from "@/components/shared/ArticleCard";
+
+// All tags are known at build time — unknown tag URLs must 404, not
+// render thin "0 articles" pages (soft-404 SEO surface).
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const tags = await getAllTags();
@@ -27,6 +32,7 @@ export default async function TagPage(
 ) {
   const tag = decodeURIComponent((await props.params).tag);
   const articles = await getArticlesByTag(tag);
+  if (articles.length === 0) notFound();
 
   return (
     <main>

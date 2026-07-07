@@ -11,7 +11,7 @@ import { getArticlesByTag } from '@/lib/content/articles';
 import { ArticleCard } from '@/components/shared/ArticleCard';
 import { PricingStrip } from '@/components/shared/PricingStrip';
 import { breadcrumbSchema, buildMetadata, serviceSchema } from '@/lib/seo';
-import type { ServiceSlug } from '@/types/content';
+import { SERVICE_TAG } from '@/lib/content/taxonomy';
 
 export function generateStaticParams() {
   return getAllServices().map((service) => ({ slug: service.slug }));
@@ -29,14 +29,6 @@ export async function generateMetadata(
     path: `/services/${service.slug}`,
   });
 }
-
-/** Maps each service to the article tag that covers it. */
-const serviceTagMap: Record<ServiceSlug, string> = {
-  'ai-website-development': 'Next.js',
-  'headless-wordpress': 'WordPress',
-  'nextjs-development': 'Next.js',
-  'lead-generation-systems': 'Lead Generation',
-};
 
 const processSteps = [
   {
@@ -63,7 +55,7 @@ export default async function ServicePage(props: PageProps<'/services/[slug]'>) 
 
   const [allStudies, relatedArticles] = await Promise.all([
     getAllCaseStudies(),
-    getArticlesByTag(serviceTagMap[service.slug]),
+    getArticlesByTag(SERVICE_TAG[service.slug]),
   ]);
   const relatedStudy = allStudies.find((study) => study.service === service.slug);
   const reading = relatedArticles.slice(0, 2);

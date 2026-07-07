@@ -1,4 +1,5 @@
 import type { FAQItem } from "@/types/content";
+import { paymentTermsFAQ } from "./shared";
 
 export const pricingFAQ: FAQItem[] = [
   {
@@ -21,11 +22,7 @@ export const pricingFAQ: FAQItem[] = [
     answer:
       "The $49 CAD/month plan covers secure hosting on modern infrastructure, SSL certificate management, uptime monitoring, and up to one hour of minor content updates per month. It's designed for businesses that want their site taken care of without thinking about it.",
   },
-  {
-    question: "What are your payment terms?",
-    answer:
-      "50% upfront before work begins, 50% on the agreed delivery date. All pricing is fixed and agreed in the scope document before any work starts — we never bill by the hour.",
-  },
+  paymentTermsFAQ,
   {
     question: "What happens after I purchase?",
     answer:

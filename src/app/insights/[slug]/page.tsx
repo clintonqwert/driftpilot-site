@@ -11,6 +11,9 @@ import {
   getRelatedArticles,
 } from '@/lib/content/articles';
 import { articleSchema, breadcrumbSchema, buildMetadata } from '@/lib/seo';
+import { topicService } from '@/lib/content/taxonomy';
+import { getServiceBySlug } from '@/lib/content/services';
+import { formatArticleDate } from '@/lib/format';
 
 export async function generateStaticParams() {
   const articles = await getAllArticles();
@@ -30,30 +33,18 @@ export async function generateMetadata(
   });
 }
 
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC', // ISO dates are date-only; render them as written
-  });
-}
-
-/** Maps each topic to the service the article ultimately supports. */
-const topicServiceMap: Record<string, { label: string; href: string }> = {
-  'Headless WordPress': { label: 'Explore Headless WordPress', href: '/services/headless-wordpress' },
-  'Next.js': { label: 'Explore Next.js Development', href: '/services/nextjs-development' },
-  'Lead Generation': { label: 'Explore Lead Generation Systems', href: '/services/lead-generation-systems' },
-};
-
 export default async function ArticlePage(props: PageProps<'/insights/[slug]'>) {
   const { slug } = await props.params;
   const article = await getArticleBySlug(slug);
   if (!article) notFound();
 
-  const [related] = await Promise.all([getRelatedArticles(slug, 2)]);
+  const related = await getRelatedArticles(slug, 2);
   const paragraphs = article.body.split('\n\n').filter(Boolean);
-  const serviceCTA = topicServiceMap[article.topic];
+  const serviceSlug = topicService(article.topic);
+  const service = serviceSlug ? getServiceBySlug(serviceSlug) : undefined;
+  const serviceCTA = service
+    ? { label: `Explore ${service.name}`, href: `/services/${service.slug}` }
+    : undefined;
 
   return (
     <main>
@@ -75,7 +66,7 @@ export default async function ArticlePage(props: PageProps<'/insights/[slug]'>) 
       <div className="bg-surface border-b border-line">
         <div className="mx-auto max-w-container px-5 md:px-8 py-4 flex flex-wrap items-center gap-4">
           <time dateTime={article.publishedAt} className="text-sm text-muted">
-            {formatDate(article.publishedAt)}
+            {formatArticleDate(article.publishedAt)}
           </time>
           <div className="flex flex-wrap gap-1.5">
             {article.tags.map((tag) => (

@@ -6,9 +6,12 @@
 
 ## First protect the revenue path
 
-1. Add regression tests for the contact and early-access submission paths; the repository has no test runner yet.
-2. Harden CRM delivery in `src/lib/crm.ts`: it retries twice with no backoff, no request timeout, and replays non-retryable 4xx responses. Riflessi's `src/lib/crm.ts` already solves all three — backport it.
-3. Implement the `TODO(phase 1)` fallback in `src/lib/crm.ts` so a failed delivery cannot silently lose a lead.
+**This is the highest-priority work in the repository. Details in `06-backlog.md`.**
+
+1. Stop confirming leads that were never delivered — both actions redirect to `/thank-you` regardless of the outcome.
+2. Harden `src/lib/crm.ts` by backporting Riflessi's implementation.
+3. Give a failed delivery somewhere durable to land.
+4. Add regression tests for both submission paths; the repository has no test runner yet.
 
 ## Then increase discoverability and trust
 

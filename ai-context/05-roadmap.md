@@ -1,10 +1,14 @@
 # Driftpilot roadmap
 
+## Already in place
+
+`.github/workflows/ci.yml` runs lint, typecheck, build, and Lighthouse CI (budgets in `lighthouserc.json`) on every pull request.
+
 ## First protect the revenue path
 
-1. Add minimal CI: lint, typecheck, and build on pull requests.
-2. Add regression tests for the contact and early-access submission paths.
-3. Resolve the webhook fallback so a failed CRM delivery cannot silently lose a lead.
+1. Add regression tests for the contact and early-access submission paths; the repository has no test runner yet.
+2. Harden CRM delivery in `src/lib/crm.ts`: it retries twice with no backoff, no request timeout, and replays non-retryable 4xx responses. Riflessi's `src/lib/crm.ts` already solves all three — backport it.
+3. Implement the `TODO(phase 1)` fallback in `src/lib/crm.ts` so a failed delivery cannot silently lose a lead.
 
 ## Then increase discoverability and trust
 

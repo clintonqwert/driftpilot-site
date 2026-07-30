@@ -2,9 +2,9 @@
 
 ## Protect leads
 
-- Add a durable fallback for failed CRM webhook delivery.
-- Add focused tests for validation, spam handling, and CRM retry behavior.
-- Add automated PR checks for lint, typecheck, and build.
+- Backport Riflessi's `src/lib/crm.ts` hardening: exponential backoff, `AbortSignal.timeout`, and a retryable-status check so 4xx responses are not replayed.
+- Add a durable fallback for failed CRM webhook delivery (the `TODO(phase 1)` in `src/lib/crm.ts`).
+- Add focused tests for validation, spam handling, and CRM retry behavior — no test runner is installed yet.
 
 ## Improve discovery and credibility
 

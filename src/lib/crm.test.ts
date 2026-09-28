@@ -17,7 +17,7 @@ describe("isRetryableStatus", () => {
   it.each([500, 502, 503, 504, 429])("retries %i", (status) => {
     expect(isRetryableStatus(status)).toBe(true);
   });
-  it.each([400, 401, 403, 404, 422])("does not retry %i: replaying it can never succeed", (status) => {
+  it.each([302, 303, 400, 401, 403, 404, 422])("does not retry %i: replaying it can never succeed", (status) => {
     expect(isRetryableStatus(status)).toBe(false);
   });
 });
@@ -47,8 +47,29 @@ describe("sendToCrm", () => {
     const [url, init] = fetchMock.mock.calls[0];
     expect(url).toBe(HOOK);
     expect(init.method).toBe("POST");
-    expect(init.headers).toEqual({ "Content-Type": "application/json" });
+    // Formspree answers JSON only when asked; otherwise it redirects to HTML.
+    expect(init.headers).toEqual({ "Content-Type": "application/json", Accept: "application/json" });
     expect(JSON.parse(init.body)).toEqual({ name: "Alex" });
+  });
+
+  it("never follows a redirect, so only the webhook's own answer counts", async () => {
+    fetchMock.mockResolvedValue(respond(200));
+
+    await sendToCrm(HOOK, {});
+
+    expect(fetchMock.mock.calls[0][1].redirect).toBe("manual");
+  });
+
+  it("treats a redirect as a failure, not a delivery, and does not replay it", async () => {
+    // A form backend that redirects instead of answering JSON has not
+    // confirmed anything; following it could land on a 200 error page.
+    fetchMock.mockResolvedValue(respond(302));
+
+    const result = sendToCrm(HOOK, {});
+    await vi.runAllTimersAsync();
+
+    await expect(result).resolves.toBe(false);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
   it("bounds every request with a timeout", async () => {

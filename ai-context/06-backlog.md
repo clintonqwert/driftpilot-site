@@ -2,7 +2,7 @@
 
 ## Protect leads — start here
 
-**Status, 2026-09-27:** items 1, 2 and 4 are done (branch `fix/lead-delivery-failure`). Item 3 is still open: it needs an owner decision on where a failed lead goes durably, because an email provider is a new service with production secrets.
+**Status, 2026-09-28:** items 1–4 are done (branch `fix/lead-delivery-failure`). Item 3 was settled by the owner: a failed lead is posted in full to Slack `#driftpilot-alerts` instead of a fallback email (see `08-decisions.md`, 2026-09-28).
 
 Scoped 2026-07-30. One PR covers items 1–3; they touch the same three files and splitting them leaves the repository in a half-fixed state. Riflessi is the reference implementation throughout — read its versions of these files first.
 
@@ -20,7 +20,7 @@ Ours: `MAX_ATTEMPTS = 2`, no backoff, no timeout, and every failed status is ret
 
 Riflessi's has `MAX_ATTEMPTS = 3`, `BASE_BACKOFF_MS = 400` doubling per retry, `AbortSignal.timeout(8000)` so a hung webhook cannot hold the Server Action open, and `isRetryableStatus()` limiting retries to 5xx and 429. Copy it; the interfaces are identical, so no caller changes.
 
-**3. The `TODO(phase 1)` fallback.**
+**3. The `TODO(phase 1)` fallback.** (Done 2026-09-28: a Slack alert carrying the whole lead.)
 
 Once item 1 lands, the visitor knows delivery failed — but the lead itself still only exists in a log line. Decide where it goes durably. A fallback email is the smallest thing that works and needs no new infrastructure. The `sendToCrm` signature is deliberately a seam, so this stays behind it.
 

@@ -1,5 +1,7 @@
 import "server-only";
 
+import { after } from "next/server";
+import { escapeSlackText, sendAlert } from "@/lib/alert";
 import { sendToCrm } from "@/lib/crm";
 
 interface LeadDelivery {
@@ -16,25 +18,21 @@ interface LeadDelivery {
  * something that never arrived (ai-context/06-backlog.md, item 1 — the shape
  * Riflessi's submit-booking.ts already uses).
  *
- * On failure the full lead is written to the server log, so it can still be
- * recovered by hand while the logs are kept.
- *
- * TODO(backlog item 3): a durable fallback (the smallest being a fallback
- * email) so a failed lead survives beyond the log's retention.
+ * Call it from a Server Action: a failure schedules its Slack alert with
+ * after(), which needs a request scope.
  */
 export async function deliverLead({ tag, webhookEnv, payload }: LeadDelivery): Promise<boolean> {
   const webhookUrl = process.env[webhookEnv];
 
   if (webhookUrl) {
     if (await sendToCrm(webhookUrl, payload)) return true;
-    console.error(`[${tag}] webhook delivery failed after retries; lead:`, JSON.stringify(payload));
-    return false;
+    // The [crm] log lines just above hold the status and attempt count.
+    return reportUndelivered(tag, `the ${webhookEnv} webhook did not accept it`, payload);
   }
 
   if (process.env.NODE_ENV === "production") {
     // Misconfigured production: every lead would vanish, so fail loud instead.
-    console.error(`[${tag}] ${webhookEnv} is not set — lead NOT delivered; lead:`, JSON.stringify(payload));
-    return false;
+    return reportUndelivered(tag, `${webhookEnv} is not set`, payload);
   }
 
   // Local development without a webhook: keep the lead readable and let the
@@ -42,4 +40,30 @@ export async function deliverLead({ tag, webhookEnv, payload }: LeadDelivery): P
   // "production", so a preview without a webhook fails loud like production.)
   console.warn(`[${tag}] ${webhookEnv} not set (non-production); lead:`, JSON.stringify(payload));
   return true;
+}
+
+/**
+ * Records a lead that didn't arrive in two places:
+ * - the server log, which Vercel keeps for 1 hour on Hobby and 1 day on Pro;
+ * - a Slack alert carrying the whole lead. That message is the record to
+ *   follow up from.
+ *
+ * The alert runs after the response, so the visitor sees the error and the
+ * email link without waiting on Slack.
+ */
+function reportUndelivered(tag: string, reason: string, payload: Record<string, unknown>): false {
+  console.error(`[${tag}] lead NOT delivered (${reason}); lead:`, JSON.stringify(payload));
+
+  const environment = process.env.VERCEL_ENV ?? process.env.NODE_ENV;
+  const text = [
+    `:rotating_light: *Lead NOT delivered* · ${tag} · ${environment}`,
+    `Reason: ${reason}.`,
+    "The visitor saw the error and the email link. Follow up from the details below.",
+    "```",
+    escapeSlackText(JSON.stringify(payload, null, 2)),
+    "```",
+  ].join("\n");
+  after(() => sendAlert(text));
+
+  return false;
 }

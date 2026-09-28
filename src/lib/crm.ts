@@ -21,9 +21,10 @@ export const REQUEST_TIMEOUT_MS = 8000;
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
- * A 4xx means this request will never succeed — the URL, auth, or payload
- * shape is wrong. Replaying it just burns the caller's time. Only transient
- * conditions (5xx, 429, network/timeout) are worth another attempt.
+ * A 3xx or 4xx means this request will never succeed — the URL, auth, or
+ * payload shape is wrong, or the endpoint wants a browser rather than an API
+ * call. Replaying it just burns the caller's time. Only transient conditions
+ * (5xx, 429, network/timeout) are worth another attempt.
  */
 export function isRetryableStatus(status: number): boolean {
   return status >= 500 || status === 429;
@@ -39,8 +40,14 @@ export async function sendToCrm(
     try {
       const res = await fetch(webhookUrl, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        // Formspree (the live webhook) answers with JSON and a real status only
+        // when asked; otherwise it redirects to an HTML page.
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(payload),
+        // Following a redirect would report the landing page's status — a 200
+        // error page would read as a delivery. Only the webhook's own answer
+        // counts, so a redirect comes back as a non-retryable 3xx.
+        redirect: "manual",
         signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       });
       if (res.ok) return true;

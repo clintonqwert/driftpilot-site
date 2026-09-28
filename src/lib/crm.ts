@@ -17,6 +17,12 @@ export const MAX_ATTEMPTS = 3;
 export const BASE_BACKOFF_MS = 400;
 /** A hung webhook must not hold the Server Action open indefinitely. */
 export const REQUEST_TIMEOUT_MS = 8000;
+/**
+ * The visitor watches "Sending…" for the whole call, so all attempts and
+ * backoffs share this budget. Per-attempt timeouts alone let a hung webhook
+ * hold them for ~25s (3 × 8s plus backoff) before the error and email link.
+ */
+export const DELIVERY_DEADLINE_MS = 10_000;
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -34,8 +40,11 @@ export async function sendToCrm(
   webhookUrl: string,
   payload: Record<string, unknown>,
 ): Promise<boolean> {
+  const deadline = Date.now() + DELIVERY_DEADLINE_MS;
+
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     let retryable = true; // network/timeout failures fall through as retryable
+    const timeLeft = Math.max(deadline - Date.now(), 0);
 
     try {
       const res = await fetch(webhookUrl, {
@@ -48,7 +57,7 @@ export async function sendToCrm(
         // error page would read as a delivery. Only the webhook's own answer
         // counts, so a redirect comes back as a non-retryable 3xx.
         redirect: "manual",
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+        signal: AbortSignal.timeout(Math.min(REQUEST_TIMEOUT_MS, timeLeft)),
       });
       if (res.ok) return true;
 
@@ -67,7 +76,16 @@ export async function sendToCrm(
 
     if (!retryable) return false;
     if (attempt < MAX_ATTEMPTS) {
-      await wait(BASE_BACKOFF_MS * 2 ** (attempt - 1));
+      const backoff = BASE_BACKOFF_MS * 2 ** (attempt - 1);
+      // Waiting out a backoff with no time left for the attempt after it
+      // would only delay the visitor's error.
+      if (deadline - Date.now() <= backoff) {
+        console.error(
+          `[crm] giving up after attempt ${attempt}/${MAX_ATTEMPTS}: the ${DELIVERY_DEADLINE_MS}ms deadline leaves no time for another`,
+        );
+        return false;
+      }
+      await wait(backoff);
     }
   }
 

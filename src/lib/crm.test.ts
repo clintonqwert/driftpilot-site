@@ -4,6 +4,7 @@ vi.mock("server-only", () => ({}));
 
 import {
   BASE_BACKOFF_MS,
+  DELIVERY_DEADLINE_MS,
   MAX_ATTEMPTS,
   REQUEST_TIMEOUT_MS,
   isRetryableStatus,
@@ -12,6 +13,34 @@ import {
 
 const HOOK = "https://crm.example.test/hook";
 const respond = (status: number) => new Response(null, { status });
+
+/** A webhook that answers `status` after `ms` of (fake) time. */
+const answerAfter = (ms: number, status: number) => () =>
+  new Promise<Response>((resolve) => setTimeout(() => resolve(respond(status)), ms));
+
+/** A webhook that never answers: the request ends only when its signal aborts. */
+const hang = (_url: string, init: RequestInit) =>
+  new Promise<Response>((_, reject) => {
+    init.signal!.addEventListener("abort", () => reject(init.signal!.reason));
+  });
+
+/**
+ * AbortSignal.timeout runs on Node's internal timers, which fake timers don't
+ * control. This stand-in fires on the faked setTimeout instead.
+ */
+const fakeTimeoutSignals = () =>
+  vi.spyOn(AbortSignal, "timeout").mockImplementation((ms) => {
+    const controller = new AbortController();
+    setTimeout(() => controller.abort(new DOMException("The operation timed out.", "TimeoutError")), ms);
+    return controller.signal;
+  });
+
+/** Tracks whether a promise has settled, so a test can pin *when* it does. */
+function track<T>(promise: Promise<T>) {
+  const state = { settled: false, promise };
+  promise.finally(() => (state.settled = true)).catch(() => {});
+  return state;
+}
 
 describe("isRetryableStatus", () => {
   it.each([500, 502, 503, 504, 429])("retries %i", (status) => {
@@ -80,6 +109,41 @@ describe("sendToCrm", () => {
 
     expect(timeout).toHaveBeenCalledWith(REQUEST_TIMEOUT_MS);
     expect(fetchMock.mock.calls[0][1].signal).toBe(timeout.mock.results[0].value);
+  });
+
+  it(`answers within ${DELIVERY_DEADLINE_MS}ms however long the webhook hangs`, async () => {
+    // Per-attempt timeouts alone kept the visitor on "Sending…" for ~25s.
+    const timeout = fakeTimeoutSignals();
+    fetchMock.mockImplementation(hang);
+
+    const call = track(sendToCrm(HOOK, {}));
+
+    await vi.advanceTimersByTimeAsync(DELIVERY_DEADLINE_MS - 1);
+    expect(call.settled).toBe(false);
+    await vi.advanceTimersByTimeAsync(1);
+    expect(call.settled).toBe(true);
+    await expect(call.promise).resolves.toBe(false);
+
+    // A full first attempt, one backoff, then a second attempt cut to what's left.
+    expect(timeout.mock.calls.map(([ms]) => ms)).toEqual([
+      REQUEST_TIMEOUT_MS,
+      DELIVERY_DEADLINE_MS - REQUEST_TIMEOUT_MS - BASE_BACKOFF_MS,
+    ]);
+  });
+
+  it("does not wait out a backoff when the deadline leaves no time to retry", async () => {
+    // 503 at 7s, backoff to 7.4s, 503 at 9.4s: 0.6s left is less than the next
+    // 0.8s backoff, so there's no third attempt to wait for.
+    fetchMock.mockImplementationOnce(answerAfter(7000, 503)).mockImplementationOnce(answerAfter(2000, 503));
+
+    const call = track(sendToCrm(HOOK, {}));
+
+    await vi.advanceTimersByTimeAsync(9399);
+    expect(call.settled).toBe(false);
+    await vi.advanceTimersByTimeAsync(1);
+    expect(call.settled).toBe(true);
+    await expect(call.promise).resolves.toBe(false);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
   it("retries a 5xx after a doubling backoff, then succeeds", async () => {

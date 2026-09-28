@@ -118,7 +118,11 @@ export function ContactForm({ contactEmail }: { contactEmail: string }) {
         <label htmlFor="cf-budget" className={labelBase}>
           Project budget <span className="text-danger" aria-hidden="true">*</span>
         </label>
+        {/* React resets the form after every action, and a select applies
+            `defaultValue` only on mount. Keying on the returned budget remounts
+            it, so a failed send doesn't clear the visitor's choice. */}
         <select
+          key={values?.budget ?? ""}
           id="cf-budget"
           name="budget"
           required

@@ -3,6 +3,7 @@ import { breadcrumbSchema, buildMetadata } from '@/lib/seo';
 import { JsonLd } from '@/components/shared/JsonLd';
 import { PageHero } from '@/components/shared/PageHero';
 import { ContactForm } from '@/components/forms/ContactForm';
+import { CONTACT_EMAIL } from '@/lib/content/contact';
 import { CalendlySection } from '@/components/shared/CalendlySection';
 import { FAQSection } from '@/components/shared/FAQSection';
 import { contactFAQ } from '@/lib/content/faq/contact';
@@ -33,7 +34,7 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
           {/* Form — takes up 3/5 on desktop */}
           <div id="contact-form" className="lg:col-span-3 scroll-mt-24">
-            <ContactForm />
+            <ContactForm contactEmail={CONTACT_EMAIL} />
           </div>
 
           {/* Trust signals — 2/5 on desktop */}

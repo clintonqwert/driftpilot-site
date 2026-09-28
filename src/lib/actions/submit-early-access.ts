@@ -2,10 +2,14 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { sendToCrm } from "@/lib/crm";
+import { deliverLead } from "@/lib/deliver-lead";
 import { type EarlyAccessFormResult, type EarlyAccessFormValues } from "@/types/forms";
 
 const MIN_TIME_TO_SUBMIT_MS = 3000;
+
+/** Shown when the sign-up could not be delivered (see submit-contact.ts). */
+const DELIVERY_FAILED_MESSAGE =
+  "Your request could not be sent. It didn't reach our early-access list, so you're not on it yet.";
 
 const earlyAccessSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name."),
@@ -24,6 +28,9 @@ export async function submitEarlyAccess(
 ): Promise<EarlyAccessFormResult> {
   const honeypot = formData.get("website");
   const startedAt = Number(formData.get("startedAt"));
+  // A missing stamp is Number(null) === 0, which passes: the form also posts
+  // without JavaScript, where the stamp is never set, and those are real
+  // visitors. Only a stamp that parses to nothing (NaN) or is too recent fails.
   const isSpam =
     Boolean(honeypot) ||
     !Number.isFinite(startedAt) ||
@@ -51,20 +58,18 @@ export async function submitEarlyAccess(
   }
 
   if (!isSpam) {
-    const webhookUrl = process.env.AUTOMOTIVE_WEBHOOK_URL;
-    if (webhookUrl) {
-      const delivered = await sendToCrm(webhookUrl, {
+    const delivered = await deliverLead({
+      tag: "early-access",
+      webhookEnv: "AUTOMOTIVE_WEBHOOK_URL",
+      payload: {
         ...parsed.data,
         source: "drive-early-access",
         submittedAt: new Date().toISOString(),
-      });
-      if (!delivered) {
-        console.error("[early-access] delivery failed; lead logged above");
-      }
-    } else {
-      console.error(
-        "[early-access] AUTOMOTIVE_WEBHOOK_URL not set; lead not delivered",
-      );
+      },
+    });
+    // Never confirm a sign-up that didn't arrive: say so, and keep the answers.
+    if (!delivered) {
+      return { ok: false, errors: { form: DELIVERY_FAILED_MESSAGE }, values: submittedValues };
     }
   }
 

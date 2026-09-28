@@ -12,7 +12,7 @@ Read `ai-context/` and `docs/project-analysis.md` before planning material work.
 - Keep one primary CTA per page and preserve automotive-funnel isolation.
 - Reuse the existing token, content, SEO, and component systems before adding alternatives; `src/app/globals.css` and `src/lib/design-tokens.ts` mirror the palette, so change both together.
 - Ask before changing production configuration, legal content, lead delivery, or public business claims.
-- Run `npm run lint` and `npm run typecheck` before handoff.
+- Run `npm run lint`, `npm run typecheck` and `npm test` before handoff.
 - Record accepted decisions in `ai-context/08-decisions.md` and completed milestones in `ai-context/11-release-notes.md`.
 
 ## Roles

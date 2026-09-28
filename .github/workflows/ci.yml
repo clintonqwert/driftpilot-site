@@ -26,6 +26,11 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      # Vitest over the lead pipeline: schemas, spam gates, CRM client, and
+      # the failure path (ProjectOS 01-Engineering/testing.md).
+      - name: Test
+        run: npm test
+
       # Only the build evaluates src/lib/seo.ts, which throws in production
       # builds without this var. Keep in sync with _siteUrlFallback there.
       - name: Build

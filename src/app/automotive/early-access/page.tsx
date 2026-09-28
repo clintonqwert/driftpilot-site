@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo';
 import { PageHero } from '@/components/shared/PageHero';
 import { EarlyAccessForm } from '@/components/forms/EarlyAccessForm';
+import { CONTACT_EMAIL } from '@/lib/content/contact';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Driftpilot Drive Early Access — Driftpilot',
@@ -43,7 +44,7 @@ export default function EarlyAccessPage() {
               <div className="rounded-lg border border-line bg-raised p-6 md:p-8">
                 <h2 className="text-xl font-semibold text-fg mb-1">Request early access</h2>
                 <p className="text-sm text-muted mb-6">Takes 30 seconds. No card required. Need a dealership site before Drive ships? Mention it — we build those today.</p>
-                <EarlyAccessForm />
+                <EarlyAccessForm contactEmail={CONTACT_EMAIL} />
               </div>
             </div>
 

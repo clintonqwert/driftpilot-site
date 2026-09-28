@@ -6,6 +6,7 @@ import { BUDGET_OPTIONS } from '@/types/forms';
 import type { FormResult } from '@/types/forms';
 import { inputBase, inputError, labelBase, errorBanner, errorText } from '@/components/ui/field';
 import { buttonClasses } from '@/components/ui/button';
+import { fallbackMailto } from '@/components/forms/fallback-mailto';
 
 const BUDGET_LABELS: Record<typeof BUDGET_OPTIONS[number], string> = {
   'under-5k': 'Under $5,000',
@@ -25,7 +26,7 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-export function ContactForm() {
+export function ContactForm({ contactEmail }: { contactEmail: string }) {
   const [state, formAction, isPending] = useActionState<FormResult | null, FormData>(
     submitContact,
     null,
@@ -117,7 +118,11 @@ export function ContactForm() {
         <label htmlFor="cf-budget" className={labelBase}>
           Project budget <span className="text-danger" aria-hidden="true">*</span>
         </label>
+        {/* React resets the form after every action, and a select applies
+            `defaultValue` only on mount. Keying on the returned budget remounts
+            it, so a failed send doesn't clear the visitor's choice. */}
         <select
+          key={values?.budget ?? ""}
           id="cf-budget"
           name="budget"
           required
@@ -155,10 +160,32 @@ export function ContactForm() {
         <FieldError id="cf-message-error" message={errors.message} />
       </div>
 
+      {/* Only a failed delivery sets `errors.form`, so the fallback always applies. */}
       {errors.form && (
-        <p role="alert" className={errorBanner}>
-          {errors.form}
-        </p>
+        <div role="alert" className={errorBanner}>
+          <p>{errors.form}</p>
+          <p className="mt-2">
+            Email the same details to{' '}
+            <a
+              href={fallbackMailto(contactEmail, 'Project inquiry', [
+                ['Name', values?.name],
+                ['Email', values?.email],
+                ['Company', values?.company],
+                [
+                  'Budget',
+                  values?.budget
+                    ? BUDGET_LABELS[values.budget as (typeof BUDGET_OPTIONS)[number]] ?? values.budget
+                    : undefined,
+                ],
+                ['Project', values?.message],
+              ])}
+              className="font-semibold underline underline-offset-2 hover:no-underline"
+            >
+              {contactEmail}
+            </a>{' '}
+            instead. Your answers are already filled in.
+          </p>
+        </div>
       )}
 
       <button

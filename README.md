@@ -93,6 +93,7 @@ npm run dev                  # http://localhost:3000
 ```bash
 npm run lint        # ESLint
 npm run typecheck   # next typegen + tsc --noEmit
+npm test            # Vitest: the lead pipeline (schemas, spam gates, CRM client, failure path)
 npm run build       # production build — all routes static in Phase 1
 npx lhci autorun    # Lighthouse CI against the local production build
 ```

@@ -2,11 +2,19 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { sendToCrm } from "@/lib/crm";
+import { deliverLead } from "@/lib/deliver-lead";
 import { BUDGET_OPTIONS, type FormResult, type ContactFormValues } from "@/types/forms";
 
 /** Minimum ms between form render and submit — bots fill instantly. */
 const MIN_TIME_TO_SUBMIT_MS = 3000;
+
+/**
+ * Shown when the lead could not be delivered. Validation problems always come
+ * back as per-field errors, so `errors.form` means exactly this — and the form
+ * pairs it with an email link carrying the visitor's answers.
+ */
+const DELIVERY_FAILED_MESSAGE =
+  "Your message could not be sent. It didn't reach our inbox, so we haven't received your inquiry yet.";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name."),
@@ -29,6 +37,9 @@ export async function submitContact(
   // Spam takes the normal success path — never reveal detection.
   const honeypot = formData.get("website");
   const startedAt = Number(formData.get("startedAt"));
+  // A missing stamp is Number(null) === 0, which passes: the form also posts
+  // without JavaScript, where the stamp is never set, and those are real
+  // visitors. Only a stamp that parses to nothing (NaN) or is too recent fails.
   const isSpam =
     Boolean(honeypot) ||
     !Number.isFinite(startedAt) ||
@@ -61,22 +72,21 @@ export async function submitContact(
   }
 
   if (!isSpam) {
-    const webhookUrl = process.env.CRM_WEBHOOK_URL;
-    if (webhookUrl) {
-      // Disqualification is invisible — tag it, route it, same success path.
-      const tags =
-        parsed.data.budget === "under-5k" ? ["disqualified-budget"] : [];
-      const delivered = await sendToCrm(webhookUrl, {
+    // Disqualification is invisible — tag it, route it, same success path.
+    const tags = parsed.data.budget === "under-5k" ? ["disqualified-budget"] : [];
+    const delivered = await deliverLead({
+      tag: "contact",
+      webhookEnv: "CRM_WEBHOOK_URL",
+      payload: {
         ...parsed.data,
         tags,
         source: "contact-form",
         submittedAt: new Date().toISOString(),
-      });
-      if (!delivered) {
-        console.error("[contact] CRM delivery failed; lead logged above");
-      }
-    } else {
-      console.error("[contact] CRM_WEBHOOK_URL not set; lead not delivered");
+      },
+    });
+    // Never confirm a lead that didn't arrive: say so, and keep the answers.
+    if (!delivered) {
+      return { ok: false, errors: { form: DELIVERY_FAILED_MESSAGE }, values: submittedValues };
     }
   }
 

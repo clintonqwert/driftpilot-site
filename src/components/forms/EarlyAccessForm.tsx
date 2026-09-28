@@ -5,6 +5,7 @@ import { submitEarlyAccess } from '@/lib/actions/submit-early-access';
 import type { EarlyAccessFormResult } from '@/types/forms';
 import { inputBase, inputError, labelBase, errorBanner, errorText } from '@/components/ui/field';
 import { buttonClasses } from '@/components/ui/button';
+import { fallbackMailto } from '@/components/forms/fallback-mailto';
 
 
 function FieldError({ id, message }: { id: string; message?: string }) {
@@ -16,7 +17,7 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-export function EarlyAccessForm() {
+export function EarlyAccessForm({ contactEmail }: { contactEmail: string }) {
   const [state, formAction, isPending] = useActionState<EarlyAccessFormResult | null, FormData>(
     submitEarlyAccess,
     null,
@@ -98,10 +99,25 @@ export function EarlyAccessForm() {
         />
       </div>
 
+      {/* Only a failed delivery sets `errors.form`, so the fallback always applies. */}
       {errors.form && (
-        <p role="alert" className={errorBanner}>
-          {errors.form}
-        </p>
+        <div role="alert" className={errorBanner}>
+          <p>{errors.form}</p>
+          <p className="mt-2">
+            Email the same details to{' '}
+            <a
+              href={fallbackMailto(contactEmail, 'Driftpilot Drive early access', [
+                ['Name', values?.name],
+                ['Email', values?.email],
+                ['Dealership', values?.dealership],
+              ])}
+              className="font-semibold underline underline-offset-2 hover:no-underline"
+            >
+              {contactEmail}
+            </a>{' '}
+            instead. Your answers are already filled in.
+          </p>
+        </div>
       )}
 
       <button

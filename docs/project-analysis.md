@@ -16,8 +16,8 @@ Driftpilot is a marketing website for a web-development studio, built on **Next.
 
 **The codebase is healthy but has two structural gaps that matter more than typical technical debt:**
 
-1. **Zero automated tests.** The lead-capture forms — the only revenue-relevant code path — have no regression protection. Every review cycle documented in git history (PR #17–#23) caught real bugs manually; none of that is codified as a test.
-2. **Silent lead loss on webhook failure.** `src/lib/crm.ts:35` has a `TODO` for a fallback path that doesn't exist. If the CRM webhook fails twice, the form still redirects to `/thank-you` and the lead is gone except for a `console.error` in ephemeral function logs.
+1. **Zero automated tests.** The lead-capture forms — the only revenue-relevant code path — have no regression protection. Every review cycle documented in git history (PR #17–#23) caught real bugs manually; none of that is codified as a test. *(Resolved 2026-09-28: Vitest covers the lead pipeline, run in CI.)*
+2. **Silent lead loss on webhook failure.** `src/lib/crm.ts:35` has a `TODO` for a fallback path that doesn't exist. If the CRM webhook fails twice, the form still redirects to `/thank-you` and the lead is gone except for a `console.error` in ephemeral function logs. *(Resolved 2026-09-28: the visitor is told, and the lead is posted in full to Slack `#driftpilot-alerts`.)*
 
 Everything else — SEO, accessibility, performance engineering, design-token discipline, funnel isolation for the automotive vertical — is well above the bar for a project this size, and in most cases better-documented than the code that implements it (the three maintenance docs are unusually candid and specific, e.g. exact CSS class names of "load-bearing" components).
 
@@ -245,11 +245,11 @@ This is the correct minimal-state choice for the current phase. The one thing to
 **There are no traditional REST/GraphQL API routes in this codebase** (`src/app/**/route.ts` — none exist). All "API" surface is:
 
 1. **React Server Actions** (`"use server"` files in `src/lib/actions/`) — the entire mutation surface of the app:
-   - `submitContact` (`src/lib/actions/submit-contact.ts`) — Zod-validates, runs honeypot + 3-second minimum-time-to-submit spam checks, tags budget-disqualified leads (`under-5k`), POSTs to `CRM_WEBHOOK_URL` via `sendToCrm()`, redirects to `/thank-you` regardless of spam/delivery outcome (spam and real submissions are indistinguishable to the client — "never reveal detection").
+   - `submitContact` (`src/lib/actions/submit-contact.ts`) — Zod-validates, runs honeypot + 3-second minimum-time-to-submit spam checks, tags budget-disqualified leads (`under-5k`), hands the lead to `deliverLead()` (`src/lib/deliver-lead.ts`) for `CRM_WEBHOOK_URL`, then redirects to `/thank-you`. Spam takes the same redirect ("never reveal detection"). A delivery failure does not: the action returns a form error, and the form offers a pre-filled `mailto:` fallback. *(Updated 2026-09-28; originally the redirect happened regardless of delivery.)*
    - `submitEarlyAccess` (`src/lib/actions/submit-early-access.ts`) — same shape, POSTs to a **separate** `AUTOMOTIVE_WEBHOOK_URL`, enforcing funnel isolation at the data layer (not just the UI layer).
    - Both return a discriminated union `FormResult`/`EarlyAccessFormResult` (`{ok: true} | {ok: false, errors, values}`) consumed by `useActionState` — validation errors echo back safe-to-redisplay values (name/email/company/budget/message) excluding the honeypot and timestamp fields.
 
-2. **Outbound webhook client** (`src/lib/crm.ts`) — `sendToCrm(url, payload)`, 2 attempts, `server-only`-guarded. Returns `boolean`; callers log on failure but **the caller has no fallback path** (see §15/§16 — this is the single most significant defect in the codebase).
+2. **Outbound webhook client** (`src/lib/crm.ts`) — `sendToCrm(url, payload)`, `server-only`-guarded, returns `boolean`. Up to 3 attempts with a 400 ms doubling backoff and an 8 s timeout per attempt, all within a 10 s deadline for the whole call. It retries only 5xx, 429 and network errors, asks for JSON, and treats a redirect as a failure. On failure, `deliverLead()` logs the lead and posts it in full to Slack `#driftpilot-alerts` (`src/lib/alert.ts`). *(Updated 2026-09-28; this closes the "no fallback path" defect in §15/§16.)*
 
 3. **Planned but unimplemented: `lib/cms/*`** — a full WPGraphQL client (`cmsFetch<T>()` with tag-based Next.js caching for `revalidateTag()`-driven ISR) and a query (`CASE_STUDIES_QUERY`) exist as **Phase 2 scaffolding that nothing imports**. `adapters.ts` is currently an empty module (`export {}`) with a large doc comment describing the exact shape future adapter functions must have to match `lib/content/case-studies.ts`'s signatures. No `/api/revalidate` webhook receiver exists yet despite `REVALIDATE_SECRET` being documented in `.env.example`.
 
@@ -286,6 +286,7 @@ Fully inventoried in `.env.example` with phase annotations. All variables are op
 | `NEXT_PUBLIC_SITE_URL` | 1 | Canonical origin for metadata/sitemap; **required in prod builds** | Yes |
 | `CRM_WEBHOOK_URL` | 1 | Contact form → CRM | No (server-only) |
 | `AUTOMOTIVE_WEBHOOK_URL` | 1 | Early-access form → separate list (funnel isolation) | No |
+| `SLACK_ALERT_WEBHOOK_URL` | 1 | Slack `#driftpilot-alerts`: a lead that failed to deliver is posted there in full | No |
 | `NEXT_PUBLIC_CALENDLY_URL` | 1 | Gates the Calendly embed; unset → zero-JS placeholder card | Yes |
 | `WPGRAPHQL_ENDPOINT` | 2 | WPGraphQL fetch target (unused today) | No |
 | `WPGRAPHQL_AUTH_TOKEN` | 2 | Bearer auth for the above (unused today) | No |
@@ -486,9 +487,9 @@ Consolidating this review's findings with the maintenance roadmap's explicit bac
 Prioritized against both this review's findings and the existing `ROADMAP.md` P0/P1/P2 backlog (this section adds sequencing rationale rather than re-deriving priorities from scratch, since the existing backlog is already well-reasoned).
 
 ### Milestone 1 — Close the revenue-path risk (do first)
-1. **Lead-delivery fallback** on `sendToCrm()` failure — even a minimal fallback (send a plain-text email via a transactional provider, or write to a durable log a human checks) closes the single highest-severity gap in the codebase. This blocks nothing else and should ship before any feature work.
-2. **Error monitoring with alerting** wired to the form/webhook failure paths specifically (not just generic APM) — pairs directly with #1; a fallback path that fails silently is only marginally better than no fallback at all.
-3. **Server-action test suite** — happy path, Zod validation failures, honeypot/time-gate spam detection, and the webhook-failure branch, for both forms. This is the cheapest possible test investment for the highest-value coverage (two files, one shared pattern).
+1. **Lead-delivery fallback** on `sendToCrm()` failure — even a minimal fallback (send a plain-text email via a transactional provider, or write to a durable log a human checks) closes the single highest-severity gap in the codebase. This blocks nothing else and should ship before any feature work. *(Done 2026-09-28: Slack alert carrying the whole lead.)*
+2. **Error monitoring with alerting** wired to the form/webhook failure paths specifically (not just generic APM) — pairs directly with #1; a fallback path that fails silently is only marginally better than no fallback at all. *(Done 2026-09-28 for the failure path itself: the Slack alert is the alert. Generic error monitoring is still open.)*
+3. **Server-action test suite** — happy path, Zod validation failures, honeypot/time-gate spam detection, and the webhook-failure branch, for both forms. This is the cheapest possible test investment for the highest-value coverage (two files, one shared pattern). *(Done 2026-09-28.)*
 
 ### Milestone 2 — Consolidate identified duplication (low-risk, high-clarity)
 4. Adopt-or-delete `ui/Card.tsx` — pick one, then migrate the 17 hand-rolled recipes or remove the dead file. Either answer is fine; the current in-between state is what's actually costly (new contributors will hit dead code and copy it, compounding the problem).

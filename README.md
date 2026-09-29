@@ -4,7 +4,7 @@
 
 This repository contains the production site for [driftpilot.ca](https://driftpilot.ca) — built with Next.js 16, TypeScript, and Tailwind CSS v4, deployed on Vercel. The site is also the portfolio piece: it ships with the same performance budget we hold client work to, enforced by Lighthouse CI on every pull request (performance ≥ 95, LCP under 1.5s).
 
-**Status:** v1.0 — feature complete, live in production, transitioning to maintenance mode.
+**Status:** v1.1.0 — live in production, in maintenance mode. See the [release notes](ai-context/11-release-notes.md).
 
 ---
 
@@ -113,7 +113,7 @@ npx lhci autorun    # Lighthouse CI against the local production build
 | **2 — Headless CMS** | WPGraphQL behind the existing accessors, webhook-driven revalidation, client-editable content | Stubbed in `src/lib/cms/` |
 | **3 — AWS lead pipeline** | Server Actions → API Gateway → SQS, durable lead processing, first-party analytics | Planned |
 
-v1.0 is feature complete and in maintenance mode. Near-term work is tracked in [`docs/maintenance/ROADMAP.md`](docs/maintenance/ROADMAP.md) — the priorities are regression tests and failure alerting on the lead pipeline, then insights publishing cadence and continued case-study and structured-data coverage.
+The site is feature complete and in maintenance mode. v1.1.0 closed the first maintenance priorities: the lead pipeline now has regression tests, and a failed lead is reported to the visitor and alerted in Slack. Near-term work is tracked in [`docs/maintenance/ROADMAP.md`](docs/maintenance/ROADMAP.md) — next are insights publishing cadence and continued case-study and structured-data coverage.
 
 ## Vertical focus: the dealership platform
 

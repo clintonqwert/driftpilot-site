@@ -4,6 +4,8 @@
 **Author:** CTO review · 2026-07-08
 **Scope:** full codebase review at `f59dc8f` (post PR #23)
 
+> **Status, 2026-09-28:** P0-1 and P0-2 are done (PR #54). A failed lead is reported to the visitor and posted in full to Slack, and both forms' server actions have tests in CI. P0-3 is met for form and webhook failures by that Slack alert, but there is still no general error monitoring. The review below is kept as written on 2026-07-08.
+
 ---
 
 ## 1. Current project health

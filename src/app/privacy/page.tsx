@@ -14,7 +14,7 @@ export default function PrivacyPage() {
       <PageHero
         eyebrow="Legal"
         heading="Privacy Policy"
-        subheading="Last updated: June 2026"
+        subheading="Last updated: September 2026"
       />
 
       <div className="mx-auto max-w-container px-5 md:px-8 py-16 md:py-24">
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
                 <li>Follow up on an active engagement</li>
               </ul>
               <p className="mt-3">
-                We do not subscribe you to any mailing list, send unsolicited marketing, or share your contact information with third parties, except as required to deliver our services (e.g., forwarding a lead to a CRM tool used solely for project management).
+                We do not subscribe you to any mailing list, send unsolicited marketing, or share your contact information with third parties, except as required to deliver our services (e.g., forwarding a lead to a CRM tool used solely for project management). If a submission can&apos;t be delivered to that tool, we post its details to a private <strong className="text-fg">Slack</strong> channel so we can still reply to you, and our hosting provider, Vercel, keeps them briefly in server logs.
               </p>
             </section>
 

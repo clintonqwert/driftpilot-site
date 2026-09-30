@@ -73,6 +73,8 @@ export function organizationSchema() {
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     email: "hello@driftpilot.ca",
+    // Square mark, black on white: Google wants ≥112px and a logo that reads on white.
+    logo: `${SITE_URL}/brand/driftpilot-mark-512.png`,
   };
 }
 

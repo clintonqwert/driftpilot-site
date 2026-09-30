@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { SITE_NAME } from "@/lib/seo";
 import { KIVO } from "@/lib/design-tokens";
+import { Logo } from "@/components/ui/Logo";
 
 export const alt = `${SITE_NAME} — Web Development Studio`;
 export const size = { width: 1200, height: 630 };
@@ -33,21 +34,13 @@ export default function Image() {
           }}
         />
 
-        {/* Wordmark */}
-        <div
-          style={{
-            fontSize: "28px",
-            fontWeight: 600,
-            fontFamily: "sans-serif",
-            color: KIVO.accent,
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
-            marginBottom: "32px",
-            display: "flex",
-          }}
-        >
-          {SITE_NAME}
-        </div>
+        {/* Logo — 40px tall; width follows the lockup's 1596:185 viewBox */}
+        <Logo
+          width={345}
+          height={40}
+          fill={KIVO.fg}
+          style={{ marginBottom: "40px" }}
+        />
 
         {/* Headline */}
         <div

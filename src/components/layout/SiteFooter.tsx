@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { buttonClasses } from '@/components/ui/button';
+import { Logo } from '@/components/ui/Logo';
 import { SERVICES_COLUMN, COMPANY_COLUMN, LEGAL_LINKS } from '@/lib/content/navigation';
 
 const serviceLinks = SERVICES_COLUMN.links;
@@ -16,9 +17,9 @@ export function SiteFooter() {
             <Link
               href="/"
               aria-label="Driftpilot home"
-              className="text-lg font-semibold text-fg tracking-tight"
+              className="inline-flex py-2 text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
-              Driftpilot
+              <Logo className="h-5 w-auto" />
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-muted">
               Performance-first web development for businesses that want results.

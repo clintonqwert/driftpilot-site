@@ -30,3 +30,15 @@
 - Visitor text is escaped before it reaches Slack, so input such as `<!channel>` shows as typed instead of pinging the channel.
 - `crm.ts` sends `Accept: application/json` and no longer follows redirects. Formspree, the live webhook, redirects to an HTML page when it isn't asked for JSON, and following that could turn a rejected lead into a 200. A redirect is now a failure that isn't retried.
 - `crm.ts` gives the whole call one 10 s deadline (`DELIVERY_DEADLINE_MS`). With only the 8 s per-attempt timeout, a hung webhook kept the visitor on "Sending…" for about 25 s before the error and email link appeared, and a visitor who closes the tab never sees the fallback. Now each attempt's timeout is cut to the time left, and no retry starts without time to run. A hung webhook gets 2 attempts instead of 3.
+
+## 2026-09-30 — The logo ships as a traced vector
+
+**Decision:** Trace the owner's brand sheet to SVG and ship the lockup as an inline `Logo` component that paints in `currentColor`. The favicon set, the Organization logo and the OG card are all built from the same traced DP mark.
+
+**Reason:** The brand sheet is a 2814×1536 JPEG mockup: no transparency, compression noise at every edge, a drop shadow on the white version, and a lockup only 1596×185 px. Cropped as a raster, it would blur on high-density screens and need a file per colour. The trace differs from the source by under 0.5% of pixels. It weighs 4.8 KB (about 2 KB gzipped), stays sharp at any size and takes its colour from CSS.
+
+**Consequence:**
+- The wordmark is not live text. The links around it carry the accessible name.
+- The favicon keeps the sheet's black DP on a white disc, which reads on light and dark tab bars. The mark is 2.7:1, so in the 16px ICO it is about 13×5px and the gap between D and P closes. Browsers that take `icon.svg` render it at device resolution.
+- The mobile drawer now stacks above the sticky header (`z-[60]` over `z-50`). Before, the header's logo and menu toggle painted through the open drawer.
+- If a designer supplies vector originals, replace the paths in `Logo.tsx` and the icon files. Nothing else depends on the traced shapes.

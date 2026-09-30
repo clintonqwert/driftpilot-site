@@ -1,5 +1,14 @@
 # Driftpilot release notes
 
+## 2026-09-30 — Brand logo and favicon
+
+- The nav, mobile drawer and footer show the DP lockup instead of the text "Driftpilot". It is an inline SVG traced from the brand sheet, so it is sharp at any size and needs no extra request.
+- New favicon set from the brand sheet's DP mark: `icon.svg`, a 16/32/48 `favicon.ico` (2.4 KB, down from the 26 KB Next.js default) and a 180px `apple-icon.png`.
+- The social share card shows the lockup in place of the green uppercase wordmark.
+- The Organization JSON-LD on `/` and `/about` gains a `logo`.
+- The open mobile drawer now covers the sticky header instead of sitting under it.
+- No change to content, routes, CTAs or lead delivery.
+
 ## 2026-09-27 — Leads are never confirmed unless they arrive
 
 - The contact and early-access forms now tell the visitor when delivery fails, with an email link carrying their answers, instead of showing the thank-you page. This works with and without JavaScript.

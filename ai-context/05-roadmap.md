@@ -2,16 +2,11 @@
 
 ## Already in place
 
-`.github/workflows/ci.yml` runs lint, typecheck, build, and Lighthouse CI (budgets in `lighthouserc.json`) on every pull request.
+`.github/workflows/ci.yml` runs lint, typecheck, unit tests, build, and Lighthouse CI (budgets in `lighthouserc.json`) on every pull request.
 
 ## First protect the revenue path
 
-**This is the highest-priority work in the repository. Details in `06-backlog.md`.**
-
-1. Stop confirming leads that were never delivered — both actions redirect to `/thank-you` regardless of the outcome.
-2. Harden `src/lib/crm.ts` by backporting Riflessi's implementation.
-3. Give a failed delivery somewhere durable to land.
-4. Add regression tests for both submission paths; the repository has no test runner yet.
+Done 2026-09-28 (PR #54). A failed delivery is reported to the visitor with a pre-filled email link and posted in full to Slack `#driftpilot-alerts`. `src/lib/crm.ts` has Riflessi's retry, backoff and timeout, with one 10-second deadline, and both submission paths have regression tests in CI. What remains is general error monitoring: `docs/maintenance/ROADMAP.md`, P0-3.
 
 ## Then increase discoverability and trust
 

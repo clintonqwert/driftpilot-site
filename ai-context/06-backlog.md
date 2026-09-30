@@ -2,7 +2,7 @@
 
 ## Protect leads — start here
 
-**Status, 2026-09-28:** items 1–4 are done (branch `fix/lead-delivery-failure`). Item 3 was settled by the owner: a failed lead is posted in full to Slack `#driftpilot-alerts` instead of a fallback email (see `08-decisions.md`, 2026-09-28).
+**Status, 2026-09-28:** items 1–4 are done and shipped in v1.1.0 (#54). Item 3 was settled by the owner: a failed lead is posted in full to Slack `#driftpilot-alerts` instead of a fallback email (see `08-decisions.md`, 2026-09-28).
 
 Scoped 2026-07-30. One PR covers items 1–3; they touch the same three files and splitting them leaves the repository in a half-fixed state. Riflessi is the reference implementation throughout — read its versions of these files first.
 

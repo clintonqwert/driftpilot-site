@@ -31,6 +31,16 @@
 - `crm.ts` sends `Accept: application/json` and no longer follows redirects. Formspree, the live webhook, redirects to an HTML page when it isn't asked for JSON, and following that could turn a rejected lead into a 200. A redirect is now a failure that isn't retried.
 - `crm.ts` gives the whole call one 10 s deadline (`DELIVERY_DEADLINE_MS`). With only the 8 s per-attempt timeout, a hung webhook kept the visitor on "Sending…" for about 25 s before the error and email link appeared, and a visitor who closes the tab never sees the fallback. Now each attempt's timeout is cut to the time left, and no retry starts without time to run. A hung webhook gets 2 attempts instead of 3.
 
+## 2026-09-28 — Releases are tagged on `main`
+
+**Decision:** Cut numbered releases. Each release is a `vX.Y.Z` tag on the `main` merge commit, with a GitHub release whose notes come from `11-release-notes.md`. `package.json` carries the latest release's version. The first is v1.1.0. v1.0.0 is tagged afterwards on the merge of #49, where the README first recorded v1.0, so v1.1.0 has a baseline to compare against.
+
+**Reason:** Nothing had been tagged, and `package.json` still said `0.1.0` after the v1.0 launch (`docs/maintenance/ROADMAP.md`, "Version hygiene"). A tag gives each production state a name to point to in a rollback, a bug report or a client conversation.
+
+**Consequence:**
+- Versioning follows SemVer as it applies to a website: a patch for fixes, copy and docs; a minor for new capability, such as v1.1.0's lead alerting; a major for a phase change (Phase 2 CMS, Phase 3 lead pipeline).
+- The version bump and its release notes go through a normal PR. The tag and the GitHub release are created only after the owner merges it.
+
 ## 2026-09-30 — The logo ships as a traced vector
 
 **Decision:** Trace the owner's brand sheet to SVG and ship the lockup as an inline `Logo` component that paints in `currentColor`. The favicon set, the Organization logo and the OG card are all built from the same traced DP mark.

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { PRIMARY_NAV } from '@/lib/content/navigation';
 import { buttonClasses } from '@/components/ui/button';
+import { Logo } from '@/components/ui/Logo';
 
 function subscribeToScroll(cb: () => void) {
   window.addEventListener('scroll', cb, { passive: true });
@@ -81,9 +82,9 @@ export function NavBar() {
             <Link
               href="/"
               aria-label="Driftpilot home"
-              className="text-lg font-semibold tracking-tight text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="inline-flex py-2 text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
-              Driftpilot
+              <Logo className="h-5 w-auto" />
             </Link>
 
             {/* Desktop nav */}
@@ -136,10 +137,11 @@ export function NavBar() {
         </div>
       </header>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer — stacks above the sticky header (z-50) so the
+          header's logo and toggle can't paint through the open dialog. */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 z-40 lg:hidden"
+          className="fixed inset-0 z-[60] lg:hidden"
           aria-modal="true"
           role="dialog"
           aria-label="Navigation menu"
@@ -155,16 +157,19 @@ export function NavBar() {
             <div className="flex items-center justify-between h-16 px-5">
               <Link
                 href="/"
-                className="text-lg font-semibold tracking-tight text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                aria-label="Driftpilot home"
+                className="inline-flex min-w-0 py-2 text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Driftpilot
+                {/* max-w-full: on a 320px screen the panel is 256px, so the
+                    logo gives way rather than squeezing the 44px close target. */}
+                <Logo className="h-5 w-auto max-w-full" />
               </Link>
               <button
                 type="button"
                 aria-label="Close menu"
                 onClick={() => setIsMenuOpen(false)}
-                className="w-11 h-11 flex items-center justify-center text-muted hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="w-11 h-11 shrink-0 flex items-center justify-center text-muted hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/>

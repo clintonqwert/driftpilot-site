@@ -40,3 +40,15 @@
 **Consequence:**
 - Versioning follows SemVer as it applies to a website: a patch for fixes, copy and docs; a minor for new capability, such as v1.1.0's lead alerting; a major for a phase change (Phase 2 CMS, Phase 3 lead pipeline).
 - The version bump and its release notes go through a normal PR. The tag and the GitHub release are created only after the owner merges it.
+
+## 2026-09-30 — The logo ships as a traced vector
+
+**Decision:** Trace the owner's brand sheet to SVG and ship the lockup as an inline `Logo` component that paints in `currentColor`. The favicon set, the Organization logo and the OG card are all built from the same traced DP mark.
+
+**Reason:** The brand sheet is a 2814×1536 JPEG mockup: no transparency, compression noise at every edge, a drop shadow on the white version, and a lockup only 1596×185 px. Cropped as a raster, it would blur on high-density screens and need a file per colour. The trace differs from the source by under 0.5% of pixels. It weighs 4.8 KB (about 2 KB gzipped), stays sharp at any size and takes its colour from CSS.
+
+**Consequence:**
+- The wordmark is not live text. The links around it carry the accessible name.
+- The favicon keeps the sheet's black DP on a white disc, which reads on light and dark tab bars. The mark is 2.7:1, so in the 16px ICO it is about 13×5px and the gap between D and P closes. Browsers that take `icon.svg` render it at device resolution.
+- The mobile drawer now stacks above the sticky header (`z-[60]` over `z-50`). Before, the header's logo and menu toggle painted through the open drawer.
+- If a designer supplies vector originals, replace the paths in `Logo.tsx` and the icon files. Nothing else depends on the traced shapes.

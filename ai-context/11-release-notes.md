@@ -4,6 +4,12 @@ Each release is tagged `vX.Y.Z` on `main` and published as a GitHub release. Mil
 
 ## Unreleased
 
+### 2026-10-06 — Next.js security patch (#59)
+
+- Next.js 16.2.7 → 16.3.8, which fixes 12 advisories, including a denial of service through the Server Actions behind both lead forms. See `08-decisions.md`.
+- `npm audit --omit=dev` is clean.
+- No change to content, routes, CTAs, headers or lead delivery.
+
 ### 2026-09-30 — Brand logo and favicon (#58)
 
 - The nav, mobile drawer and footer show the DP lockup instead of the text "Driftpilot". It is an inline SVG traced from the brand sheet, so it is sharp at any size and needs no extra request.

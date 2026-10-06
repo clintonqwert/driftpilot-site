@@ -4,7 +4,7 @@
 
 This repository contains the production site for [driftpilot.ca](https://driftpilot.ca) — built with Next.js 16, TypeScript, and Tailwind CSS v4, deployed on Vercel. The site is also the portfolio piece: it ships with the same performance budget we hold client work to, enforced by Lighthouse CI on every pull request (performance ≥ 95, LCP under 1.5s).
 
-**Status:** v1.1.0 — live in production, in maintenance mode. See the [release notes](ai-context/11-release-notes.md).
+**Status:** v1.1.1 — live in production, in maintenance mode. See the [release notes](ai-context/11-release-notes.md).
 
 ---
 

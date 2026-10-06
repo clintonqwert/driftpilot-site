@@ -2,7 +2,9 @@
 
 Each release is tagged `vX.Y.Z` on `main` and published as a GitHub release. Milestones are listed under the release that shipped them, newest first.
 
-## Unreleased
+## v1.1.1 — 2026-10-06
+
+A security patch: Next.js 16.3.8 fixes 12 advisories, including a denial of service through the Server Actions behind both lead forms. This release also carries the DP logo and favicon set, and a privacy policy that says where a failed lead goes.
 
 ### 2026-10-06 — Next.js security patch (#59)
 
@@ -18,6 +20,11 @@ Each release is tagged `vX.Y.Z` on `main` and published as a GitHub release. Mil
 - The Organization JSON-LD on `/` and `/about` gains a `logo`.
 - The open mobile drawer now covers the sticky header instead of sitting under it.
 - No change to content, routes, CTAs or lead delivery.
+
+### 2026-09-29 — Privacy policy names the failed-lead path (#57)
+
+- The privacy policy now says that a submission the CRM tool can't accept is posted to a private Slack channel so it can still be answered, and that Vercel keeps it briefly in server logs. "Last updated" moves to September 2026.
+- No change to how leads are handled.
 
 ## v1.1.0 — 2026-09-28
 

@@ -23,8 +23,9 @@ This codebase demonstrates that approach in practice: a fully static, type-safe 
 
 **Site**
 
-- Marketing site across services, case studies (`/work`), insights (blog with tags), pricing, careers, a six-step client-journey page (`/process`), and a dedicated automotive landing page — 37 pages prerendered at build time
-- Contact and early-access forms backed by React Server Actions, validated with Zod, delivered to CRM webhooks with retry logic; honeypot + time-to-submit spam checks that never reveal detection
+- Marketing site across services, case studies (`/work`), insights (blog with tags), pricing, careers, a six-step client-journey page (`/process`), and a dedicated automotive landing page, every route prerendered at build time
+- Contact and early-access forms backed by React Server Actions, validated with Zod, and delivered to Formspree with retries inside a 10-second deadline; honeypot + time-to-submit spam checks that never reveal detection
+- No lead lost behind a thank-you page: if delivery fails, the visitor gets an email link carrying their answers, and the whole lead is posted to Slack `#driftpilot-alerts` so someone can reply
 - Discovery-call booking on `/contact` via a lazy-loaded Calendly facade — zero third-party JS until the visitor opts in, with a zero-JS placeholder card when the embed is unconfigured
 - Funnel isolation: automotive early-access leads route to a separate list from general contact leads
 - SEO as a first-class concern: per-page metadata via a shared `buildMetadata` helper, JSON-LD structured data from shared builders, navigation rendered from a single source of truth, generated `sitemap.xml` and `robots.txt`
@@ -37,7 +38,8 @@ This codebase demonstrates that approach in practice: a fully static, type-safe 
 - Strict separation of concerns: routes fetch, components render, content lives behind typed accessor functions
 - Server-only boundaries enforced with the `server-only` package; secrets never reach client components
 - TypeScript strict mode with domain contracts (`src/types/`) shared across all layers
-- CI runs `lint`, `typecheck` (`next typegen` + `tsc --noEmit`), `build`, and Lighthouse CI on every push and pull request
+- Vitest regression tests over the lead pipeline: schemas, spam gates, the CRM client's retries, timeout, deadline and redirect handling, the Slack alert, and the failure path
+- CI runs `lint`, `typecheck` (`next typegen` + `tsc --noEmit`), `test`, `build`, and Lighthouse CI on every push and pull request
 
 ## Technology stack
 
@@ -47,7 +49,8 @@ This codebase demonstrates that approach in practice: a fully static, type-safe 
 | Language | TypeScript (strict) |
 | UI | React 19, Tailwind CSS v4, design tokens, Inter + Geist Mono, animated shader hero (`@paper-design/shaders-react`) |
 | Validation | Zod 4 |
-| Forms | React Server Actions → CRM webhooks (HubSpot/Pipedrive), retry with graceful degradation |
+| Forms | React Server Actions → Formspree webhooks, with retries, an email-link fallback, and a Slack alert on failure |
+| Tests | Vitest |
 | Scheduling | Calendly (lazy-loaded facade, env-gated) |
 | Analytics | Vercel Web Analytics + Speed Insights — cookieless, privacy-friendly, zero-config |
 | Perf CI | Lighthouse CI (`@lhci/cli`) enforcing the performance budget |
@@ -67,7 +70,9 @@ src/
 │   ├── content/  # Phase 1 "database": typed TS modules behind async accessors
 │   ├── cms/      # Phase 2: WPGraphQL client, queries, adapters (stubbed)
 │   ├── actions/  # Server Actions (contact + early access → CRM)
-│   ├── crm.ts    # Webhook client with retry
+│   ├── deliver-lead.ts  # Sends a lead to its funnel's webhook; reports and alerts on failure
+│   ├── crm.ts    # Webhook client: 3 attempts, backoff, one 10 s deadline, no retry on 3xx/4xx
+│   ├── alert.ts  # Slack incoming webhook for failed leads (best effort)
 │   ├── seo.ts    # buildMetadata + JSON-LD builders
 │   ├── design-tokens.ts  # single source for spacing/color/type scales
 │   └── format.ts utils.ts
@@ -101,7 +106,7 @@ npx lhci autorun    # Lighthouse CI against the local production build
 ## Deployment
 
 - `main` auto-deploys to production on Vercel.
-- Every pull request gets a preview URL and must pass CI (lint, typecheck, build, Lighthouse CI). Previews are staging — there is no staging branch.
+- Every pull request gets a preview URL and must pass CI (lint, typecheck, test, build, Lighthouse CI). Previews are staging — there is no staging branch.
 - `NEXT_PUBLIC_SITE_URL` is required for production builds; secrets live in Vercel project settings (encrypted), never in the repo. See [.env.example](.env.example) for the full variable inventory by phase.
 - **Rollback:** Vercel dashboard → Deployments → ⋯ on a previous deployment → *Promote to Production*. No redeploy or git revert required.
 

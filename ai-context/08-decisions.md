@@ -52,3 +52,14 @@
 - The favicon keeps the sheet's black DP on a white disc, which reads on light and dark tab bars. The mark is 2.7:1, so in the 16px ICO it is about 13×5px and the gap between D and P closes. Browsers that take `icon.svg` render it at device resolution.
 - The mobile drawer now stacks above the sticky header (`z-[60]` over `z-50`). Before, the header's logo and menu toggle painted through the open drawer.
 - If a designer supplies vector originals, replace the paths in `Logo.tsx` and the icon files. Nothing else depends on the traced shapes.
+
+## 2026-10-06 — Next.js 16.3.8 for the 16.2.x security advisories
+
+**Decision:** Move `next` and `eslint-config-next` from 16.2.7 to 16.3.8, the latest 16.3 patch, rather than 16.4.0. React stays at 19.2.4.
+
+**Reason:** `npm audit` flagged 16.2.7 with 12 advisories, 3 of them critical, all fixed by 16.3.6. The ones this site is exposed to are on the Server Actions that carry both lead forms: a denial of service (GHSA-m99w-x7hq-7vfj), disclosure of internal Server Function endpoints, and cache confusion on requests with bodies. The `next/og` remote code execution (GHSA-vcvr-r3jv-pc5j) is in a feature the site uses, though its share card is built at build time from no visitor input. The rest need a proxy, rewrites, `next/image`, a custom server or Windows hosting, none of which the site has. 16.3.8 ships the same patched `postcss` and `sharp` as 16.4.0, is the minor line Riflessi already runs (16.3.6), and the 16.3 upgrade guide lists no breaking changes.
+
+**Consequence:**
+- `npm audit --omit=dev` reports 0 vulnerabilities. Two packages inside Next's tree, `source-map-js` and `baseline-browser-mapping`, were moved up within their existing ranges to get there.
+- The remaining audit findings are dev-only (`@lhci/cli` and the glob packages under `eslint-config-next`) and never reach the deployed site. They need their own PR because the fixes are major-version changes.
+- `eslint-config-next` stays pinned to the exact `next` version.
